@@ -370,23 +370,35 @@ nav.scrolled {
 ═══════════════════════════════════════ */
 .strip {
   overflow: hidden;
-  white-space: nowrap;
   padding: .8rem 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: rgba(255,255,255,.02);
+  /* Use flex so both sets sit side by side seamlessly */
+  display: flex;
 }
-.strip-inner {
-  display: inline-block;
-  animation: ticker 28s linear infinite;
+.strip-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  white-space: nowrap;
+  animation: ticker 32s linear infinite;
+  will-change: transform;
+}
+.strip-track span {
   font-family: var(--font-h);
   font-size: .68rem;
   font-weight: 300;
   letter-spacing: .22em;
   color: var(--muted);
+  padding: 0 1.8rem;
 }
-.strip-inner span.dot { margin: 0 1.8rem; opacity: .3; }
-@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.strip-track span.dot { padding: 0; opacity: .3; }
+/* Second copy runs right after first — no gap, no jump */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
 
 /* ═══════════════════════════════════════
    SECTION BASE
@@ -413,7 +425,7 @@ section { padding: 6rem 0; }
 .section-desc {
   font-size: .95rem;
   font-weight: 300;
-  color: var(--mid);
+  color: rgba(255,255,255,.62);
   max-width: 520px;
   line-height: 1.9;
   margin-bottom: 3rem;
@@ -584,7 +596,7 @@ section { padding: 6rem 0; }
 .price-card.featured { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.1); }
 .price-tier { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; font-family: var(--font-h); font-weight: 300; }
 .price-amount { font-family: var(--font-h); font-size: 1.7rem; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: .8rem; }
-.price-includes { list-style: none; font-size: .8rem; font-weight: 400; color: var(--mid); line-height: 2.1; text-align: left; }
+.price-includes { list-style: none; font-size: .8rem; font-weight: 400; color: rgba(255,255,255,.6); line-height: 2.1; text-align: left; }
 .price-includes li::before { content: '— '; color: var(--white); opacity: .3; }
 
 .cat-cta {
@@ -711,7 +723,7 @@ section { padding: 6rem 0; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .contact-info p { color: var(--mid); font-size: .88rem; font-weight: 300; line-height: 1.9; margin-bottom: 1.5rem; }
 .contact-detail { display: flex; flex-direction: column; gap: .8rem; }
-.contact-row { display: flex; align-items: center; gap: .8rem; font-size: .82rem; font-weight: 300; color: var(--mid); }
+.contact-row { display: flex; align-items: center; gap: .8rem; font-size: .84rem; font-weight: 300; color: rgba(255,255,255,.6); }
 .contact-row .icon { opacity: .6; width: 18px; text-align: center; }
 .contact-row a { color: var(--mid); transition: color .2s; }
 .contact-row a:hover { color: var(--white); }
@@ -847,7 +859,7 @@ footer {
   .hero-actions { justify-content: center; }
 
   /* STRIP */
-  .strip-inner { font-size: .6rem; }
+  .strip-track span { font-size: .6rem; }
 
   /* INTRO */
   .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -1404,20 +1416,21 @@ footer {
   color: var(--white);
 }
 .modal-box p {
-  font-size: .86rem; font-weight: 300;
-  color: var(--mid); line-height: 1.8;
+  font-size: .9rem; font-weight: 300;
+  color: rgba(255,255,255,.65); line-height: 1.8;
   margin-bottom: 1rem;
 }
 .modal-box .modal-note {
-  font-size: .8rem; font-weight: 300;
-  color: var(--muted); font-style: italic;
-  line-height: 1.7; margin-bottom: 1.6rem;
-  padding: .8rem 1rem;
-  background: rgba(255,255,255,.04);
-  border-radius: 8px;
-  border-left: 2px solid rgba(255,255,255,.12);
+  font-size: .84rem; font-weight: 400;
+  color: rgba(255,255,255,.55);
+  font-style: normal;
+  line-height: 1.85; margin-bottom: 1.6rem;
+  padding: 1rem 1.1rem;
+  background: rgba(255,255,255,.05);
+  border-radius: 10px;
+  border-left: 2px solid rgba(255,255,255,.2);
 }
-.modal-note strong { font-style: normal; font-weight: 500; color: rgba(255,255,255,.7); }
+.modal-note strong { font-weight: 600; color: rgba(255,255,255,.88); }
 
 .modal-actions {
   display: flex; gap: .8rem; flex-wrap: wrap;
@@ -1673,6 +1686,60 @@ footer {
   opacity: 0;
   animation: preLetterIn .6s ease-out .6s forwards;
 }
+
+/* ── Subtle zoom hint on gallery images ── */
+.photo-grid {
+  position: relative;
+}
+.photo-grid img {
+  position: relative;
+}
+/* Wrap each image in a span.ph-wrap for the pseudo overlay */
+.ph-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.ph-wrap img {
+  border-radius: 0;
+  width: 100%;
+}
+.ph-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background .3s ease;
+  pointer-events: none;
+  border-radius: 0;
+}
+.ph-wrap:hover::after {
+  background: rgba(0,0,0,.18);
+}
+/* Magnifier icon */
+.ph-wrap::before {
+  content: '';
+  position: absolute;
+  bottom: .6rem;
+  right: .6rem;
+  width: 26px;
+  height: 26px;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='10' cy='10' r='6'/%3E%3Cline x1='15' y1='15' x2='21' y2='21'/%3E%3Cline x1='10' y1='7' x2='10' y2='13'/%3E%3Cline x1='7' y1='10' x2='13' y2='10'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(.7) translateY(4px);
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.6));
+}
+.ph-wrap:hover::before {
+  opacity: .85;
+  transform: scale(1) translateY(0);
+}
+
 </style>
 </head>
 <body>
@@ -1769,21 +1836,9 @@ footer {
 </section>
 
 <!-- TICKER -->
-<div class="strip">
-  <div class="strip-inner">
-    <span>RETRATOS EN ESTUDIO</span><span class="dot">·</span>
-    <span>FOTOGRAFÍA GASTRONÓMICA</span><span class="dot">·</span>
-    <span>MARCAS Y PRODUCTOS</span><span class="dot">·</span>
-    <span>EVENTOS SOCIALES</span><span class="dot">·</span>
-    <span>CORPORATIVO</span><span class="dot">·</span>
-    <span>CONCIERTOS Y CULTURA</span><span class="dot">·</span>
-    <span>RETRATOS EN ESTUDIO</span><span class="dot">·</span>
-    <span>FOTOGRAFÍA GASTRONÓMICA</span><span class="dot">·</span>
-    <span>MARCAS Y PRODUCTOS</span><span class="dot">·</span>
-    <span>EVENTOS SOCIALES</span><span class="dot">·</span>
-    <span>CORPORATIVO</span><span class="dot">·</span>
-    <span>CONCIERTOS Y CULTURA</span><span class="dot">·</span>
-  </div>
+<div class="strip" aria-hidden="true">
+  <div class="strip-track"><span>RETRATOS EN ESTUDIO</span><span class="dot">·</span><span>FOTOGRAFÍA GASTRONÓMICA</span><span class="dot">·</span><span>MARCAS Y PRODUCTOS</span><span class="dot">·</span><span>EVENTOS SOCIALES</span><span class="dot">·</span><span>CORPORATIVO</span><span class="dot">·</span><span>CONCIERTOS Y CULTURA</span><span class="dot">·</span></div>
+  <div class="strip-track" aria-hidden="true"><span>RETRATOS EN ESTUDIO</span><span class="dot">·</span><span>FOTOGRAFÍA GASTRONÓMICA</span><span class="dot">·</span><span>MARCAS Y PRODUCTOS</span><span class="dot">·</span><span>EVENTOS SOCIALES</span><span class="dot">·</span><span>CORPORATIVO</span><span class="dot">·</span><span>CONCIERTOS Y CULTURA</span><span class="dot">·</span></div>
 </div>
 
 <!-- INTRO -->
@@ -1794,7 +1849,7 @@ footer {
         <p class="section-label">Quiénes somos</p>
         <h2 class="section-title slide-left">Tu estudio local<br>de Bellavista.</h2>
         <div class="divider"></div>
-        <p class="section-desc" style="margin-bottom:0">Somos Bolsillo Producciones, una SPA de fotografía y video ubicada en la casona de arte Tierra Luz, Constitución 8, Providencia. Estudio propio de 25m², equipo profesional, sin intermediarios.</p>
+        <p class="section-desc" style="margin-bottom:0;color:rgba(255,255,255,.62)">Somos Bolsillo Producciones, una SPA de fotografía y video ubicada en la casona de arte Tierra Luz, Constitución 8, Providencia. Estudio propio de 25m², equipo profesional, sin intermediarios.</p>
       </div>
       <div class="map-wrap reveal slide-right">
         <iframe
@@ -1830,7 +1885,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
           <div class="photo-grid cols-3">
             <img src="https://live.staticflickr.com/65535/55313190446_ba5d1ce40b_b.jpg" alt="Retrato en estudio" loading="lazy">
             <img src="https://live.staticflickr.com/65535/55313595130_c27a720cab_b.jpg" alt="Retrato en estudio" loading="lazy">
@@ -1879,7 +1934,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía de platos, productos y ambiente. Desde el top 5 de tu menú hasta catálogos completos para delivery e Instagram.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía de platos, productos y ambiente. Desde el top 5 de tu menú hasta catálogos completos para delivery e Instagram.</p>
           <div class="photo-grid cols-4 landscape-grid">
             <img src="https://live.staticflickr.com/65535/55313339243_89522eb1ae_b.jpg" alt="Fotografía gastronómica" loading="lazy">
             <img src="https://live.staticflickr.com/65535/55313413149_b9606de6b8_b.jpg" alt="Fotografía gastronómica" loading="lazy">
@@ -1926,7 +1981,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Cobertura documental de tus momentos más importantes. Sin poses forzadas, con emoción real. Desde un bautizo íntimo hasta un matrimonio de día completo.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Cobertura documental de tus momentos más importantes. Sin poses forzadas, con emoción real. Desde un bautizo íntimo hasta un matrimonio de día completo.</p>
           <div class="photo-grid cols-3">
             <img src="https://live.staticflickr.com/65535/55312276122_d6f6fbf6a4_b.jpg" alt="Fotografía de matrimonio" loading="lazy">
             <img src="https://live.staticflickr.com/65535/55313594275_568bb2c808_b.jpg" alt="Fotografía de cumpleaños" loading="lazy">
@@ -1975,7 +2030,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía profesional para equipos y empresas. Actualizamos la foto de perfil de todo tu equipo en media mañana, en tu oficina o en nuestro estudio.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía profesional para equipos y empresas. Actualizamos la foto de perfil de todo tu equipo en media mañana, en tu oficina o en nuestro estudio.</p>
           <div class="photo-grid cols-4 square-grid">
             <img src="https://live.staticflickr.com/65535/55312278287_3b64e6baf0_b.jpg" alt="Headshot corporativo" loading="lazy">
             <img src="https://live.staticflickr.com/65535/55313596430_7009a8edc4_b.jpg" alt="Headshot corporativo" loading="lazy">
@@ -2022,7 +2077,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos de prensa, Kit de Prensa y contenido editorial para artistas. Registro de rodajes, shows en vivo y sesiones de grabación.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos de prensa, Kit de Prensa y contenido editorial para artistas. Registro de rodajes, shows en vivo y sesiones de grabación.</p>
           <div class="photo-grid cols-3">
             <img src="https://live.staticflickr.com/65535/55313341393_5282a8ca2c_b.jpg" alt="Fotografía de concierto" loading="lazy">
             <img src="https://live.staticflickr.com/65535/55313187611_c7c4ac5f93_b.jpg" alt="Fotografía de banda" loading="lazy">
@@ -2071,12 +2126,12 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
           <div class="photo-grid cols-4 landscape-grid">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card featured slide-up">
@@ -2468,6 +2523,15 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+
+/* ── Wrap gallery images for zoom hint ── */
+document.querySelectorAll('.photo-grid img').forEach(img => {
+  const wrap = document.createElement('div');
+  wrap.className = 'ph-wrap';
+  img.parentNode.insertBefore(wrap, img);
+  wrap.appendChild(img);
+});
+
 /* ── Lightbox ────────────────────────── */
 function openLightbox(src) {
   document.getElementById('lightbox-img').src = src;
@@ -2635,9 +2699,9 @@ function handleForm(e) {
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="cmTitle">
     <div class="modal-icon">📅</div>
     <h3 id="cmTitle">Estás a un paso de agendar tu sesión</h3>
-    <p>Te redirigiremos a Calendly para que elijas el día y horario que más te acomode.</p>
+    <p>Elige el día y horario que más te acomode directamente en Calendly.</p>
     <div class="modal-note">
-      <strong>Importante:</strong> en Calendly, asegúrate de ingresar tu <strong>correo electrónico</strong> y <strong>número de WhatsApp</strong>. Nuestro equipo de fotógrafos te contactará a la brevedad para confirmar todos los detalles de tu sesión.
+      <strong>Antes de continuar:</strong> al reservar, ingresa tu <strong>correo</strong> y <strong>WhatsApp</strong> para que podamos contactarte y confirmar todos los detalles de tu sesión.
     </div>
     <div class="modal-actions">
       <a href="https://calendly.com/bolsillo-contacto/bolsillo-fotografia" target="_blank" rel="noopener" class="modal-btn-primary" onclick="closeCalendlyModal()">Ir a Calendly →</a>
