@@ -555,13 +555,17 @@ section { padding: 6rem 0; }
 .photo-placeholder.square { aspect-ratio: 1; }
 
 .photo-grid img {
-  width: 100%; height: 100%;
+  width: 100%;
+  display: block;
   object-fit: cover;
+  object-position: center top;
   border-radius: 8px;
   aspect-ratio: 3/4;
   transition: transform .45s ease, filter .45s ease;
   cursor: zoom-in;
 }
+.photo-grid.landscape-grid img { aspect-ratio: 4/3; object-position: center center; }
+.photo-grid.square-grid img    { aspect-ratio: 1/1; object-position: center top; }
 .photo-grid img:hover { transform: scale(1.04); filter: brightness(1.08); }
 
 /* Pricing cards */
@@ -1696,12 +1700,12 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
           <div class="photo-grid cols-3">
-            <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 1</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 2</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 3</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 4</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 5</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 6</div></div>
+            <img src="ESTUDIO/_DSC3935-Editar.jpg" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC6313-Editar.jpg" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC6318-Editar-Editar.jpg" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC6601-Editar-Editar-Editar.jpg" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC9154.jpg" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC9419-Editar.jpg" alt="Retrato en estudio" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1744,11 +1748,11 @@ footer {
         </div>
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía de platos, productos y ambiente. Desde el top 5 de tu menú hasta catálogos completos para delivery e Instagram.</p>
-          <div class="photo-grid cols-4">
-            <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 1</div></div>
-            <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 2</div></div>
-            <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 3</div></div>
-            <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 4</div></div>
+          <div class="photo-grid cols-4 landscape-grid">
+            <img src="GASTRONOMIA/Pizzas (En Masa) (1).jpg" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Hamburgeuesas (Cervezeria Colina) (4).jpg" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Dos_burguers_30.jpg" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Calamar_Rolls.jpg" alt="Fotografía gastronómica" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1792,12 +1796,12 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Cobertura documental de tus momentos más importantes. Sin poses forzadas, con emoción real. Desde un bautizo íntimo hasta un matrimonio de día completo.</p>
           <div class="photo-grid cols-3">
-            <div class="photo-placeholder"><div class="ph-icon">💍</div><div>Matrimonio</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🍰</div><div>Cumpleaños</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">👶</div><div>Bautizo</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🎊</div><div>Quinceañero</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">💐</div><div>Evento 5</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🥂</div><div>Evento 6</div></div>
+            <img src="Social/_DSC6842.jpg" alt="Fotografía de matrimonio" loading="lazy">
+            <img src="Social/DSC08250-Editar.jpg" alt="Fotografía de cumpleaños" loading="lazy">
+            <img src="Social/_DSC7252.jpg" alt="Fotografía de bautizo" loading="lazy">
+            <img src="Social/DSC01629.jpg" alt="Fotografía de evento social" loading="lazy">
+            <img src="Social/DSC03804.jpg" alt="Fotografía de evento social" loading="lazy">
+            <img src="Social/DSC07815-Editar-Editar.jpg" alt="Fotografía de evento social" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1840,11 +1844,11 @@ footer {
         </div>
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía profesional para equipos y empresas. Actualizamos la foto de perfil de todo tu equipo en media mañana, en tu oficina o en nuestro estudio.</p>
-          <div class="photo-grid cols-4">
-            <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 1</div></div>
-            <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 2</div></div>
-            <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 3</div></div>
-            <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 4</div></div>
+          <div class="photo-grid cols-4 square-grid">
+            <img src="CORPO/_DSC2152.jpg" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2191.jpg" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2201.jpg" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2244.jpg" alt="Headshot corporativo" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1888,12 +1892,12 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos de prensa, Kit de Prensa y contenido editorial para artistas. Registro de rodajes, shows en vivo y sesiones de grabación.</p>
           <div class="photo-grid cols-3">
-            <div class="photo-placeholder"><div class="ph-icon">🎤</div><div>Concierto 1</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🎸</div><div>Banda 1</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🎬</div><div>BTS</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🎧</div><div>Sesión</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🎤</div><div>Concierto 2</div></div>
-            <div class="photo-placeholder"><div class="ph-icon">🎸</div><div>Banda 2</div></div>
+            <img src="BTS - MUSICA/_DSC8763.jpg" alt="Fotografía de concierto" loading="lazy">
+            <img src="BTS - MUSICA/DSC05370-Editar.jpg" alt="Fotografía de banda" loading="lazy">
+            <img src="BTS - MUSICA/_DSC5983-Editar.jpg" alt="BTS de rodaje" loading="lazy">
+            <img src="BTS - MUSICA/_DSC6290-Editar.jpg" alt="Sesión musical" loading="lazy">
+            <img src="BTS - MUSICA/DSC08930-Editar.jpg" alt="Fotografía de concierto" loading="lazy">
+            <img src="BTS - MUSICA/DSC05338-Editar.jpg" alt="Fotografía de banda" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1936,11 +1940,11 @@ footer {
         </div>
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
-          <div class="photo-grid cols-4">
-            <div class="photo-placeholder landscape"><div class="ph-icon">🛋</div><div>Living</div></div>
-            <div class="photo-placeholder landscape"><div class="ph-icon">🛏</div><div>Dormitorio</div></div>
-            <div class="photo-placeholder landscape"><div class="ph-icon">🍳</div><div>Cocina</div></div>
-            <div class="photo-placeholder landscape"><div class="ph-icon">🚿</div><div>Baño</div></div>
+          <div class="photo-grid cols-4 landscape-grid">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card featured slide-up">
@@ -2287,11 +2291,14 @@ resetAuto();
 
 /* ── Touch swipe on hero ─────────────── */
 let touchX = 0;
-document.getElementById('heroRight').addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, {passive:true});
-document.getElementById('heroRight').addEventListener('touchend',   e => {
-  const dx = e.changedTouches[0].clientX - touchX;
-  if (Math.abs(dx) > 40) rotateSubject(dx < 0 ? 1 : -1);
-}, {passive:true});
+const _heroRight = document.getElementById('heroRight');
+if (_heroRight) {
+  _heroRight.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, {passive:true});
+  _heroRight.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) rotateSubject(dx < 0 ? 1 : -1);
+  }, {passive:true});
+}
 
 /* ── Collapsible categories ──────────── */
 function toggleCat(id) {
@@ -2365,7 +2372,8 @@ function closeCalendlyModal() {
   document.getElementById('calendlyModal').classList.remove('open');
 }
 // Close modals on overlay click
-document.getElementById('calendlyModal').addEventListener('click', function(e) {
+const _cModal = document.getElementById('calendlyModal');
+if (_cModal) _cModal.addEventListener('click', function(e) {
   if (e.target === this) closeCalendlyModal();
 });
 // ESC closes Calendly modal (T&C modal requires explicit accept)
