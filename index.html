@@ -1567,7 +1567,7 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.8rem;
+  gap: 2rem;
   transition: opacity .6s ease, visibility .6s ease;
 }
 #preloader.hidden {
@@ -1638,6 +1638,15 @@ footer {
   100% { opacity: 0; transform: scaleX(.5); }
 }
 
+/* Progress wrap */
+.pre-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+}
+
 /* Counter */
 .pre-counter {
   font-family: 'Unbounded', sans-serif;
@@ -1646,7 +1655,6 @@ footer {
   letter-spacing: .28em;
   color: rgba(255,255,255,.3);
   text-transform: uppercase;
-  margin-top: -1.6rem;
   min-width: 6ch;
   text-align: center;
 }
@@ -1661,9 +1669,9 @@ footer {
   letter-spacing: .04em;
   text-align: center;
   line-height: 1.7;
-  margin-top: -.8rem;
-  max-width: 360px;
-  animation: preLetterIn .5s ease-out .5s both;
+  max-width: 380px;
+  opacity: 0;
+  animation: preLetterIn .6s ease-out .6s forwards;
 }
 </style>
 </head>
@@ -1674,7 +1682,7 @@ footer {
 <!-- ── PRELOADER ─────────────────────────── -->
 <div id="preloader" role="status" aria-label="Cargando sitio">
   <div class="pre-wordmark" aria-hidden="true"><span>B</span><span>O</span><span>L</span><span>S</span><span>I</span><span>L</span><span>L</span><span>O</span></div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;width:100%">
+  <div class="pre-progress-wrap">
     <div class="pre-bar-track">
       <div class="pre-bar-fill" id="preBarFill"></div>
     </div>
@@ -2065,10 +2073,10 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
           <div class="photo-grid cols-4 landscape-grid">
-            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card featured slide-up">
