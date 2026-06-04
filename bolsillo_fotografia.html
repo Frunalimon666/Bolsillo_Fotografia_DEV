@@ -37,7 +37,7 @@ body {
   color: var(--white);
   font-family: var(--font-b);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.75;
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
@@ -160,7 +160,7 @@ nav.scrolled {
   letter-spacing: .1em; color: var(--white); transition: opacity .2s;
 }
 .mobile-menu a:hover { opacity: .6; }
-.mobile-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.5rem; color: var(--mid); }
+.mobile-close { display: none; }
 
 /* ═══════════════════════════════════════
    HERO
@@ -411,11 +411,11 @@ section { padding: 6rem 0; }
   margin-bottom: .8rem;
 }
 .section-desc {
-  font-size: .9rem;
+  font-size: .95rem;
   font-weight: 300;
   color: var(--mid);
-  max-width: 480px;
-  line-height: 1.8;
+  max-width: 520px;
+  line-height: 1.9;
   margin-bottom: 3rem;
 }
 .divider {
@@ -505,7 +505,7 @@ section { padding: 6rem 0; }
 }
 .cat-item.open .cat-name { opacity: .9; }
 .cat-desc-short {
-  font-size: .72rem;
+  font-size: .78rem;
   font-weight: 300;
   color: var(--muted);
   letter-spacing: .04em;
@@ -580,7 +580,7 @@ section { padding: 6rem 0; }
 .price-card.featured { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.1); }
 .price-tier { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; font-family: var(--font-h); font-weight: 300; }
 .price-amount { font-family: var(--font-h); font-size: 1.7rem; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: .8rem; }
-.price-includes { list-style: none; font-size: .72rem; font-weight: 300; color: var(--mid); line-height: 1.9; text-align: left; }
+.price-includes { list-style: none; font-size: .8rem; font-weight: 400; color: var(--mid); line-height: 2.1; text-align: left; }
 .price-includes li::before { content: '— '; color: var(--white); opacity: .3; }
 
 .cat-cta {
@@ -632,7 +632,7 @@ section { padding: 6rem 0; }
 .agenda-tier { font-family: var(--font-h); font-size: .6rem; font-weight: 300; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: 1.8rem; margin-bottom: .6rem; }
 .agenda-price { font-family: var(--font-h); font-size: 2.8rem; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: .3rem; }
 .agenda-unit { font-size: .68rem; font-weight: 300; color: var(--muted); margin-bottom: 1.6rem; }
-.agenda-features { list-style: none; font-size: .76rem; font-weight: 300; color: var(--mid); line-height: 2.1; text-align: left; }
+.agenda-features { list-style: none; font-size: .84rem; font-weight: 400; color: var(--mid); line-height: 2.2; text-align: left; }
 .agenda-features li::before { content: '— '; color: rgba(255,255,255,.3); }
 
 .agenda-cta-block {
@@ -673,16 +673,7 @@ section { padding: 6rem 0; }
   color: var(--mid); font-size: .86rem; font-weight: 300;
   line-height: 1.8; margin-bottom: 0;
 }
-.agenda-cta-text .no-ves {
-  font-size: .78rem; font-weight: 300; color: var(--muted);
-  margin-top: .8rem; font-style: italic;
-}
-.agenda-cta-text .no-ves a {
-  color: var(--mid);
-  border-bottom: 1px solid rgba(255,255,255,.2);
-  padding-bottom: 1px; transition: color .2s;
-}
-.agenda-cta-text .no-ves a:hover { color: var(--white); }
+/* .no-ves moved to .agenda-cta-secondary block */
 .agenda-cta-btn-wrap {
   display: flex; flex-direction: column; align-items: flex-end; gap: .8rem; flex-shrink: 0;
 }
@@ -797,42 +788,768 @@ footer {
 /* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   TABLET (≤900px)
+═══════════════════════════════════════ */
 @media (max-width: 900px) {
-  #hero { grid-template-columns: 1fr; }
-  .hero-left {
-    padding: 120px 2rem 0;
-    text-align: center;
-    align-items: center;
-    justify-content: flex-start;
-    grid-row: 1;
-  }
-  .hero-right {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    opacity: .22;
-    pointer-events: none;
-  }
-  .hero-arrow { display: none; }
-  .hero-dots { bottom: 1.5rem; }
-  .intro-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .photo-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
-  .photo-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
-  .agenda-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
+  /* NAV */
   nav { padding: 1rem 1.5rem; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  .footer-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+
+  /* HERO: stack vertically, text on top, IG feed below */
+  #hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    height: auto;
+    min-height: 100svh;
+    padding-bottom: 3rem;
+  }
+  .hero-left {
+    padding: 0 1.8rem;
+    padding-top: 100px;
+    text-align: center;
+    align-items: center;
+    grid-row: 1;
+    z-index: 3;
+  }
+  .hero-right {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+    margin-top: 2rem;
+  }
+  .ig-feed-wrap {
+    position: relative;
+    inset: unset;
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    margin: 0 1.5rem;
+  }
+  .ig-feed-label {
+    justify-content: center;
+  }
+  .hero-dots { bottom: 1rem; }
+  .hero-title { font-size: clamp(2.6rem, 8vw, 4.5rem); }
+  .hero-sub { font-size: .82rem; }
+  .hero-actions { justify-content: center; }
+
+  /* STRIP */
+  .strip-inner { font-size: .6rem; }
+
+  /* INTRO */
+  .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .map-wrap { aspect-ratio: 16/9; }
+
+  /* SERVICIOS */
+  .photo-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  .photo-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .photo-grid.cols-2 { grid-template-columns: 1fr; }
   .cat-pricing { flex-direction: column; }
+  .cat-header { padding: 1.1rem 1.2rem; }
+  .price-card { min-width: unset; }
+
+  /* AGENDA */
+  .agenda-cards-new { grid-template-columns: 1fr; gap: 10px; }
+  .agenda-cta-inner { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; text-align: center; }
+  .agenda-cta-btn-wrap { align-items: center; width: 100%; }
+  .agenda-cta-secondary { padding: 1.2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+
+  /* CONTACT */
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+
+  /* FOOTER */
+  .footer-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
 }
 
-@media (max-width: 480px) {
-  .hero-title { font-size: 2.4rem; }
-  .photo-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
-  .cat-header { padding: 1rem 1rem; }
+/* ═══════════════════════════════════════
+   MOBILE (≤600px)
+═══════════════════════════════════════ */
+@media (max-width: 600px) {
+  /* TYPOGRAPHY */
+  .section-title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+  .section-desc { font-size: .88rem; max-width: 100%; }
+
+  /* HERO */
+  .hero-title { font-size: clamp(2.2rem, 9vw, 3rem); }
+  .hero-title .italic { font-size: clamp(1.1rem, 4vw, 1.6rem); }
+  .hero-sub { font-size: .78rem; }
+  .hero-actions { flex-direction: column; align-items: center; gap: .7rem; }
+  .btn-glass { width: 100%; max-width: 280px; justify-content: center; font-size: .72rem; }
+
+  /* SECTIONS padding */
+  section { padding: 4rem 0; }
+  .container { padding: 0 1.2rem; }
+
+  /* SERVICIOS */
+  .cat-header { padding: 1rem; gap: .6rem; }
+  .cat-icon { font-size: 1.1rem; width: 28px; }
+  .cat-name { font-size: .88rem; }
+  .cat-desc-short { font-size: .7rem; }
   .cat-body { padding: 1.2rem 1rem; }
+  .cat-pricing { gap: 8px; }
+  .price-amount { font-size: 1.4rem; }
+  .photo-grid.cols-3,
+  .photo-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  .btn-agendar { width: 100%; justify-content: center; }
+
+  /* AGENDA */
+  .agenda-card-new { padding: 1.3rem 1.2rem; }
+  .acn-new { font-size: 2.1rem; }
+  .acn-badge-circle { width: 42px; height: 42px; }
+  .agenda-intro-main { font-size: .92rem; }
+  .agenda-cta-inner { padding: 1.5rem 1.2rem; }
+
+  /* CTA block */
+  .agenda-cta-text h3 { font-size: 1.2rem; }
+  .agenda-cta-text p { font-size: .82rem; }
+  .agenda-cta-inner {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+  }
+  .agenda-cta-btn-wrap {
+    align-items: center;
+    width: 100%;
+  }
+  .agenda-cta-btn-wrap .btn-glass {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* CONTACT */
+  .contact-row { font-size: .8rem; }
+  .form-input, .form-select, .form-textarea { font-size: .84rem; }
+  .form-submit { width: 100%; justify-content: center; text-align: center; }
+
+  /* CLIENTES */
+  .clients-row { gap: .6rem; }
+  .client-pill { font-size: .68rem; padding: .4rem 1rem; }
+
+  /* FOOTER */
+  .footer-links { gap: .8rem; }
+  .footer-copy { font-size: .6rem; }
+  .nav-logo { font-size: .72rem; }
 }
+
+/* ═══════════════════════════════════════
+   SMALL MOBILE (≤380px)
+═══════════════════════════════════════ */
+@media (max-width: 380px) {
+  .hero-title { font-size: 2rem; }
+  .hero-actions { gap: .5rem; }
+  .btn-glass { padding: .65rem 1.2rem; font-size: .68rem; }
+  .acn-new { font-size: 1.8rem; }
+  .cat-name { font-size: .82rem; }
+}
+
+/* ═══════════════════════════════════════
+   INSTAGRAM FEED WIDGET (hero right)
+═══════════════════════════════════════ */
+.ig-feed-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 8vw 2rem 1rem;
+  gap: .8rem;
+}
+.ig-feed-label {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-h);
+  font-size: .62rem;
+  font-weight: 300;
+  letter-spacing: .18em;
+  color: var(--muted);
+  text-transform: uppercase;
+  justify-content: flex-end;
+}
+.behold-placeholder { flex: 1; display: flex; flex-direction: column; gap: .8rem; }
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  flex: 1;
+}
+.ig-setup-note {
+  font-size: .7rem;
+  font-weight: 300;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.6;
+  font-style: italic;
+}
+.ig-setup-note a { color: var(--mid); border-bottom: 1px solid var(--border); transition: color .2s; }
+.ig-setup-note a:hover { color: var(--white); }
+
+
+/* ═══════════════════════════════════════
+   GREEN AGENDAR BUTTON (in cat-body)
+═══════════════════════════════════════ */
+.btn-agendar {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1rem;
+  padding: .68rem 1.5rem;
+  background: #3B5C3F;
+  color: rgba(255,255,255,.92);
+  font-family: var(--font-h);
+  font-size: .63rem;
+  font-weight: 400;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.12);
+  cursor: pointer;
+  box-shadow: none;
+  transition: background .22s, border-color .22s, transform .18s;
+}
+.btn-agendar:hover {
+  background: #4a7050;
+  border-color: rgba(255,255,255,.22);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════
+   MAP EMBED (intro section)
+═══════════════════════════════════════ */
+.map-wrap {
+  border-radius: var(--r2);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 4/3;
+  position: relative;
+}
+.map-wrap iframe {
+  width: 100%; height: 100%;
+  border: none;
+  filter: grayscale(1) invert(0.92) contrast(0.9) brightness(0.85);
+  transition: filter .3s;
+}
+.map-wrap:hover iframe { filter: grayscale(.7) invert(0.92) contrast(0.9) brightness(0.95); }
+
+/* ═══════════════════════════════════════
+   NO-VES SECONDARY CTA BLOCK
+═══════════════════════════════════════ */
+.agenda-cta-secondary {
+  margin-top: 10px;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(16px);
+  padding: 1.6rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.agenda-cta-secondary p {
+  font-size: .86rem;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.7;
+  font-style: italic;
+  margin: 0;
+}
+.agenda-cta-secondary a.link-inline {
+  color: var(--mid);
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  padding-bottom: 1px;
+  transition: color .2s;
+  font-style: normal;
+}
+.agenda-cta-secondary a.link-inline:hover { color: var(--white); }
+
+
+/* ═══════════════════════════════════════
+   AGENDA — Oferta de Inauguración (redesign)
+═══════════════════════════════════════ */
+.agenda-intro {
+  margin-bottom: 2.5rem;
+}
+.agenda-intro-main {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.75);
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: .4rem;
+}
+.agenda-intro-main strong {
+  font-weight: 500;
+  color: var(--white);
+}
+.agenda-intro-sub {
+  font-size: .78rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: .04em;
+}
+
+/* ── Agenda cards — reference card design ── */
+.agenda-cards-new {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+.agenda-card-new {
+  background: #111112;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px;
+  padding: 1.6rem 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s, transform .22s;
+}
+.agenda-card-new:hover {
+  border-color: rgba(255,255,255,.22);
+  transform: translateY(-3px);
+}
+.agenda-card-new.acn-featured {
+  background: #1e3a22;
+  border-color: rgba(74,112,60,.5);
+}
+.agenda-card-new.acn-featured:hover { border-color: rgba(100,160,80,.6); }
+
+/* Top row: price left + decorative circle right */
+.acn-top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+.acn-prices {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+.acn-old {
+  font-family: var(--font-h);
+  font-size: .78rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.35);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  letter-spacing: .02em;
+}
+.acn-new {
+  font-family: var(--font-h);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.acn-featured .acn-new { color: #d4eec8; }
+
+/* Decorative circle icon — top right */
+.acn-badge-circle { display: none; }
+
+/* Bullet list */
+.acn-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.4rem;
+  flex: 1;
+}
+.acn-features li {
+  font-size: .84rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.65);
+  line-height: 1;
+  padding: .45rem 0;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+.acn-featured .acn-features li { color: rgba(212,238,200,.75); }
+.acn-features li::before {
+  content: "";
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.3);
+  flex-shrink: 0;
+}
+.acn-featured .acn-features li::before { background: rgba(120,200,90,.5); }
+
+/* Divider + plan name */
+.acn-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: .9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.acn-featured .acn-bottom { border-top-color: rgba(100,160,80,.25); }
+.acn-tier {
+  font-family: var(--font-h);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--white);
+  text-transform: none;
+}
+.acn-featured .acn-tier { color: #d4eec8; }
+.acn-discount {
+  font-family: var(--font-h);
+  font-size: .56rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  padding: 3px 9px;
+  background: rgba(59,92,63,.8);
+  border: 1px solid rgba(74,112,80,.5);
+  color: rgba(180,220,182,.9);
+  border-radius: 4px;
+}
+
+@media (max-width: 780px) {
+  .agenda-cards-new { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ── Behold feed container ── */
+.behold-feed-container,
+[data-behold-id] {
+  width: 100%;
+  flex: 1;
+}
+
+
+/* ═══════════════════════════════════════
+   SLIDE-IN ANIMATIONS
+═══════════════════════════════════════ */
+@media (prefers-reduced-motion: no-preference) {
+  .slide-left {
+    opacity: 0;
+    transform: translateX(-36px);
+    transition: opacity .55s ease-out, transform .55s ease-out;
+  }
+  .slide-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .6s ease-out, transform .6s ease-out;
+  }
+  .slide-right {
+    opacity: 0;
+    transform: translateX(36px);
+    transition: opacity .55s ease-out, transform .55s ease-out;
+  }
+  .slide-left.in,
+  .slide-up.in,
+  .slide-right.in {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  /* Stagger: children get a delay based on index */
+  .slide-up:nth-child(2) { transition-delay: .08s; }
+  .slide-up:nth-child(3) { transition-delay: .16s; }
+  .slide-up:nth-child(4) { transition-delay: .24s; }
+  .slide-up:nth-child(5) { transition-delay: .32s; }
+  .slide-up:nth-child(6) { transition-delay: .40s; }
+}
+/* When reduced-motion: make already-visible */
+@media (prefers-reduced-motion: reduce) {
+  .slide-left, .slide-up, .slide-right { opacity: 1 !important; transform: none !important; }
+}
+
+
+/* ── "¿Tu marca?" invite pill ── */
+.client-pill-invite {
+  padding: .5rem 1.4rem;
+  border-radius: 40px;
+  background: transparent;
+  border: 1px dashed rgba(255,255,255,.22);
+  backdrop-filter: blur(12px);
+  font-size: .72rem;
+  font-weight: 300;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  transition: border-color .2s, color .2s, background .2s;
+  cursor: pointer;
+  font-style: italic;
+}
+.client-pill-invite:hover {
+  border-color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.05);
+}
+
+
+/* ═══════════════════════════════════════
+   T&C CHECKBOX IN FORM
+═══════════════════════════════════════ */
+.form-tc-wrap {
+  margin-bottom: .6rem;
+  padding: .9rem 1rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.form-tc-label {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.form-tc-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 4px;
+  background: rgba(255,255,255,.06);
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+  position: relative;
+}
+.form-tc-input:checked {
+  background: rgba(255,255,255,.9);
+  border-color: rgba(255,255,255,.9);
+}
+.form-tc-input:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 6px; height: 10px;
+  border: 2px solid #0A0A0A;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.form-tc-link {
+  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  transition: border-color .2s;
+}
+.form-tc-link:hover { border-color: var(--white); }
+
+.form-submit-disabled {
+  opacity: .38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   CALENDLY REDIRECT MODAL
+═══════════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(5,5,6,.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: #111112;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  padding: 2.5rem 2.2rem;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  animation: modalIn .35s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(59,92,63,.5);
+  border: 1px solid rgba(74,112,60,.5);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.4rem;
+  font-size: 1.3rem;
+}
+
+.modal-box h3 {
+  font-family: var(--font-h);
+  font-size: 1.1rem; font-weight: 600;
+  line-height: 1.2; margin-bottom: .8rem;
+  color: var(--white);
+}
+.modal-box p {
+  font-size: .86rem; font-weight: 300;
+  color: var(--mid); line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.modal-box .modal-note {
+  font-size: .8rem; font-weight: 300;
+  color: var(--muted); font-style: italic;
+  line-height: 1.7; margin-bottom: 1.6rem;
+  padding: .8rem 1rem;
+  background: rgba(255,255,255,.04);
+  border-radius: 8px;
+  border-left: 2px solid rgba(255,255,255,.12);
+}
+.modal-note strong { font-style: normal; font-weight: 500; color: rgba(255,255,255,.7); }
+
+.modal-actions {
+  display: flex; gap: .8rem; flex-wrap: wrap;
+}
+.modal-btn-primary {
+  flex: 1;
+  padding: .75rem 1.5rem;
+  background: rgba(255,255,255,.92);
+  color: #0A0A0A;
+  font-family: var(--font-h); font-size: .65rem;
+  font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  border-radius: 40px; border: none; cursor: pointer;
+  transition: background .2s, transform .15s;
+  text-align: center; text-decoration: none; display: flex;
+  align-items: center; justify-content: center;
+}
+.modal-btn-primary:hover { background: #fff; transform: translateY(-1px); }
+.modal-btn-cancel {
+  padding: .75rem 1.2rem;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-h); font-size: .65rem;
+  font-weight: 300; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: 40px; cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.modal-btn-cancel:hover { color: var(--white); border-color: rgba(255,255,255,.3); }
+
+/* ═══════════════════════════════════════
+   T&C ENTRY MODAL (first visit)
+═══════════════════════════════════════ */
+.tc-modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(5,5,6,.95);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.tc-modal-overlay.open { display: flex; }
+
+.tc-modal-box {
+  background: #111112;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  padding: 2.2rem 2rem;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex; flex-direction: column;
+  gap: 1.2rem;
+  animation: modalIn .4s cubic-bezier(.4,0,.2,1);
+}
+.tc-modal-header {
+  display: flex; align-items: center; gap: 1rem;
+}
+.tc-modal-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.tc-modal-header h2 {
+  font-family: var(--font-h); font-size: .92rem; font-weight: 600;
+  color: var(--white); line-height: 1.3;
+}
+.tc-modal-scroll {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: .78rem; font-weight: 300; color: var(--mid);
+  line-height: 1.8;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.15) transparent;
+}
+.tc-modal-scroll::-webkit-scrollbar { width: 4px; }
+.tc-modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 2px; }
+.tc-modal-scroll h4 {
+  font-family: var(--font-h); font-size: .7rem; font-weight: 500;
+  color: rgba(255,255,255,.7); margin: 1rem 0 .3rem; letter-spacing: .04em;
+}
+.tc-modal-scroll h4:first-child { margin-top: 0; }
+.tc-modal-scroll p { margin-bottom: .4rem; }
+
+.tc-modal-check-label {
+  display: flex; align-items: flex-start; gap: .75rem;
+  font-size: .83rem; font-weight: 300; color: var(--mid);
+  line-height: 1.6; cursor: pointer;
+}
+.tc-modal-check-input {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 4px; background: rgba(255,255,255,.06);
+  cursor: pointer; transition: background .2s; position: relative;
+}
+.tc-modal-check-input:checked { background: rgba(255,255,255,.9); border-color: rgba(255,255,255,.9); }
+.tc-modal-check-input:checked::after {
+  content: ''; position: absolute; left: 4px; top: 1px;
+  width: 6px; height: 10px;
+  border: 2px solid #0A0A0A; border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.tc-modal-link {
+  color: var(--white);
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  transition: border-color .2s;
+}
+.tc-modal-link:hover { border-color: var(--white); }
+
+.tc-modal-btn {
+  width: 100%;
+  padding: .85rem;
+  background: rgba(255,255,255,.92);
+  color: #0A0A0A;
+  font-family: var(--font-h); font-size: .68rem;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  border-radius: 40px; border: none; cursor: pointer;
+  transition: background .2s, opacity .2s;
+}
+.tc-modal-btn:disabled { opacity: .35; cursor: not-allowed; }
+.tc-modal-btn:not(:disabled):hover { background: #fff; }
+
+@media (max-width: 500px) {
+  .modal-box, .tc-modal-box { padding: 1.8rem 1.4rem; }
+  .modal-actions { flex-direction: column; }
+  .modal-btn-primary, .modal-btn-cancel { text-align: center; justify-content: center; }
+}
+
 </style>
 </head>
 <body>
@@ -864,14 +1581,13 @@ footer {
     <li><a href="#agenda">Agenda</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <a href="#agenda" class="nav-cta">Preagenda</a>
+  <a href="#" onclick="openCalendlyModal(event)" class="nav-cta">Preagenda</a>
   <button class="hamburger" onclick="toggleMobile()" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMobile()">✕</button>
   <a href="#intro"      onclick="toggleMobile()">Nosotros</a>
   <a href="#categorias" onclick="toggleMobile()">Servicios</a>
   <a href="#agenda"     onclick="toggleMobile()">Agenda</a>
@@ -882,45 +1598,37 @@ footer {
 <section id="hero">
   <!-- Left: text -->
   <div class="hero-left">
-    <p class="hero-eyebrow">Santiago, Chile</p>
-    <h1 class="hero-title">
+    <p class="hero-eyebrow slide-left">Santiago, Chile</p>
+    <h1 class="hero-title slide-left">
       BOLSILLO
       <span class="italic">fotografía</span>
     </h1>
-    <p class="hero-sub">Retratos · Gastronomía · Eventos<br>Marcas · Corporativo · Música</p>
-    <div class="hero-actions">
-      <a href="#agenda"     class="btn-glass primary">Preagenda tu sesión</a>
+    <p class="hero-sub slide-up">Retratos · Gastronomía · Eventos<br>Marcas · Corporativo · Música</p>
+    <div class="hero-actions slide-up">
+      <a href="#" onclick="openCalendlyModal(event)" class="btn-glass primary">Preagenda tu sesión</a>
       <a href="#categorias" class="btn-glass">Ver servicios</a>
     </div>
   </div>
 
-  <!-- Right: photo slideshow — 5 fotos horizontales en rotación -->
+  <!-- Right: Instagram feed @midori.tiff via Behold.so -->
   <div class="hero-right" id="heroRight">
     <div class="hero-glow"></div>
-    <div class="hero-photo active" id="subj-0">
-      <div class="hero-photo-ph"><span>Foto 1</span><span class="ph-hint">Reemplaza con tu imagen real</span></div>
+    <div class="ig-feed-wrap">
+      <div class="ig-feed-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @midori.tiff
+      </div>
+      <!-- Behold.so — feed real de @midori.tiff -->
+      <div data-behold-id="IiGsbQeN0BouSPRACpQG" class="behold-feed-container"></div>
+      <script>
+        (function() {
+          const d=document,s=d.createElement("script");
+          s.type="module";
+          s.src="https://w.behold.so/widget.js";
+          d.head.append(s);
+        })();
+      </script>
     </div>
-    <div class="hero-photo" id="subj-1">
-      <div class="hero-photo-ph"><span>Foto 2</span><span class="ph-hint">Reemplaza con tu imagen real</span></div>
-    </div>
-    <div class="hero-photo" id="subj-2">
-      <div class="hero-photo-ph"><span>Foto 3</span><span class="ph-hint">Reemplaza con tu imagen real</span></div>
-    </div>
-    <div class="hero-photo" id="subj-3">
-      <div class="hero-photo-ph"><span>Foto 4</span><span class="ph-hint">Reemplaza con tu imagen real</span></div>
-    </div>
-    <div class="hero-photo" id="subj-4">
-      <div class="hero-photo-ph"><span>Foto 5</span><span class="ph-hint">Reemplaza con tu imagen real</span></div>
-    </div>
-  </div>
-
-  <!-- Dots navegación (5) -->
-  <div class="hero-dots" id="heroDots">
-    <div class="hero-dot active" onclick="goToSubject(0)"></div>
-    <div class="hero-dot"        onclick="goToSubject(1)"></div>
-    <div class="hero-dot"        onclick="goToSubject(2)"></div>
-    <div class="hero-dot"        onclick="goToSubject(3)"></div>
-    <div class="hero-dot"        onclick="goToSubject(4)"></div>
   </div>
 </section>
 
@@ -948,28 +1656,18 @@ footer {
     <div class="intro-grid">
       <div class="reveal">
         <p class="section-label">Quiénes somos</p>
-        <h2 class="section-title">El estudio de la<br>vuelta de la esquina.</h2>
+        <h2 class="section-title slide-left">Tu estudio local<br>de Bellavista.</h2>
         <div class="divider"></div>
-        <p class="section-desc">Somos Bolsillo Producciones, una SPA de fotografía y video ubicada en la casona de arte Tierra Luz, Constitución 8, Providencia. Estudio propio de 25m², equipo profesional, sin intermediarios.</p>
-        <p class="section-desc" style="margin-bottom:0">De marcas gastronómicas y eventos sociales, a retratos editoriales y contenido corporativo. Todo en un solo lugar.</p>
+        <p class="section-desc" style="margin-bottom:0">Somos Bolsillo Producciones, una SPA de fotografía y video ubicada en la casona de arte Tierra Luz, Constitución 8, Providencia. Estudio propio de 25m², equipo profesional, sin intermediarios.</p>
       </div>
-      <div class="intro-stats reveal">
-        <div class="stat-cell">
-          <div class="stat-num">25</div>
-          <div class="stat-label">m² de estudio</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-num">10–22</div>
-          <div class="stat-label">hrs de atención</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-num">6+</div>
-          <div class="stat-label">nichos activos</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-num">48h</div>
-          <div class="stat-label">entrega estándar</div>
-        </div>
+      <div class="map-wrap reveal slide-right">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.684!2d-70.6390!3d-33.4295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c59bb9e62b6f%3A0x4b4f74b!2sConstituci%C3%B3n%208%2C%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Bolsillo Producciones — Constitución 8, Providencia">
+        </iframe>
       </div>
     </div>
   </div>
@@ -978,14 +1676,13 @@ footer {
 <!-- CATEGORÍAS -->
 <section id="categorias">
   <div class="container">
-    <p class="section-label reveal">Lo que hacemos</p>
-    <h2 class="section-title reveal">Servicios</h2>
-    <div class="divider reveal"></div>
-    <p class="section-desc reveal">Selecciona la categoría que te interesa.</p>
+    <p class="section-label reveal slide-left">Lo que hacemos</p>
+    <h2 class="section-title reveal slide-left">Servicios</h2>
+    <div class="divider reveal slide-left"></div>
     <div class="cat-list">
 
       <!-- 1. RETRATOS -->
-      <div class="cat-item" id="cat-retratos">
+      <div class="cat-item slide-up" id="cat-retratos">
         <div class="cat-header" onclick="toggleCat('cat-retratos')">
           <div class="cat-header-left">
             <div class="cat-icon">📸</div>
@@ -997,7 +1694,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.86rem;font-weight:300;margin-bottom:1.5rem;line-height:1.8">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
+          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
           <div class="photo-grid cols-3">
             <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 1</div></div>
             <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 2</div></div>
@@ -1007,21 +1704,21 @@ footer {
             <div class="photo-placeholder"><div class="ph-icon">🖼</div><div>Retrato 6</div></div>
           </div>
           <div class="cat-pricing">
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Económico</div>
               <div class="price-amount">$30.000</div>
               <ul class="price-includes">
                 <li>15 entregables</li><li>30 minutos</li><li>1 look</li><li>Edición básica</li><li>2 personas máx.</li>
               </ul>
             </div>
-            <div class="price-card featured">
+            <div class="price-card featured slide-up">
               <div class="price-tier">Studio</div>
               <div class="price-amount">$60.000</div>
               <ul class="price-includes">
                 <li>30 entregables</li><li>60 minutos</li><li>2 looks</li><li>Edición standard</li><li>4 personas máx.</li>
               </ul>
             </div>
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Studio +</div>
               <div class="price-amount">$120.000</div>
               <ul class="price-includes">
@@ -1029,12 +1726,12 @@ footer {
               </ul>
             </div>
           </div>
-          <a href="#contacto" class="cat-cta">Agendar sesión →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-agendar">Agendar sesión ↗</a>
         </div>
       </div>
 
       <!-- 2. MARCAS Y GASTRONOMÍA -->
-      <div class="cat-item" id="cat-marcas">
+      <div class="cat-item slide-up" id="cat-marcas">
         <div class="cat-header" onclick="toggleCat('cat-marcas')">
           <div class="cat-header-left">
             <div class="cat-icon">🍽</div>
@@ -1046,7 +1743,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.86rem;font-weight:300;margin-bottom:1.5rem;line-height:1.8">Fotografía de platos, productos y ambiente. Desde el top 5 de tu menú hasta catálogos completos para delivery e Instagram.</p>
+          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía de platos, productos y ambiente. Desde el top 5 de tu menú hasta catálogos completos para delivery e Instagram.</p>
           <div class="photo-grid cols-4">
             <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 1</div></div>
             <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 2</div></div>
@@ -1054,21 +1751,21 @@ footer {
             <div class="photo-placeholder landscape"><div class="ph-icon">🍕</div><div>Plato 4</div></div>
           </div>
           <div class="cat-pricing">
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Pack Top 5</div>
               <div class="price-amount">$70.000</div>
               <ul class="price-includes">
-                <li>5 platos estrella</li><li>10 archivos (h+v)</li><li>Styling básico</li><li>Entrega 48h</li>
+                <li>5 platos estrella</li><li>10 archivos (horizontal + vertical)</li><li>Styling básico</li><li>Entrega en 48h</li>
               </ul>
             </div>
-            <div class="price-card featured">
+            <div class="price-card featured slide-up">
               <div class="price-tier">Carta completa</div>
               <div class="price-amount">$150.000</div>
               <ul class="price-includes">
                 <li>Hasta 20 platos</li><li>40 archivos</li><li>Styling incluido</li><li>Listo para web/RRSS</li>
               </ul>
             </div>
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Retainer mensual</div>
               <div class="price-amount">$220.000</div>
               <ul class="price-includes">
@@ -1076,24 +1773,24 @@ footer {
               </ul>
             </div>
           </div>
-          <a href="#contacto" class="cat-cta">Cotizar para tu local →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-agendar">Agendar sesión ↗</a>
         </div>
       </div>
 
       <!-- 3. EVENTOS SOCIALES -->
-      <div class="cat-item" id="cat-eventos">
+      <div class="cat-item slide-up" id="cat-eventos">
         <div class="cat-header" onclick="toggleCat('cat-eventos')">
           <div class="cat-header-left">
             <div class="cat-icon">🎉</div>
             <div>
               <div class="cat-name">Eventos sociales</div>
-              <div class="cat-desc-short">Matrimonios · Bautizos · Quinceañeros · Cumpleaños</div>
+              <div class="cat-desc-short">Matrimonios · Bautizos · Cumpleaños</div>
             </div>
           </div>
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.86rem;font-weight:300;margin-bottom:1.5rem;line-height:1.8">Cobertura documental de tus momentos más importantes. Sin poses forzadas, con emoción real. Desde un bautizo íntimo hasta un matrimonio de día completo.</p>
+          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Cobertura documental de tus momentos más importantes. Sin poses forzadas, con emoción real. Desde un bautizo íntimo hasta un matrimonio de día completo.</p>
           <div class="photo-grid cols-3">
             <div class="photo-placeholder"><div class="ph-icon">💍</div><div>Matrimonio</div></div>
             <div class="photo-placeholder"><div class="ph-icon">🍰</div><div>Cumpleaños</div></div>
@@ -1103,34 +1800,34 @@ footer {
             <div class="photo-placeholder"><div class="ph-icon">🥂</div><div>Evento 6</div></div>
           </div>
           <div class="cat-pricing">
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Esencial</div>
               <div class="price-amount">$350.000</div>
               <ul class="price-includes">
-                <li>Ceremonia (4–5h)</li><li>150+ fotos</li><li>Galería digital</li><li>Entrega 20 días</li>
+                <li>Ceremonia (4–5h)</li><li>150 Fotos</li><li>USB entregable</li><li>Entrega en 20 días</li>
               </ul>
             </div>
-            <div class="price-card featured">
+            <div class="price-card featured slide-up">
               <div class="price-tier">Día completo</div>
               <div class="price-amount">$700.000</div>
               <ul class="price-includes">
-                <li>8 horas cobertura</li><li>350+ fotos</li><li>Álbum digital</li><li>Pack RRSS</li>
+                <li>8 horas cobertura</li><li>350+ fotos</li><li>Álbum 30x30 impreso tapa dura</li><li>Pack RRSS</li>
               </ul>
             </div>
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Full Experience</div>
               <div class="price-amount">$1.200.000</div>
               <ul class="price-includes">
-                <li>10–12h + 2 fotógrafos</li><li>500+ fotos</li><li>Álbum físico</li><li>Pre-boda incluida</li>
+                <li>10–12h + 2 fotógrafos</li><li>500+ fotos</li><li>Álbum físico</li><li>Sesión Pre-Evento</li>
               </ul>
             </div>
           </div>
-          <a href="#contacto" class="cat-cta">Consultar disponibilidad →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-agendar">Agendar sesión ↗</a>
         </div>
       </div>
 
       <!-- 4. CORPORATIVO -->
-      <div class="cat-item" id="cat-corp">
+      <div class="cat-item slide-up" id="cat-corp">
         <div class="cat-header" onclick="toggleCat('cat-corp')">
           <div class="cat-header-left">
             <div class="cat-icon">🏢</div>
@@ -1142,7 +1839,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.86rem;font-weight:300;margin-bottom:1.5rem;line-height:1.8">Fotografía profesional para equipos y empresas. Actualizamos la foto de perfil de todo tu equipo en media mañana, en tu oficina o en nuestro estudio.</p>
+          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía profesional para equipos y empresas. Actualizamos la foto de perfil de todo tu equipo en media mañana, en tu oficina o en nuestro estudio.</p>
           <div class="photo-grid cols-4">
             <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 1</div></div>
             <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 2</div></div>
@@ -1150,21 +1847,21 @@ footer {
             <div class="photo-placeholder square"><div class="ph-icon">👔</div><div>Headshot 4</div></div>
           </div>
           <div class="cat-pricing">
-            <div class="price-card">
-              <div class="price-tier">Headshots (hasta 5p)</div>
+            <div class="price-card slide-up">
+              <div class="price-tier">Headshots (hasta 5 personas)</div>
               <div class="price-amount">$90.000</div>
               <ul class="price-includes">
-                <li>2 fotos/persona</li><li>Fondo neutro</li><li>Entrega 48h</li><li>Licencia comercial</li>
+                <li>2 fotos/persona</li><li>Fondo neutro</li><li>Entrega 48h</li><li>Licencia comercial</li><li>Pack RRSS</li>
               </ul>
             </div>
-            <div class="price-card featured">
+            <div class="price-card featured slide-up">
               <div class="price-tier">Evento medio día</div>
               <div class="price-amount">$280.000</div>
               <ul class="price-includes">
                 <li>Hasta 4 horas</li><li>100+ fotos</li><li>Entrega 48h</li><li>Licencia comercial</li>
               </ul>
             </div>
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Evento día completo</div>
               <div class="price-amount">$550.000</div>
               <ul class="price-includes">
@@ -1172,12 +1869,12 @@ footer {
               </ul>
             </div>
           </div>
-          <a href="#contacto" class="cat-cta">Solicitar propuesta →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-agendar">Agendar sesión ↗</a>
         </div>
       </div>
 
       <!-- 5. AUDIOVISUAL -->
-      <div class="cat-item" id="cat-audio">
+      <div class="cat-item slide-up" id="cat-audio">
         <div class="cat-header" onclick="toggleCat('cat-audio')">
           <div class="cat-header-left">
             <div class="cat-icon">🎵</div>
@@ -1189,7 +1886,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.86rem;font-weight:300;margin-bottom:1.5rem;line-height:1.8">Fotos de prensa, EPK y contenido editorial para artistas. Registro de rodajes, shows en vivo y sesiones de grabación.</p>
+          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos de prensa, Kit de Prensa y contenido editorial para artistas. Registro de rodajes, shows en vivo y sesiones de grabación.</p>
           <div class="photo-grid cols-3">
             <div class="photo-placeholder"><div class="ph-icon">🎤</div><div>Concierto 1</div></div>
             <div class="photo-placeholder"><div class="ph-icon">🎸</div><div>Banda 1</div></div>
@@ -1199,21 +1896,21 @@ footer {
             <div class="photo-placeholder"><div class="ph-icon">🎸</div><div>Banda 2</div></div>
           </div>
           <div class="cat-pricing">
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Sesión musical</div>
               <div class="price-amount">$180.000</div>
               <ul class="price-includes">
                 <li>3h en estudio</li><li>60 fotos editadas</li><li>Licencia prensa</li><li>Entrega 5 días</li>
               </ul>
             </div>
-            <div class="price-card featured">
+            <div class="price-card featured slide-up">
               <div class="price-tier">Concierto / show</div>
               <div class="price-amount">$300.000</div>
               <ul class="price-includes">
                 <li>Show completo</li><li>150+ fotos</li><li>Pit + backstage</li><li>Express disponible</li>
               </ul>
             </div>
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">BTS rodaje</div>
               <div class="price-amount">$350.000</div>
               <ul class="price-includes">
@@ -1221,12 +1918,12 @@ footer {
               </ul>
             </div>
           </div>
-          <a href="#contacto" class="cat-cta">Agendar sesión →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-agendar">Agendar sesión ↗</a>
         </div>
       </div>
 
       <!-- 6. INMOBILIARIA -->
-      <div class="cat-item" id="cat-inmob">
+      <div class="cat-item slide-up" id="cat-inmob">
         <div class="cat-header" onclick="toggleCat('cat-inmob')">
           <div class="cat-header-left">
             <div class="cat-icon">🏠</div>
@@ -1238,7 +1935,7 @@ footer {
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body">
-          <p style="color:var(--mid);font-size:.86rem;font-weight:300;margin-bottom:1.5rem;line-height:1.8">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
+          <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
           <div class="photo-grid cols-4">
             <div class="photo-placeholder landscape"><div class="ph-icon">🛋</div><div>Living</div></div>
             <div class="photo-placeholder landscape"><div class="ph-icon">🛏</div><div>Dormitorio</div></div>
@@ -1246,22 +1943,22 @@ footer {
             <div class="photo-placeholder landscape"><div class="ph-icon">🚿</div><div>Baño</div></div>
           </div>
           <div class="cat-pricing">
-            <div class="price-card featured">
+            <div class="price-card featured slide-up">
               <div class="price-tier">Pack Airbnb / Depto</div>
               <div class="price-amount">$80.000</div>
               <ul class="price-includes">
                 <li>20 fotos editadas</li><li>Gran angular</li><li>Interior + exterior</li><li>Entrega 48h</li>
               </ul>
             </div>
-            <div class="price-card">
+            <div class="price-card slide-up">
               <div class="price-tier">Propiedad completa</div>
               <div class="price-amount">$150.000</div>
               <ul class="price-includes">
-                <li>40 fotos editadas</li><li>Todas las dependencias</li><li>Edición de luz</li><li>Listo para portal</li>
+                <li>40 fotos editadas</li><li>Todas las dependencias</li><li>Express disponible</li><li>Listo para portal</li>
               </ul>
             </div>
           </div>
-          <a href="#contacto" class="cat-cta">Cotizar mi propiedad →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-agendar">Agendar sesión ↗</a>
         </div>
       </div>
 
@@ -1272,49 +1969,93 @@ footer {
 <!-- AGENDA -->
 <section id="agenda">
   <div class="container">
-    <p class="section-label reveal">Precios de estudio</p>
-    <h2 class="section-title reveal">Agenda tu sesión</h2>
-    <div class="divider reveal"></div>
-    <p class="section-desc reveal">Atención de lunes a domingo, de 10:00 a 22:00. Elige tu plan y reserva tu hora.</p>
-    <div class="agenda-grid reveal">
-      <div class="agenda-card">
-        <div class="agenda-tier">Económico</div>
-        <div class="agenda-price">30.000</div>
-        <div class="agenda-unit">CLP · sin IVA</div>
-        <ul class="agenda-features">
-          <li>15 entregables</li><li>30 minutos</li><li>1 look</li><li>Edición básica</li><li>2 personas máx.</li>
-        </ul>
-      </div>
-      <div class="agenda-card featured">
-        <div class="agenda-badge">Más popular</div>
-        <div class="agenda-tier">Studio</div>
-        <div class="agenda-price">60.000</div>
-        <div class="agenda-unit">CLP · sin IVA</div>
-        <ul class="agenda-features">
-          <li>30 entregables</li><li>60 minutos</li><li>2 looks</li><li>Edición standard</li><li>4 personas máx.</li>
-        </ul>
-      </div>
-      <div class="agenda-card">
-        <div class="agenda-tier">Studio +</div>
-        <div class="agenda-price">120.000</div>
-        <div class="agenda-unit">CLP · sin IVA</div>
-        <ul class="agenda-features">
-          <li>50 entregables</li><li>180 minutos</li><li>Hasta 4 looks</li><li>Edición extensa</li><li>6 personas máx.</li>
-        </ul>
-      </div>
+    <p class="section-label reveal slide-left">Precios de estudio</p>
+    <h2 class="section-title reveal slide-left">Oferta de Inauguración</h2>
+    <div class="divider reveal slide-left"></div>
+    <div class="agenda-intro reveal slide-up">
+      <p class="agenda-intro-main">Por tiempo limitado, con motivo de la inauguración de nuestro estudio fotográfico, te regalamos <strong>17% de descuento</strong> en todos los planes en sesión de estudio.</p>
+      <p class="agenda-intro-sub">Atención de lunes a domingo, 10:00 a 22:00 hrs.</p>
     </div>
-    <div class="agenda-cta-block reveal">
+    <div class="agenda-cards-new reveal slide-up">
+
+      <div class="agenda-card-new">
+        <div class="acn-top">
+          <div class="acn-prices">
+            <span class="acn-old">$30.000</span>
+            <span class="acn-new">$25.000</span>
+          </div>
+          
+        </div>
+        <ul class="acn-features">
+          <li>15 entregables</li>
+          <li>30 minutos</li>
+          <li>1 look</li>
+          <li>Edición básica</li>
+          <li>2 personas máx.</li>
+        </ul>
+        <div class="acn-bottom">
+          <span class="acn-tier">Económico</span>
+          <span class="acn-discount">−17%</span>
+        </div>
+      </div>
+
+      <div class="agenda-card-new acn-featured">
+        <div class="acn-top">
+          <div class="acn-prices">
+            <span class="acn-old">$60.000</span>
+            <span class="acn-new">$50.000</span>
+          </div>
+          
+        </div>
+        <ul class="acn-features">
+          <li>30 entregables</li>
+          <li>60 minutos</li>
+          <li>2 looks</li>
+          <li>Edición standard</li>
+          <li>4 personas máx.</li>
+        </ul>
+        <div class="acn-bottom">
+          <span class="acn-tier">Studio</span>
+          <span class="acn-discount">−17%</span>
+        </div>
+      </div>
+
+      <div class="agenda-card-new">
+        <div class="acn-top">
+          <div class="acn-prices">
+            <span class="acn-old">$120.000</span>
+            <span class="acn-new">$100.000</span>
+          </div>
+          
+        </div>
+        <ul class="acn-features">
+          <li>50 entregables</li>
+          <li>180 minutos</li>
+          <li>Hasta 4 looks</li>
+          <li>Edición extensa</li>
+          <li>6 personas máx.</li>
+        </ul>
+        <div class="acn-bottom">
+          <span class="acn-tier">Studio +</span>
+          <span class="acn-discount">−17%</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="agenda-cta-block reveal slide-up">
       <div class="agenda-cta-inner">
         <div class="agenda-cta-text">
           <h3>¿Listo para tu sesión?</h3>
-          <p>Escríbenos y en menos de 24 horas confirmamos<br>tu fecha y horario.</p>
-          <p class="no-ves">¿No ves lo que necesitas? <a href="#contacto">Escríbenos igual y conversemos</a> — si está dentro de nuestras capacidades, lo hacemos.</p>
+          <p>Escríbenos y en menos de 24 horas te contactaremos<br>para confirmar tu fecha y horario ideal.</p>
         </div>
         <div class="agenda-cta-btn-wrap">
-          <a href="#contacto" class="btn-glass primary">Preagenda ahora</a>
-          <a href="https://wa.me/56986740998" target="_blank" class="btn-glass" style="white-space:nowrap">WhatsApp →</a>
+          <a href="#" onclick="openCalendlyModal(event)" class="btn-glass primary">Preagenda ahora</a>
         </div>
       </div>
+    </div>
+    <div class="agenda-cta-secondary reveal slide-up">
+      <p>¿No ves lo que necesitas? <a href="#contacto" class="link-inline">Escríbenos igual y conversemos</a> — si está dentro de nuestras capacidades, lo hacemos.</p>
+      <a href="https://wa.me/56986740998" target="_blank" class="btn-glass" style="white-space:nowrap;font-size:.75rem">WhatsApp →</a>
     </div>
   </div>
 </section>
@@ -1322,13 +2063,19 @@ footer {
 <!-- CLIENTES -->
 <section id="clientes">
   <div class="container">
-    <p class="section-label reveal" style="text-align:center;margin-bottom:1.5rem">Han confiado en nosotros</p>
-    <div class="clients-row reveal">
+    <p class="section-label reveal slide-left" style="text-align:center;margin-bottom:1.5rem">Han confiado en nosotros</p>
+    <div class="clients-row reveal slide-right">
       <div class="client-pill">Puente Café</div>
       <div class="client-pill">Paparolla</div>
       <div class="client-pill">Playbar</div>
       <div class="client-pill">Bilance</div>
-      <div class="client-pill">Tu marca aquí</div>
+      <div class="client-pill">Cervezería Colina</div>
+      <div class="client-pill">Honesto Mike</div>
+      <div class="client-pill">En Masa</div>
+      <div class="client-pill">Sentaku</div>
+      <div class="client-pill">La Ensaladería</div>
+      <div class="client-pill">Santo Gohan</div>
+      <a href="#" onclick="openCalendlyModal(event)" class="client-pill-invite">¿Tu marca? →</a>
     </div>
   </div>
 </section>
@@ -1339,7 +2086,7 @@ footer {
     <div class="contact-grid">
       <div class="reveal">
         <p class="section-label">Hablemos</p>
-        <h2 class="section-title">¿Te tincó?</h2>
+        <h2 class="section-title slide-left">¿Te tincó?</h2>
         <div class="divider"></div>
         <p>Estamos en Constitución 8, Providencia — la casona de arte Tierra Luz. Escríbenos por acá o directo al WhatsApp y agendamos sin complicaciones.</p>
         <br>
@@ -1347,7 +2094,7 @@ footer {
           <div class="contact-row"><span class="icon">📍</span><span>Constitución 8, Providencia, Santiago</span></div>
           <div class="contact-row"><span class="icon">📱</span><a href="https://wa.me/56986740998" target="_blank">+56 9 8674 0998 (WhatsApp)</a></div>
           <div class="contact-row"><span class="icon">📷</span><a href="https://instagram.com/bolsilloprod" target="_blank">@bolsilloprod</a></div>
-          <div class="contact-row"><span class="icon">✉️</span><a href="mailto:contacto@bolsilloproducciones.cl">contacto@bolsilloproducciones.cl</a></div>
+          <div class="contact-row"><span class="icon">✉️</span><a href="mailto:bolsillo.contacto@gmail.com">bolsillo.contacto@gmail.com</a></div>
         </div>
       </div>
       <div class="reveal">
@@ -1387,7 +2134,13 @@ footer {
             <label class="form-label">Cuéntanos más</label>
             <textarea class="form-textarea" placeholder="¿Qué tienes en mente? Número de personas, lugar, referencias, etc."></textarea>
           </div>
-          <button type="submit" class="form-submit">Enviar consulta →</button>
+          <div class="form-tc-wrap">
+            <label class="form-tc-label">
+              <input type="checkbox" id="tcCheck" onchange="toggleSubmit()" class="form-tc-input">
+              <span>He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener" class="form-tc-link">Términos y Condiciones</a> de Bolsillo Producciones.</span>
+            </label>
+          </div>
+          <button type="submit" id="submitBtn" class="form-submit form-submit-disabled" disabled>Enviar consulta →</button>
           <div id="form-success" style="display:none;color:var(--mid);font-size:.82rem;margin-top:.5rem;font-style:italic">¡Mensaje enviado! Te contactamos en menos de 24 horas.</div>
         </form>
       </div>
@@ -1406,7 +2159,7 @@ footer {
         <li><a href="#agenda">Agenda</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
-      <span class="footer-copy">© 2026 · Constitución 8, Providencia</span>
+      <span class="footer-copy">© 2026 Bolsillo Producciones. Todos los derechos reservados.<br>Constitución 8, Providencia, Santiago.</span>
     </div>
   </div>
 </footer>
@@ -1517,6 +2270,7 @@ const dots = document.querySelectorAll('.hero-dot');
 let current = 0, autoTimer;
 
 function goToSubject(idx) {
+  if (!subjects.length) return;
   subjects[current].classList.remove('active');
   if (dots[current]) dots[current].classList.remove('active');
   current = (idx + subjects.length) % subjects.length;
@@ -1524,10 +2278,10 @@ function goToSubject(idx) {
   if (dots[current]) dots[current].classList.add('active');
   resetAuto();
 }
-function rotateSubject(dir) { goToSubject(current + dir); }
+function rotateSubject(dir) { if (subjects.length) goToSubject(current + dir); }
 function resetAuto() {
   clearInterval(autoTimer);
-  autoTimer = setInterval(() => rotateSubject(1), 5000);
+  if (subjects.length > 1) autoTimer = setInterval(() => rotateSubject(1), 5000);
 }
 resetAuto();
 
@@ -1550,11 +2304,30 @@ function toggleCat(id) {
   }
 }
 
-/* ── Scroll reveal ───────────────────── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+/* ── Scroll reveal + slide-in ────────── */
+const slideObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible', 'in');
+      slideObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal, .slide-left, .slide-up, .slide-right').forEach(el => {
+  slideObserver.observe(el);
+});
+
+/* Hero elements animate on load (not scroll) */
+window.addEventListener('DOMContentLoaded', () => {
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero-left .slide-left, .hero-left .slide-up').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), i * 100);
+      });
+    }, 200);
+  });
+});
 
 /* ── Lightbox ────────────────────────── */
 function openLightbox(src) {
@@ -1566,6 +2339,48 @@ document.querySelectorAll('.photo-grid img').forEach(img => {
   img.addEventListener('click', () => openLightbox(img.src));
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+
+/* ── T&C Entry modal ─────────────────── */
+function toggleTcAccept() {
+  const cb = document.getElementById('tcEntryCheck');
+  document.getElementById('tcAcceptBtn').disabled = !cb.checked;
+}
+function acceptTc() {
+  document.getElementById('tcEntryModal').classList.remove('open');
+  try { sessionStorage.setItem('bolsillo_tc_accepted', '1'); } catch(e) {}
+}
+// Re-show if not accepted this session
+(function() {
+  try { if (sessionStorage.getItem('bolsillo_tc_accepted')) document.getElementById('tcEntryModal').classList.remove('open'); }
+  catch(e) {}
+})();
+
+/* ── Calendly redirect modal ─────────── */
+function openCalendlyModal(e) {
+  if (e) e.preventDefault();
+  document.getElementById('calendlyModal').classList.add('open');
+}
+function closeCalendlyModal() {
+  document.getElementById('calendlyModal').classList.remove('open');
+}
+// Close modals on overlay click
+document.getElementById('calendlyModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCalendlyModal();
+});
+// ESC closes Calendly modal (T&C modal requires explicit accept)
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCalendlyModal();
+});
+
+/* ── Form submit toggle ──────────────── */
+function toggleSubmit() {
+  const cb = document.getElementById('tcCheck');
+  const btn = document.getElementById('submitBtn');
+  if (!btn) return;
+  btn.disabled = !cb.checked;
+  btn.classList.toggle('form-submit-disabled', !cb.checked);
+}
 
 /* ── Form submit ─────────────────────── */
 function handleForm(e) {
@@ -1602,5 +2417,60 @@ function handleForm(e) {
      <img src="LOGO_SIN_FONDO.png" style="height:28px;filter:invert(1)">
 */
 </script>
+
+<!-- ── CALENDLY REDIRECT MODAL ─────────────── -->
+<div class="modal-overlay" id="calendlyModal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="cmTitle">
+    <div class="modal-icon">📅</div>
+    <h3 id="cmTitle">Estás a un paso de agendar tu sesión</h3>
+    <p>Te redirigiremos a Calendly para que elijas el día y horario que más te acomode.</p>
+    <div class="modal-note">
+      <strong>Importante:</strong> en Calendly, asegúrate de ingresar tu <strong>correo electrónico</strong> y <strong>número de WhatsApp</strong>. Nuestro equipo de fotógrafos te contactará a la brevedad para confirmar todos los detalles de tu sesión.
+    </div>
+    <div class="modal-actions">
+      <a href="https://calendly.com/bolsillo-contacto/bolsillo-fotografia" target="_blank" rel="noopener" class="modal-btn-primary" onclick="closeCalendlyModal()">Ir a Calendly →</a>
+      <button class="modal-btn-cancel" onclick="closeCalendlyModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── T&C ENTRY MODAL (first visit) ────────── -->
+<div class="tc-modal-overlay open" id="tcEntryModal">
+  <div class="tc-modal-box" role="dialog" aria-modal="true" aria-labelledby="tcTitle">
+    <div class="tc-modal-header">
+      <div class="tc-modal-icon">📋</div>
+      <h2 id="tcTitle">Términos y Condiciones<br>Bolsillo Producciones</h2>
+    </div>
+    <div class="tc-modal-scroll">
+      <p>Al utilizar este sitio web y contratar nuestros servicios, el cliente declara haber leído, entendido y aceptado las condiciones generales de Bolsillo Producciones SPA.</p>
+      <h4>1. Reserva de fecha</h4>
+      <p>La fecha queda bloqueada al recibir el anticipo (30–50%) y la firma del contrato.</p>
+      <h4>2. Pagos y anticipo</h4>
+      <p>Anticipo del 30–50% al confirmar. El saldo restante se cancela antes o el día del servicio, por transferencia bancaria.</p>
+      <h4>3. Reagendamiento</h4>
+      <p>Una vez sin costo con al menos 4 días hábiles de anticipación. Una segunda modificación puede implicar cargo administrativo.</p>
+      <h4>4. Cancelaciones</h4>
+      <p>+30 días: devolución del 50% del anticipo. −30 días: sin devolución. Fuerza mayor debidamente acreditada: reembolso total o reprogramación sin costo.</p>
+      <h4>5. Edición y entrega</h4>
+      <p>Las imágenes se editan bajo el estilo personal del fotógrafo. Se entregan en JPG en galería digital privada. Los archivos RAW tienen costo adicional ($100.000).</p>
+      <h4>6. Derechos de imagen</h4>
+      <p>Bolsillo Producciones puede publicar las imágenes en su portafolio y redes, salvo indicación escrita contraria previa a la sesión.</p>
+      <h4>7. Propiedad intelectual</h4>
+      <p>Las fotografías son propiedad de Bolsillo Producciones. Se otorga licencia de uso personal o comercial según el paquete. Queda prohibida la reventa a terceros.</p>
+      <h4>8. Traslados</h4>
+      <p>Incluidos hasta 25 km del estudio en Constitución 8, Bellavista. Fuera de ese radio se cotiza por separado.</p>
+      <h4>9. IVA</h4>
+      <p>Precios netos sin IVA. Boleta o factura agrega el 19%.</p>
+      <h4>10. Vigencia de cotizaciones</h4>
+      <p>Las cotizaciones tienen validez de 30 días desde su emisión.</p>
+    </div>
+    <label class="tc-modal-check-label">
+      <input type="checkbox" id="tcEntryCheck" class="tc-modal-check-input" onchange="toggleTcAccept()">
+      <span>He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener" class="tc-modal-link">Términos y Condiciones</a> completos de Bolsillo Producciones.</span>
+    </label>
+    <button id="tcAcceptBtn" class="tc-modal-btn" disabled onclick="acceptTc()">Acepto y continúo →</button>
+  </div>
+</div>
+
 </body>
 </html>
