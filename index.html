@@ -1554,11 +1554,120 @@ footer {
   .modal-btn-primary, .modal-btn-cancel { text-align: center; justify-content: center; }
 }
 
+
+/* ═══════════════════════════════════════
+   PRELOADER
+═══════════════════════════════════════ */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050506;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.8rem;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Wordmark */
+.pre-wordmark {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: #F8F8F8;
+  line-height: 1;
+  user-select: none;
+}
+.pre-wordmark span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: preLetterIn .5s ease-out forwards;
+}
+/* Each letter staggers */
+.pre-wordmark span:nth-child(1) { animation-delay: .00s; }
+.pre-wordmark span:nth-child(2) { animation-delay: .06s; }
+.pre-wordmark span:nth-child(3) { animation-delay: .12s; }
+.pre-wordmark span:nth-child(4) { animation-delay: .18s; }
+.pre-wordmark span:nth-child(5) { animation-delay: .24s; }
+.pre-wordmark span:nth-child(6) { animation-delay: .30s; }
+.pre-wordmark span:nth-child(7) { animation-delay: .36s; }
+
+@keyframes preLetterIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar track */
+.pre-bar-track {
+  width: clamp(180px, 40vw, 320px);
+  height: 1px;
+  background: rgba(255,255,255,.1);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+/* Animated fill */
+.pre-bar-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0%;
+  background: #F8F8F8;
+  border-radius: 1px;
+  transition: width .25s ease-out;
+}
+/* Shimmer on the fill */
+.pre-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 40px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.6), transparent);
+  animation: shimmer 1s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%   { opacity: 0; transform: scaleX(.5); }
+  50%  { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(.5); }
+}
+
+/* Counter */
+.pre-counter {
+  font-family: 'Unbounded', sans-serif;
+  font-size: .6rem;
+  font-weight: 300;
+  letter-spacing: .28em;
+  color: rgba(255,255,255,.3);
+  text-transform: uppercase;
+  margin-top: -1.6rem;
+  min-width: 6ch;
+  text-align: center;
+}
+
 </style>
 </head>
 <body>
 
 <!-- Galaxy canvas -->
+
+<!-- ── PRELOADER ─────────────────────────── -->
+<div id="preloader" role="status" aria-label="Cargando sitio">
+  <div class="pre-wordmark" aria-hidden="true"><span>B</span><span>O</span><span>L</span><span>S</span><span>I</span><span>L</span><span>L</span><span>O</span></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;width:100%">
+    <div class="pre-bar-track">
+      <div class="pre-bar-fill" id="preBarFill"></div>
+    </div>
+    <div class="pre-counter" id="preCounter">0%</div>
+  </div>
+</div>
+
 <canvas id="galaxy"></canvas>
 
 <!-- NAV -->
@@ -1700,12 +1809,12 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
           <div class="photo-grid cols-3">
-            <img src="ESTUDIO/_DSC3935-Editar.jpg" alt="Retrato en estudio" loading="lazy">
-            <img src="ESTUDIO/_DSC6313-Editar.jpg" alt="Retrato en estudio" loading="lazy">
-            <img src="ESTUDIO/_DSC6318-Editar-Editar.jpg" alt="Retrato en estudio" loading="lazy">
-            <img src="ESTUDIO/_DSC6601-Editar-Editar-Editar.jpg" alt="Retrato en estudio" loading="lazy">
-            <img src="ESTUDIO/_DSC9154.jpg" alt="Retrato en estudio" loading="lazy">
-            <img src="ESTUDIO/_DSC9419-Editar.jpg" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC3935-Editar.webp" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC6313-Editar.webp" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC6318-Editar-Editar.webp" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC6601-Editar-Editar-Editar.webp" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC9154.webp" alt="Retrato en estudio" loading="lazy">
+            <img src="ESTUDIO/_DSC9419-Editar.webp" alt="Retrato en estudio" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1749,10 +1858,10 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía de platos, productos y ambiente. Desde el top 5 de tu menú hasta catálogos completos para delivery e Instagram.</p>
           <div class="photo-grid cols-4 landscape-grid">
-            <img src="GASTRONOMIA/Pizzas (En Masa) (1).jpg" alt="Fotografía gastronómica" loading="lazy">
-            <img src="GASTRONOMIA/Hamburgeuesas (Cervezeria Colina) (4).jpg" alt="Fotografía gastronómica" loading="lazy">
-            <img src="GASTRONOMIA/Dos_burguers_30.jpg" alt="Fotografía gastronómica" loading="lazy">
-            <img src="GASTRONOMIA/Calamar_Rolls.jpg" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Pizzas (En Masa) (1).webp" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Hamburgeuesas (Cervezeria Colina) (4).webp" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Dos_burguers_30.webp" alt="Fotografía gastronómica" loading="lazy">
+            <img src="GASTRONOMIA/Calamar_Rolls.webp" alt="Fotografía gastronómica" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1796,12 +1905,12 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Cobertura documental de tus momentos más importantes. Sin poses forzadas, con emoción real. Desde un bautizo íntimo hasta un matrimonio de día completo.</p>
           <div class="photo-grid cols-3">
-            <img src="Social/_DSC6842.jpg" alt="Fotografía de matrimonio" loading="lazy">
-            <img src="Social/DSC08250-Editar.jpg" alt="Fotografía de cumpleaños" loading="lazy">
-            <img src="Social/_DSC7252.jpg" alt="Fotografía de bautizo" loading="lazy">
-            <img src="Social/DSC01629.jpg" alt="Fotografía de evento social" loading="lazy">
-            <img src="Social/DSC03804.jpg" alt="Fotografía de evento social" loading="lazy">
-            <img src="Social/DSC07815-Editar-Editar.jpg" alt="Fotografía de evento social" loading="lazy">
+            <img src="Social/_DSC6842.webp" alt="Fotografía de matrimonio" loading="lazy">
+            <img src="Social/DSC08250-Editar.webp" alt="Fotografía de cumpleaños" loading="lazy">
+            <img src="Social/_DSC7252.webp" alt="Fotografía de bautizo" loading="lazy">
+            <img src="Social/DSC01629.webp" alt="Fotografía de evento social" loading="lazy">
+            <img src="Social/DSC03804.webp" alt="Fotografía de evento social" loading="lazy">
+            <img src="Social/DSC07815-Editar-Editar.webp" alt="Fotografía de evento social" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1845,10 +1954,10 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía profesional para equipos y empresas. Actualizamos la foto de perfil de todo tu equipo en media mañana, en tu oficina o en nuestro estudio.</p>
           <div class="photo-grid cols-4 square-grid">
-            <img src="CORPO/_DSC2152.jpg" alt="Headshot corporativo" loading="lazy">
-            <img src="CORPO/_DSC2191.jpg" alt="Headshot corporativo" loading="lazy">
-            <img src="CORPO/_DSC2201.jpg" alt="Headshot corporativo" loading="lazy">
-            <img src="CORPO/_DSC2244.jpg" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2152.webp" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2191.webp" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2201.webp" alt="Headshot corporativo" loading="lazy">
+            <img src="CORPO/_DSC2244.webp" alt="Headshot corporativo" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1892,12 +2001,12 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos de prensa, Kit de Prensa y contenido editorial para artistas. Registro de rodajes, shows en vivo y sesiones de grabación.</p>
           <div class="photo-grid cols-3">
-            <img src="BTS-MUSICA/_DSC8763.jpg" alt="Fotografía de concierto" loading="lazy">
-            <img src="BTS-MUSICA/DSC05370-Editar.jpg" alt="Fotografía de banda" loading="lazy">
-            <img src="BTS-MUSICA/_DSC5983-Editar.jpg" alt="BTS de rodaje" loading="lazy">
-            <img src="BTS-MUSICA/_DSC6290-Editar.jpg" alt="Sesión musical" loading="lazy">
-            <img src="BTS-MUSICA/DSC08930-Editar.jpg" alt="Fotografía de concierto" loading="lazy">
-            <img src="BTS-MUSICA/DSC05338-Editar.jpg" alt="Fotografía de banda" loading="lazy">
+            <img src="BTS-MUSICA/_DSC8763.webp" alt="Fotografía de concierto" loading="lazy">
+            <img src="BTS-MUSICA/DSC05370-Editar.webp" alt="Fotografía de banda" loading="lazy">
+            <img src="BTS-MUSICA/_DSC5983-Editar.webp" alt="BTS de rodaje" loading="lazy">
+            <img src="BTS-MUSICA/_DSC6290-Editar.webp" alt="Sesión musical" loading="lazy">
+            <img src="BTS-MUSICA/DSC08930-Editar.webp" alt="Fotografía de concierto" loading="lazy">
+            <img src="BTS-MUSICA/DSC05338-Editar.webp" alt="Fotografía de banda" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card slide-up">
@@ -1941,10 +2050,10 @@ footer {
         <div class="cat-body">
           <p style="color:var(--mid);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
           <div class="photo-grid cols-4 landscape-grid">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
-            <img src="Airbnb/LOGO.jpg" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
+            <img src="Airbnb/LOGO.webp" alt="Próximamente" loading="lazy">
           </div>
           <div class="cat-pricing">
             <div class="price-card featured slide-up">
@@ -2417,7 +2526,7 @@ function handleForm(e) {
 
   3. GALERÍAS:
      Reemplaza cada <div class="photo-placeholder"> por:
-     <img src="foto.jpg" alt="descripción">
+     <img src="foto.webp" alt="descripción">
      El lightbox funciona automáticamente con click.
 
   4. LOGO SVG:
