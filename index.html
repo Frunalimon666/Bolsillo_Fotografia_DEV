@@ -1651,6 +1651,20 @@ footer {
   text-align: center;
 }
 
+
+/* Preloader tagline */
+.pre-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(.72rem, 1.8vw, .85rem);
+  font-weight: 300;
+  color: rgba(255,255,255,.22);
+  letter-spacing: .04em;
+  text-align: center;
+  line-height: 1.7;
+  margin-top: -.8rem;
+  max-width: 360px;
+  animation: preLetterIn .5s ease-out .5s both;
+}
 </style>
 </head>
 <body>
@@ -1666,6 +1680,7 @@ footer {
     </div>
     <div class="pre-counter" id="preCounter">0%</div>
   </div>
+  <p class="pre-tagline">Estamos preparando todo para que puedas vivir<br>la mejor experiencia posible en nuestra página.</p>
 </div>
 
 <canvas id="galaxy"></canvas>
@@ -2498,6 +2513,78 @@ function toggleSubmit() {
   btn.disabled = !cb.checked;
   btn.classList.toggle('form-submit-disabled', !cb.checked);
 }
+
+
+/* ── Preloader ───────────────────────── */
+(function() {
+  const IMAGES = [
+    "ESTUDIO/_DSC3935-Editar.webp",
+    "ESTUDIO/_DSC6313-Editar.webp",
+    "ESTUDIO/_DSC6318-Editar-Editar.webp",
+    "ESTUDIO/_DSC6601-Editar-Editar-Editar.webp",
+    "ESTUDIO/_DSC9154.webp",
+    "ESTUDIO/_DSC9419-Editar.webp",
+    "GASTRONOMIA/Pizzas (En Masa) (1).webp",
+    "GASTRONOMIA/Hamburgeuesas (Cervezeria Colina) (4).webp",
+    "GASTRONOMIA/Dos_burguers_30.webp",
+    "GASTRONOMIA/Calamar_Rolls.webp",
+    "Social/_DSC6842.webp",
+    "Social/DSC08250-Editar.webp",
+    "Social/_DSC7252.webp",
+    "Social/DSC01629.webp",
+    "Social/DSC03804.webp",
+    "Social/DSC07815-Editar-Editar.webp",
+    "CORPO/_DSC2152.webp",
+    "CORPO/_DSC2191.webp",
+    "CORPO/_DSC2201.webp",
+    "CORPO/_DSC2244.webp",
+    "BTS-MUSICA/_DSC8763.webp",
+    "BTS-MUSICA/DSC05370-Editar.webp",
+    "BTS-MUSICA/_DSC5983-Editar.webp",
+    "BTS-MUSICA/_DSC6290-Editar.webp",
+    "BTS-MUSICA/DSC08930-Editar.webp",
+    "BTS-MUSICA/DSC05338-Editar.webp"
+  ];
+
+  const bar     = document.getElementById('preBarFill');
+  const counter = document.getElementById('preCounter');
+  const loader  = document.getElementById('preloader');
+
+  let loaded = 0;
+  const total = IMAGES.length;
+
+  function setProgress(n) {
+    const pct = Math.round((n / total) * 100);
+    if (bar)     bar.style.width = pct + '%';
+    if (counter) counter.textContent = pct + '%';
+  }
+
+  function finish() {
+    setProgress(total); // ensure 100% shows
+    setTimeout(function() {
+      if (loader) loader.classList.add('hidden');
+      setTimeout(function() { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+    }, 350);
+  }
+
+  function tick() {
+    loaded++;
+    setProgress(loaded);
+    if (loaded >= total) finish();
+  }
+
+  if (total === 0) { finish(); return; }
+
+  IMAGES.forEach(function(src) {
+    const img = new Image();
+    img.onload  = tick;
+    img.onerror = tick; // count errors so we never hang
+    img.src = src;
+  });
+
+  // Safety net: force-finish after 14s regardless
+  setTimeout(finish, 14000);
+})();
 
 /* ── Form submit ─────────────────────── */
 function handleForm(e) {
