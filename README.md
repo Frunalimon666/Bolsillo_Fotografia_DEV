@@ -15,43 +15,43 @@ Bolsillo_Fotografia_DEV/
 ├── terminos.html           ← Términos y Condiciones
 │
 ├── ESTUDIO/                ← Fotografías de retratos en estudio
-│   ├── _DSC3935-Editar.jpg
-│   ├── _DSC6313-Editar.jpg
-│   ├── _DSC6318-Editar-Editar.jpg
-│   ├── _DSC6601-Editar-Editar-Editar.jpg
-│   ├── _DSC9154.jpg
-│   └── _DSC9419-Editar.jpg
+│   ├── _DSC3935-Editar.webp
+│   ├── _DSC6313-Editar.webp
+│   ├── _DSC6318-Editar-Editar.webp
+│   ├── _DSC6601-Editar-Editar-Editar.webp
+│   ├── _DSC9154.webp
+│   └── _DSC9419-Editar.webp
 │
 ├── GASTRONOMIA/            ← Fotografías gastronómicas
-│   ├── Pizzas (En Masa) (1).jpg
-│   ├── Hamburgeuesas (Cervezeria Colina) (4).jpg
-│   ├── Dos_burguers_30.jpg
-│   └── Calamar_Rolls.jpg
+│   ├── Pizzas (En Masa) (1).webp
+│   ├── Hamburgeuesas (Cervezeria Colina) (4).webp
+│   ├── Dos_burguers_30.webp
+│   └── Calamar_Rolls.webp
 │
 ├── Social/                 ← Eventos sociales (matrimonios, cumpleaños, bautizos)
-│   ├── _DSC6842.jpg
-│   ├── DSC08250-Editar.jpg
-│   ├── _DSC7252.jpg
-│   ├── DSC01629.jpg
-│   ├── DSC03804.jpg
-│   └── DSC07815-Editar-Editar.jpg
+│   ├── _DSC6842.webp
+│   ├── DSC08250-Editar.webp
+│   ├── _DSC7252.webp
+│   ├── DSC01629.webp
+│   ├── DSC03804.webp
+│   └── DSC07815-Editar-Editar.webp
 │
 ├── CORPO/                  ← Headshots corporativos
-│   ├── _DSC2152.jpg
-│   ├── _DSC2191.jpg
-│   ├── _DSC2201.jpg
-│   └── _DSC2244.jpg
+│   ├── _DSC2152.webp
+│   ├── _DSC2191.webp
+│   ├── _DSC2201.webp
+│   └── _DSC2244.webp
 │
-├── BTS - MUSICA/           ← Conciertos, BTS, sesiones musicales
-│   ├── _DSC8763.jpg
-│   ├── DSC05370-Editar.jpg
-│   ├── _DSC5983-Editar.jpg
-│   ├── _DSC6290-Editar.jpg
-│   ├── DSC08930-Editar.jpg
-│   └── DSC05338-Editar.jpg
+├── BTS-MUSICA/           ← Conciertos, BTS, sesiones musicales
+│   ├── _DSC8763.webp
+│   ├── DSC05370-Editar.webp
+│   ├── _DSC5983-Editar.webp
+│   ├── _DSC6290-Editar.webp
+│   ├── DSC08930-Editar.webp
+│   └── DSC05338-Editar.webp
 │
 └── Airbnb/                 ← Fotografía inmobiliaria (pendiente)
-    └── LOGO.jpg            ← Placeholder temporal
+    └── LOGO.webp            ← Placeholder temporal
 ```
 
 ---
@@ -130,7 +130,7 @@ Verde musgo de botones de acción: `#3B5C3F`
 
 ## Cómo actualizar las fotografías
 
-Cada galería usa `<img src="CARPETA/archivo.jpg">` con rutas relativas desde la raíz del repo. Para reemplazar una foto:
+Cada galería usa `<img src="CARPETA/archivo.webp">` con rutas relativas desde la raíz del repo. Para reemplazar una foto:
 
 1. Agrega el archivo nuevo a la carpeta correspondiente (`ESTUDIO/`, `GASTRONOMIA/`, etc.)
 2. En `index.html`, busca el `src` de la imagen que quieres cambiar y actualiza el nombre del archivo
@@ -138,7 +138,7 @@ Cada galería usa `<img src="CARPETA/archivo.jpg">` con rutas relativas desde la
 
 Para agregar fotos a la sección de **Inmobiliaria / Airbnb** (actualmente con placeholder):
 - Agrega los archivos a la carpeta `Airbnb/`
-- Reemplaza las 4 líneas `<img src="Airbnb/LOGO.jpg">` por las rutas reales
+- Reemplaza las 4 líneas `<img src="Airbnb/LOGO.webp">` por las rutas reales
 
 ---
 
