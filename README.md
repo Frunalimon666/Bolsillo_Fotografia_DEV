@@ -142,27 +142,6 @@ Para agregar fotos a la sección de **Inmobiliaria / Airbnb** (actualmente con p
 
 ---
 
-## Cómo actualizar el feed de Instagram
-
-El widget de Behold.so se configura en [behold.so](https://behold.so). Si cambias de cuenta o necesitas un nuevo feed ID:
-
-1. Ve a tu dashboard en Behold.so
-2. Copia el nuevo Feed ID
-3. En `index.html`, busca `data-behold-id="IiGsbQeN0BouSPRACpQG"` y reemplaza el valor
-
----
-
-## Cómo publicar en GitHub Pages
-
-1. Asegúrate de que `index.html` está en la raíz del repositorio
-2. Ve a **Settings → Pages** en tu repositorio de GitHub
-3. En **Source**, selecciona la rama `main` y carpeta `/ (root)`
-4. Guarda — el sitio estará disponible en `https://[tu-usuario].github.io/[nombre-repo]/`
-
-> **Nota:** Los archivos en `BTS - MUSICA/` tienen un espacio en el nombre de la carpeta. GitHub Pages los sirve correctamente. Si tienes problemas, puedes renombrar la carpeta a `BTS-MUSICA` y actualizar los 6 `src` correspondientes en `index.html`.
-
----
-
 ## Contacto del estudio
 
 - **Instagram:** [@bolsilloprod](https://instagram.com/bolsilloprod)
@@ -170,6 +149,7 @@ El widget de Behold.so se configura en [behold.so](https://behold.so). Si cambia
 - **Email:** bolsillo.contacto@gmail.com
 - **Dirección:** Constitución 8, Providencia, Santiago
 - **Agendamiento:** [calendly.com/bolsillo-contacto/bolsillo-fotografia](https://calendly.com/bolsillo-contacto/bolsillo-fotografia)
+- **Pagina Web por:** Francisco Palomo Traslaviña - Director de Postproduccion y Tecnologias en Bolsillo SPA @Frop0n en instagram
 
 ---
 
