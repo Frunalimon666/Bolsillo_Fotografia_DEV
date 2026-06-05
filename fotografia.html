@@ -857,25 +857,40 @@ footer {
     grid-row: 1;
     z-index: 3;
   }
+  /* ── Mobile hero: text full-width, carousel below ── */
   #hero {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
     height: auto;
-    min-height: 100svh;
+    min-height: 0;
+    padding-bottom: 0;
   }
   .hero-left {
-    padding: 100px 1.8rem 1.5rem;
+    padding: 100px 1.6rem 2rem;
     align-items: center;
     text-align: center;
   }
   .hero-actions { justify-content: center; }
+  /* Carousel: full-width strip, fixed 56vw height, no padding */
   .hero-right {
-    padding: 0 1.5rem 2.5rem;
-    height: 55vw;
-    min-height: 240px;
-    max-height: 380px;
+    padding: 0;
+    height: 62vw;
+    min-height: 220px;
+    max-height: 420px;
+    width: 100%;
+    border-radius: 0;
   }
-  .hero-carousel { border-radius: 14px; }
+  .hero-carousel {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  /* Slightly darken top/bottom on mobile for immersion */
+  .hero-right::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 40px;
+    background: linear-gradient(to bottom, rgba(5,5,6,.5), transparent);
+    z-index: 2; pointer-events: none;
+  }
   .hero-dots { bottom: 1rem; }
   .hero-title { font-size: clamp(2.6rem, 8vw, 4.5rem); }
   .hero-sub { font-size: .82rem; }
@@ -2135,11 +2150,11 @@ body, .contact-info p, .agenda-cta-text p,
   <div class="hero-right" id="heroRight">
     <div class="hero-carousel">
       <div class="hc-track" id="hcTrack">
-          <div class="hc-slide"><img src="https://i.imgur.com/UNQO1yd.jpeg" alt="Bolsillo Fotografía"></div>
           <div class="hc-slide"><img src="https://i.imgur.com/lo8wzhB.jpeg" alt="Bolsillo Fotografía"></div>
+          <div class="hc-slide"><img src="https://i.imgur.com/UNQO1yd.jpeg" alt="Bolsillo Fotografía"></div>
           <div class="hc-slide"><img src="https://i.imgur.com/cuulH3N.jpeg" alt="Bolsillo Fotografía"></div>
           <div class="hc-slide"><img src="https://i.imgur.com/aUmkzjn.jpeg" alt="Bolsillo Fotografía"></div>
-          <div class="hc-slide"><img src="https://i.imgur.com/RGUszXc.jpeg" alt="Bolsillo Fotografía"></div>
+          <div class="hc-slide"><img src="https://i.imgur.com/MZB07ts.jpeg" alt="Bolsillo Fotografía"></div>
       </div>
       <div class="hc-dots" id="hcDots"></div>
       <button class="hc-arrow hc-prev" onclick="hcMove(-1)" aria-label="Anterior">
@@ -2546,7 +2561,6 @@ body, .contact-info p, .agenda-cta-text p,
                 <li>1 cambio de outfit</li>
                 <li>Locaciones sugeridas</li>
                 <li>30+ fotos editadas</li>
-                <li>Galería digital alta res.</li>
                 <li>Entrega 5 días</li>
               </ul>
             </div>
@@ -2560,7 +2574,6 @@ body, .contact-info p, .agenda-cta-text p,
                 <li>Golden hour disponible</li>
                 <li>50+ fotos editadas</li>
                 <li>5 impresiones 13×18 incluidas</li>
-                <li>Galería digital</li>
                 <li>Entrega 7 días</li>
               </ul>
             </div>
@@ -2627,10 +2640,10 @@ body, .contact-info p, .agenda-cta-text p,
         <p>Estamos en Constitución 8, Providencia — la casona de arte Tierra Luz. Escríbenos por acá o directo al WhatsApp y agendamos sin complicaciones.</p>
         <br>
         <div class="contact-detail">
-          <div class="contact-row"><span class="icon">📍</span><span>Constitución 8, Providencia, Santiago</span></div>
-          <div class="contact-row"><span class="icon">📱</span><a href="https://wa.me/56986740998" target="_blank">+56 9 8674 0998 (WhatsApp)</a></div>
-          <div class="contact-row"><span class="icon">📷</span><a href="https://instagram.com/bolsilloprod" target="_blank">@bolsilloprod</a></div>
-          <div class="contact-row"><span class="icon">✉️</span><a href="mailto:bolsillo.contacto@gmail.com">bolsillo.contacto@gmail.com</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Constitución 8, Providencia, Santiago</span></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><a href="https://wa.me/56986740998" target="_blank">+56 9 8674 0998 (WhatsApp)</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span><a href="https://instagram.com/bolsilloprod" target="_blank">@bolsilloprod</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><a href="mailto:bolsillo.contacto@gmail.com">bolsillo.contacto@gmail.com</a></div>
         </div>
       </div>
       <div class="reveal">
@@ -3024,6 +3037,14 @@ function toggleSubmit() {
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 40) hcGo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
+
+  // Lightbox on click — only if not a swipe
+  track.querySelectorAll('.hc-slide img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      if (typeof openLightbox === 'function') openLightbox(img.src);
+    });
+  });
 })();
 
 /* ── Preloader ───────────────────────── */

@@ -76,9 +76,110 @@ section{padding:6rem 0;}
 .divider{width:32px;height:1px;background:rgba(255,255,255,.25);margin:1rem 0 2rem;}
 
 /* ── SERVICIOS ── */
-.servicios-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
-.tab-btn{padding:.45rem 1.2rem;border-radius:40px;font-family:var(--font-h);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s;}
-.tab-btn.active,.tab-btn:hover{background:rgba(255,255,255,.1);border-color:var(--border2);color:var(--white);}
+/* ── Servicios tabs — editorial index style ── */
+.servicios-tabs-wrap{
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+.servicios-tabs{
+  display: flex;
+  gap: 0;
+  /* No background, no border — the tabs ARE the UI */
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  border-radius: 0;
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+.tab-btn{
+  flex: 1;                        /* equal width columns */
+  padding: .9rem .5rem;
+  border-radius: 0;
+  font-family: var(--font-h);
+  font-size: .58rem;
+  font-weight: 300;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border: none;
+  border-bottom: 2px solid transparent;  /* space for active indicator */
+  background: transparent;
+  color: rgba(255,255,255,.38);
+  cursor: pointer;
+  transition: color .25s ease;
+  white-space: nowrap;
+  text-align: center;
+  position: relative;
+  margin-bottom: -1px;            /* sit on the border-bottom of parent */
+  user-select: none;
+}
+/* Number label above text — editorial touch */
+.tab-btn::before{
+  content: attr(data-num);
+  display: block;
+  font-size: .48rem;
+  letter-spacing: .18em;
+  color: rgba(255,255,255,.2);
+  margin-bottom: .25rem;
+  transition: color .25s ease;
+}
+.tab-btn:hover{
+  color: rgba(255,255,255,.75);
+}
+.tab-btn:hover::before{
+  color: rgba(255,255,255,.45);
+}
+/* Active state — bright text + white underline bar */
+.tab-btn.active{
+  color: var(--white);
+  font-weight: 500;
+  border-bottom: 2px solid var(--white);
+  pointer-events: none;
+}
+.tab-btn.active::before{
+  color: rgba(255,255,255,.55);
+}
+
+/* ── Mobile ── */
+@media(max-width:700px){
+  /* On mobile: horizontal scroll, tabs shrink to content width */
+  .servicios-tabs-wrap{
+    margin-left: -1.2rem;
+    margin-right: -1.2rem;
+  }
+  /* Fade edges signal scrollability */
+  .servicios-tabs-wrap::before,
+  .servicios-tabs-wrap::after{
+    content: '';
+    position: absolute; top: 0; bottom: 1px; /* stop at border */
+    width: 2.5rem; z-index: 2; pointer-events: none;
+  }
+  .servicios-tabs-wrap::before{
+    left: 0;
+    background: linear-gradient(to right, #050506 20%, transparent 100%);
+  }
+  .servicios-tabs-wrap::after{
+    right: 0;
+    background: linear-gradient(to left, #050506 20%, transparent 100%);
+  }
+  .servicios-tabs{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    padding: 0 2.5rem;
+  }
+  .servicios-tabs::-webkit-scrollbar{ display: none; }
+  .tab-btn{
+    flex: 0 0 auto;             /* don't stretch — content width */
+    padding: .85rem 1.1rem;
+    font-size: .56rem;
+  }
+}
+
+
 .servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 
 /* Card base */
@@ -482,7 +583,7 @@ section{padding:6rem 0;}
 .contact-info p{color:rgba(255,255,255,.62);font-size:.88rem;font-weight:300;line-height:1.9;margin-bottom:1.5rem;}
 .contact-detail{display:flex;flex-direction:column;gap:.8rem;}
 .contact-row{display:flex;align-items:center;gap:.8rem;font-size:.82rem;font-weight:300;color:rgba(255,255,255,.65);}
-.contact-row .icon{opacity:.6;width:18px;text-align:center;}
+.contact-row .icon{opacity:.7;width:18px;text-align:center;display:flex;align-items:center;color:var(--white);flex-shrink:0;}
 .contact-row a{color:rgba(255,255,255,.6);transition:color .2s;}
 .contact-row a:hover{color:var(--white);}
 .contact-form{display:flex;flex-direction:column;gap:.8rem;}
@@ -641,6 +742,186 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 </div>
 
 
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="container">
+    <p class="section-label reveal slide-left">Lo que hacemos</p>
+    <h2 class="section-title reveal slide-left">Nuestros servicios</h2>
+    <div class="divider reveal"></div>
+    <div class="servicios-tabs-wrap">
+    <div class="servicios-tabs reveal" id="serviciosTabs">
+      <button class="tab-btn active" data-cat="redes" data-num="01">Redes sociales</button>
+      <button class="tab-btn" data-cat="corporativo" data-num="02">Video corporativo</button>
+      <button class="tab-btn" data-cat="fotografia" data-num="03">Fotografía</button>
+      <button class="tab-btn" data-cat="eventos" data-num="04">Registro de eventos</button>
+      <button class="tab-btn" data-cat="videoclips" data-num="05">Videoclips y sesiones</button>
+    </div>
+    </div><!-- end tabs-wrap -->
+    <div class="servicios-grid" id="serviciosGrid">
+
+      <!-- REDES SOCIALES -->
+      <div class="servicio-card active" data-cat="redes" data-num="01">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">01</div>
+        <div class="reel-card">
+          <iframe src="https://www.instagram.com/reel/DVPMD4hiV3w/embed/" allowfullscreen scrolling="no" loading="lazy"></iframe>
+        </div>
+        <div class="servicio-card-label">
+          <span class="servicio-card-tag">Redes sociales</span>
+          <span class="servicio-card-title">Paparolla</span>
+        </div>
+      </div>
+      <div class="servicio-card active" data-cat="redes" data-num="01">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">02</div>
+        <div class="reel-card">
+          <iframe src="https://www.instagram.com/reel/DYAM7ZfhJ1l/embed/" allowfullscreen scrolling="no" loading="lazy"></iframe>
+        </div>
+        <div class="servicio-card-label">
+          <span class="servicio-card-tag">Redes sociales</span>
+          <span class="servicio-card-title">Café Puente</span>
+        </div>
+      </div>
+      <div class="servicio-card active" data-cat="redes" data-num="01">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">03</div>
+        <div class="reel-card">
+          <iframe src="https://www.instagram.com/reel/DUEpYG4jdzn/embed/" allowfullscreen scrolling="no" loading="lazy"></iframe>
+        </div>
+        <div class="servicio-card-label">
+          <span class="servicio-card-tag">Redes sociales</span>
+          <span class="servicio-card-title">Hotel W</span>
+        </div>
+      </div>
+
+      <!-- VIDEO CORPORATIVO (placeholders) -->
+      <div class="servicio-card" data-cat="corporativo" data-num="02">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">01</div>
+        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
+      </div>
+      <div class="servicio-card" data-cat="corporativo" data-num="02">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">02</div>
+        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
+      </div>
+      <div class="servicio-card" data-cat="corporativo" data-num="02">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">03</div>
+        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
+      </div>
+
+      <!-- FOTOGRAFÍA — 1 foto por categoría de bolsillo/fotografia -->
+      <div class="servicio-card" data-cat="fotografia" data-num="03">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">01</div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55313190446_ba5d1ce40b_b.jpg" alt="Retratos en estudio" loading="lazy"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Retratos</span><span class="servicio-card-title">Estudio</span></div>
+      </div>
+      <div class="servicio-card" data-cat="fotografia" data-num="03">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">02</div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55313339243_89522eb1ae_b.jpg" alt="Gastronomía" loading="lazy"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Gastronomía</span><span class="servicio-card-title">Marcas</span></div>
+      </div>
+      <div class="servicio-card" data-cat="fotografia" data-num="03">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">03</div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55312276122_d6f6fbf6a4_b.jpg" alt="Eventos sociales" loading="lazy"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Eventos</span><span class="servicio-card-title">Social</span></div>
+      </div>
+      <div class="servicio-card" data-cat="fotografia" data-num="03">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">04</div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55312278287_3b64e6baf0_b.jpg" alt="Headshots" loading="lazy"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Corporativo</span><span class="servicio-card-title">Headshots</span></div>
+      </div>
+      <div class="servicio-card" data-cat="fotografia" data-num="03">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">05</div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55313341393_5282a8ca2c_b.jpg" alt="Música" loading="lazy"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Música</span><span class="servicio-card-title">Audiovisual</span></div>
+      </div>
+      <div class="servicio-card" data-cat="fotografia" data-num="03">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">06</div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55316717545_45a9afa362_w.jpg" alt="Foto en locación" loading="lazy" style="object-position:center center;"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Locación</span><span class="servicio-card-title">Foto en locación</span></div>
+      </div>
+
+      <!-- REGISTRO DE EVENTOS (placeholders) -->
+      <div class="servicio-card" data-cat="eventos" data-num="04">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">01</div>
+        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
+      </div>
+      <div class="servicio-card" data-cat="eventos" data-num="04">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">02</div>
+        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
+      </div>
+      <div class="servicio-card" data-cat="eventos" data-num="04">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">03</div>
+        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
+      </div>
+
+      <!-- VIDEOCLIPS Y SESIONES — YouTube thumbnails -->
+      <div class="servicio-card" data-cat="videoclips" data-num="05">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">01</div>
+        <div class="photo-card">
+          <img src="https://img.youtube.com/vi/lHeRSLsOWSU/maxresdefault.jpg" alt="Kala Baldosa" loading="lazy" style="object-position:center center;">
+        </div>
+        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=lHeRSLsOWSU" target="_blank" rel="noopener">
+          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </a>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Videoclip</span><span class="servicio-card-title">Kala Baldosa</span></div>
+      </div>
+      <div class="servicio-card" data-cat="videoclips" data-num="05">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">02</div>
+        <div class="photo-card">
+          <img src="https://img.youtube.com/vi/IWeVQ36Za5U/maxresdefault.jpg" alt="Dany Barrera" loading="lazy" style="object-position:center center;">
+        </div>
+        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=IWeVQ36Za5U" target="_blank" rel="noopener">
+          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </a>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Playthrough</span><span class="servicio-card-title">Dany Barrera</span></div>
+      </div>
+      <div class="servicio-card" data-cat="videoclips" data-num="05">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">03</div>
+        <div class="photo-card">
+          <img src="https://img.youtube.com/vi/11hpLrzdjjw/maxresdefault.jpg" alt="Candelabro" loading="lazy" style="object-position:center center;">
+        </div>
+        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=11hpLrzdjjw" target="_blank" rel="noopener">
+          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </a>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Postproducción de color</span><span class="servicio-card-title">Candelabro</span></div>
+      </div>
+      <div class="servicio-card" data-cat="videoclips" data-num="05">
+        <div class="servicio-card-bg"></div>
+        <div class="servicio-card-num">04</div>
+        <div class="photo-card">
+          <img src="https://img.youtube.com/vi/bnZw2MmKFl8/maxresdefault.jpg" alt="Sigrid y los Claveles" loading="lazy" style="object-position:center center;">
+        </div>
+        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=bnZw2MmKFl8" target="_blank" rel="noopener">
+          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </a>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Sesión en vivo</span><span class="servicio-card-title">Sigrid y los Claveles</span></div>
+      </div>
+
+    </div><!-- end servicios-grid -->
+  </div>
+</section>
+
 <!-- CLIENTES -->
 <section id="clientes" style="padding:3rem 0">
   <div class="container">
@@ -661,183 +942,6 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
   </div>
 </section>
 
-<!-- SERVICIOS -->
-<section id="servicios">
-  <div class="container">
-    <p class="section-label reveal slide-left">Lo que hacemos</p>
-    <h2 class="section-title reveal slide-left">Nuestros servicios</h2>
-    <div class="divider reveal"></div>
-    <div class="servicios-tabs reveal" id="serviciosTabs">
-      <button class="tab-btn active" data-cat="redes">Redes sociales</button>
-      <button class="tab-btn" data-cat="corporativo">Video corporativo</button>
-      <button class="tab-btn" data-cat="fotografia">Fotografía</button>
-      <button class="tab-btn" data-cat="eventos">Registro de eventos</button>
-      <button class="tab-btn" data-cat="videoclips">Videoclips y sesiones</button>
-    </div>
-    <div class="servicios-grid" id="serviciosGrid">
-
-      <!-- REDES SOCIALES -->
-      <div class="servicio-card active" data-cat="redes">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">01</div>
-        <div class="reel-card">
-          <iframe src="https://www.instagram.com/reel/DVPMD4hiV3w/embed/" allowfullscreen scrolling="no" loading="lazy"></iframe>
-        </div>
-        <div class="servicio-card-label">
-          <span class="servicio-card-tag">Redes sociales</span>
-          <span class="servicio-card-title">Paparolla</span>
-        </div>
-      </div>
-      <div class="servicio-card active" data-cat="redes">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="reel-card">
-          <iframe src="https://www.instagram.com/reel/DYAM7ZfhJ1l/embed/" allowfullscreen scrolling="no" loading="lazy"></iframe>
-        </div>
-        <div class="servicio-card-label">
-          <span class="servicio-card-tag">Redes sociales</span>
-          <span class="servicio-card-title">Café Puente</span>
-        </div>
-      </div>
-      <div class="servicio-card active" data-cat="redes">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="reel-card">
-          <iframe src="https://www.instagram.com/reel/DUEpYG4jdzn/embed/" allowfullscreen scrolling="no" loading="lazy"></iframe>
-        </div>
-        <div class="servicio-card-label">
-          <span class="servicio-card-tag">Redes sociales</span>
-          <span class="servicio-card-title">Hotel W</span>
-        </div>
-      </div>
-
-      <!-- VIDEO CORPORATIVO (placeholders) -->
-      <div class="servicio-card" data-cat="corporativo">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">01</div>
-        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="corporativo">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="corporativo">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-
-      <!-- FOTOGRAFÍA — 1 foto por categoría de bolsillo/fotografia -->
-      <div class="servicio-card" data-cat="fotografia">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">01</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55313190446_ba5d1ce40b_b.jpg" alt="Retratos en estudio" loading="lazy"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Retratos</span><span class="servicio-card-title">Estudio</span></div>
-      </div>
-      <div class="servicio-card" data-cat="fotografia">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55313339243_89522eb1ae_b.jpg" alt="Gastronomía" loading="lazy"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Gastronomía</span><span class="servicio-card-title">Marcas</span></div>
-      </div>
-      <div class="servicio-card" data-cat="fotografia">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55312276122_d6f6fbf6a4_b.jpg" alt="Eventos sociales" loading="lazy"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Eventos</span><span class="servicio-card-title">Social</span></div>
-      </div>
-      <div class="servicio-card" data-cat="fotografia">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">04</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55312278287_3b64e6baf0_b.jpg" alt="Headshots" loading="lazy"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Corporativo</span><span class="servicio-card-title">Headshots</span></div>
-      </div>
-      <div class="servicio-card" data-cat="fotografia">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">05</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55313341393_5282a8ca2c_b.jpg" alt="Música" loading="lazy"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Música</span><span class="servicio-card-title">Audiovisual</span></div>
-      </div>
-      <div class="servicio-card" data-cat="fotografia">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">06</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55316717545_45a9afa362_w.jpg" alt="Foto en locación" loading="lazy" style="object-position:center center;"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Locación</span><span class="servicio-card-title">Foto en locación</span></div>
-      </div>
-
-      <!-- REGISTRO DE EVENTOS (placeholders) -->
-      <div class="servicio-card" data-cat="eventos">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">01</div>
-        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="eventos">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="eventos">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-
-      <!-- VIDEOCLIPS Y SESIONES — YouTube thumbnails -->
-      <div class="servicio-card" data-cat="videoclips">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">01</div>
-        <div class="photo-card">
-          <img src="https://img.youtube.com/vi/lHeRSLsOWSU/maxresdefault.jpg" alt="Kala Baldosa" loading="lazy" style="object-position:center center;">
-        </div>
-        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=lHeRSLsOWSU" target="_blank" rel="noopener">
-          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        </a>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Videoclip</span><span class="servicio-card-title">Kala Baldosa</span></div>
-      </div>
-      <div class="servicio-card" data-cat="videoclips">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="photo-card">
-          <img src="https://img.youtube.com/vi/IWeVQ36Za5U/maxresdefault.jpg" alt="Dany Barrera" loading="lazy" style="object-position:center center;">
-        </div>
-        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=IWeVQ36Za5U" target="_blank" rel="noopener">
-          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        </a>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Playthrough</span><span class="servicio-card-title">Dany Barrera</span></div>
-      </div>
-      <div class="servicio-card" data-cat="videoclips">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="photo-card">
-          <img src="https://img.youtube.com/vi/11hpLrzdjjw/maxresdefault.jpg" alt="Candelabro" loading="lazy" style="object-position:center center;">
-        </div>
-        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=11hpLrzdjjw" target="_blank" rel="noopener">
-          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        </a>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Postproducción de color</span><span class="servicio-card-title">Candelabro</span></div>
-      </div>
-      <div class="servicio-card" data-cat="videoclips">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">04</div>
-        <div class="photo-card">
-          <img src="https://img.youtube.com/vi/bnZw2MmKFl8/maxresdefault.jpg" alt="Sigrid y los Claveles" loading="lazy" style="object-position:center center;">
-        </div>
-        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=bnZw2MmKFl8" target="_blank" rel="noopener">
-          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        </a>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Sesión en vivo</span><span class="servicio-card-title">Sigrid y los Claveles</span></div>
-      </div>
-
-    </div><!-- end servicios-grid -->
-  </div>
-</section>
 
 <!-- LOGRO / SAM -->
 <section id="logro">
@@ -1230,7 +1334,7 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
       <h2>¿Tienes un proyecto en mente?</h2>
       <p>Cuéntanos tu idea y encontramos juntos la forma de hacerla realidad.</p>
       <div class="cta-actions">
-        <a href="https://wa.me/56939461500" target="_blank" rel="noopener" class="btn-primary">WhatsApp ventas →</a>
+        <a href="https://wa.me/56939461500" target="_blank" rel="noopener" class="btn-primary">WhatsApp →</a>
         <a href="mailto:bolsillo.contacto@gmail.com" class="btn-outline">Enviar email →</a>
       </div>
     </div>
@@ -1248,11 +1352,11 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
         <p>Estamos en Constitución 8, Providencia — la casona de arte Tierra Luz. Escríbenos por acá o directo al WhatsApp y coordinamos sin complicaciones.</p>
         <br>
         <div class="contact-detail">
-          <div class="contact-row"><span class="icon">📍</span><span>Constitución 8, Providencia, Santiago</span></div>
-          <div class="contact-row"><span class="icon">📱</span><a href="https://wa.me/56939461500" target="_blank">+56 9 3946 1500 (Ventas)</a></div>
-          <div class="contact-row"><span class="icon">📱</span><a href="https://wa.me/56986740998" target="_blank">+56 9 8674 0998 (Fotografía)</a></div>
-          <div class="contact-row"><span class="icon">📷</span><a href="https://instagram.com/bolsilloprod" target="_blank">@bolsilloprod</a></div>
-          <div class="contact-row"><span class="icon">✉️</span><a href="mailto:bolsillo.contacto@gmail.com">bolsillo.contacto@gmail.com</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Constitución 8, Providencia, Santiago</span></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><a href="https://wa.me/56939461500" target="_blank">+56 9 3946 1500 (Ventas)</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><a href="https://wa.me/56986740998" target="_blank">+56 9 8674 0998 (Fotografía)</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span><a href="https://instagram.com/bolsilloprod" target="_blank">@bolsilloprod</a></div>
+          <div class="contact-row"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><a href="mailto:bolsillo.contacto@gmail.com">bolsillo.contacto@gmail.com</a></div>
         </div>
       </div>
       <div class="reveal">
@@ -1335,7 +1439,7 @@ document.getElementById('serviciosTabs').addEventListener('click',function(e){
   });
 });
 /* Show first tab cards on load */
-document.querySelectorAll('#serviciosGrid .servicio-card[data-cat="redes"]').forEach(c=>c.classList.add('active'));
+document.querySelectorAll('#serviciosGrid .servicio-card[data-cat="redes" data-num="01"]').forEach(c=>c.classList.add('active'));
 
 /* Equipo tabs — switch lists */
 document.getElementById('equipoTabs').addEventListener('click',function(e){
