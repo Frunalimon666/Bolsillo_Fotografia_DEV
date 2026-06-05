@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -170,10 +169,9 @@ nav.scrolled {
   position: relative;
   height: 100svh;
   min-height: 640px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -182,12 +180,10 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 80px 2rem 0;
+  align-items: flex-start;
+  text-align: left;
+  padding: 80px 3vw 3rem 6vw;
   z-index: 3;
-  max-width: 700px;
-  width: 100%;
 }
 
 .hero-eyebrow {
@@ -228,7 +224,7 @@ nav.scrolled {
   line-height: 1.8;
 }
 
-.hero-actions { display: flex; gap: .9rem; flex-wrap: wrap; justify-content: center; }
+.hero-actions { display: flex; gap: .9rem; flex-wrap: wrap; justify-content: flex-start; }
 
 .btn-glass {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -861,7 +857,25 @@ footer {
     grid-row: 1;
     z-index: 3;
   }
-  /* hero-right moved to #fotografo section */
+  #hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 100svh;
+  }
+  .hero-left {
+    padding: 100px 1.8rem 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-actions { justify-content: center; }
+  .hero-right {
+    padding: 0 1.5rem 2.5rem;
+    height: 55vw;
+    min-height: 240px;
+    max-height: 380px;
+  }
+  .hero-carousel { border-radius: 14px; }
   .hero-dots { bottom: 1rem; }
   .hero-title { font-size: clamp(2.6rem, 8vw, 4.5rem); }
   .hero-sub { font-size: .82rem; }
@@ -1251,6 +1265,106 @@ footer {
 @media (max-width: 780px) {
   .agenda-cards-new { grid-template-columns: 1fr; gap: 12px; }
 }
+
+
+/* ── Hero photo carousel ── */
+
+/* hero-right: flex container that pads the carousel */
+.hero-right {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* padding: top=nav-height, right=same as left text gap, bottom, left=small gap */
+  padding: 80px 5vw 3rem 2vw;
+  z-index: 3;
+  overflow: visible; /* let box-shadow breathe */
+}
+
+/* The carousel card — rounded, inset from all edges */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  /* Layered shadow: depth + subtle glow */
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.55),
+    0  4px 12px rgba(0,0,0,.35),
+    0  0  0 1px rgba(255,255,255,.08);
+}
+
+.hc-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform .65s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+.hc-slide {
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.hc-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+
+}
+
+/* No ::after gradient needed — carousel is a card, text is separate */
+.hero-right::after { display: none; }
+
+/* Dots — bottom center of the card */
+.hc-dots {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: .45rem;
+  z-index: 3;
+}
+.hc-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  cursor: pointer;
+  transition: background .3s, transform .3s;
+  backdrop-filter: blur(4px);
+}
+.hc-dot.active {
+  background: #F8F8F8;
+  transform: scale(1.5);
+}
+
+/* Arrows — inside the card, vertically centered */
+.hc-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  z-index: 3;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(5,5,6,.5);
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(10px);
+  color: #F8F8F8;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.hc-arrow:hover {
+  background: rgba(5,5,6,.75);
+  border-color: rgba(255,255,255,.38);
+  transform: translateY(-50%) scale(1.08);
+}
+.hc-prev { left: .8rem; }
+.hc-next { right: .8rem; }
 
 /* ── Behold feed container ── */
 .behold-feed-container,
@@ -1896,16 +2010,17 @@ body, .contact-info p, .agenda-cta-text p,
   overflow: hidden;
   border-radius: 8px;
   opacity: .75;
-  transition: opacity .35s ease;
   max-width: 240px;
+  /* ALL transitions declared here so they apply in BOTH directions */
+  transition: opacity .35s ease,
+              max-width .38s cubic-bezier(.4,0,.2,1),
+              margin-right .38s cubic-bezier(.4,0,.2,1);
 }
 .cat-item.open .cat-preview-strip {
   opacity: 0;
   pointer-events: none;
   max-width: 0;
   margin-right: 0;
-  overflow: hidden;
-  transition: opacity .25s ease, max-width .3s ease, margin .3s ease;
 }
 .cat-header:hover .cat-preview-strip { opacity: 1; }
 
@@ -1965,7 +2080,7 @@ body, .contact-info p, .agenda-cta-text p,
 
 <!-- NAV -->
 <nav id="navbar">
-  <div class="nav-logo">
+  <a href="index.html" class="nav-logo" style="text-decoration:none">
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Pocket shape -->
       <path d="M5 9.5 Q5 7 7.5 7 L20.5 7 Q23 7 23 9.5 L23 22 Q23 24.5 20.5 24.5 L7.5 24.5 Q5 24.5 5 22 Z"
@@ -1980,7 +2095,7 @@ body, .contact-info p, .agenda-cta-text p,
       <path d="M20.5 18 L20.5 22" stroke="rgba(255,255,255,.25)" stroke-width=".9" stroke-dasharray="1.5 1.5" stroke-linecap="round"/>
     </svg>
     BOLSILLO
-  </div>
+  </a>
   <ul class="nav-links">
     <li><a href="#intro">Nosotros</a></li>
     <li><a href="#categorias">Servicios</a></li>
@@ -2016,6 +2131,25 @@ body, .contact-info p, .agenda-cta-text p,
     </div>
   </div>
 
+  <!-- Right: photo carousel -->
+  <div class="hero-right" id="heroRight">
+    <div class="hero-carousel">
+      <div class="hc-track" id="hcTrack">
+          <div class="hc-slide"><img src="https://i.imgur.com/UNQO1yd.jpeg" alt="Bolsillo Fotografía"></div>
+          <div class="hc-slide"><img src="https://i.imgur.com/lo8wzhB.jpeg" alt="Bolsillo Fotografía"></div>
+          <div class="hc-slide"><img src="https://i.imgur.com/cuulH3N.jpeg" alt="Bolsillo Fotografía"></div>
+          <div class="hc-slide"><img src="https://i.imgur.com/aUmkzjn.jpeg" alt="Bolsillo Fotografía"></div>
+          <div class="hc-slide"><img src="https://i.imgur.com/RGUszXc.jpeg" alt="Bolsillo Fotografía"></div>
+      </div>
+      <div class="hc-dots" id="hcDots"></div>
+      <button class="hc-arrow hc-prev" onclick="hcMove(-1)" aria-label="Anterior">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="hc-arrow hc-next" onclick="hcMove(1)" aria-label="Siguiente">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
 </section>
 
 <!-- TICKER -->
@@ -2024,34 +2158,90 @@ body, .contact-info p, .agenda-cta-text p,
   <div class="strip-track" aria-hidden="true"><span>RETRATOS EN ESTUDIO</span><span class="dot">·</span><span>FOTOGRAFÍA GASTRONÓMICA</span><span class="dot">·</span><span>MARCAS Y PRODUCTOS</span><span class="dot">·</span><span>EVENTOS SOCIALES</span><span class="dot">·</span><span>CORPORATIVO</span><span class="dot">·</span><span>CONCIERTOS Y CULTURA</span><span class="dot">·</span></div>
 </div>
 
-<!-- INTRO -->
-<section id="intro">
+<!-- AGENDA -->
+<section id="agenda">
   <div class="container">
-    <div class="intro-grid">
-      <div class="reveal">
-        <p class="section-label">Quiénes somos</p>
-        <h2 class="section-title slide-left">Tu estudio local<br>de Bellavista.</h2>
-        <div class="divider"></div>
-        <p class="section-desc" style="margin-bottom:0;color:rgba(255,255,255,.62)">Somos Bolsillo Producciones, una SPA de fotografía y video ubicada en la casona de arte Tierra Luz, Constitución 8, Providencia. Estudio propio de 25m², equipo profesional, sin intermediarios.</p>
-      </div>
-      <div class="map-wrap reveal slide-right">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.684!2d-70.6390!3d-33.4295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c59bb9e62b6f%3A0x4b4f74b!2sConstituci%C3%B3n%208%2C%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Bolsillo Producciones — Constitución 8, Providencia">
-        </iframe>
-      </div>
+    <p class="section-label reveal slide-left">Precios de estudio</p>
+    <h2 class="section-title reveal slide-left">Oferta de Inauguración</h2>
+    <div class="divider reveal slide-left"></div>
+    <div class="agenda-intro reveal slide-up">
+      <p class="agenda-intro-main">Por tiempo limitado, con motivo de la inauguración de nuestro estudio fotográfico, te regalamos <strong>17% de descuento</strong> en todos los planes en sesión de estudio.</p>
+      <p class="agenda-intro-sub">Atención de lunes a domingo, 10:00 a 22:00 hrs.</p>
     </div>
-  </div>
+    <div class="agenda-cards-new reveal slide-up">
+
+      <div class="agenda-card-new">
+        <div class="acn-top">
+          <div class="acn-prices">
+            <span class="acn-old">$30.000</span>
+            <span class="acn-new">$25.000</span>
+          </div>
+          
+        </div>
+        <ul class="acn-features">
+          <li>15 entregables</li>
+          <li>30 minutos</li>
+          <li>1 look</li>
+          <li>Edición básica</li>
+          <li>2 personas máx.</li>
+        </ul>
+        <div class="acn-bottom">
+          <span class="acn-tier">Económico</span>
+          <span class="acn-discount">−17%</span>
+        </div>
+      </div>
+
+      <div class="agenda-card-new acn-featured">
+        <div class="acn-top">
+          <div class="acn-prices">
+            <span class="acn-old">$60.000</span>
+            <span class="acn-new">$50.000</span>
+          </div>
+          
+        </div>
+        <ul class="acn-features">
+          <li>30 entregables</li>
+          <li>60 minutos</li>
+          <li>2 looks</li>
+          <li>Edición standard</li>
+          <li>4 personas máx.</li>
+        </ul>
+        <div class="acn-bottom">
+          <span class="acn-tier">Studio</span>
+          <span class="acn-discount">−17%</span>
+        </div>
+      </div>
+
+      <div class="agenda-card-new">
+        <div class="acn-top">
+          <div class="acn-prices">
+            <span class="acn-old">$120.000</span>
+            <span class="acn-new">$100.000</span>
+          </div>
+          
+        </div>
+        <ul class="acn-features">
+          <li>50 entregables</li>
+          <li>180 minutos</li>
+          <li>Hasta 4 looks</li>
+          <li>Edición extensa</li>
+          <li>6 personas máx.</li>
+        </ul>
+        <div class="acn-bottom">
+          <span class="acn-tier">Studio +</span>
+          <span class="acn-discount">−17%</span>
+        </div>
+      </div>
+
+    </div>
+
 </section>
 
 <!-- CATEGORÍAS -->
-<section id="categorias">
+<section id="categorias" style="padding-top:3rem">
   <div class="container">
     <p class="section-label reveal slide-left">Lo que hacemos</p>
-    <h2 class="section-title reveal slide-left">Servicios</h2>
+    <h2 class="section-title reveal slide-left">Nuestros Servicios</h2>
     <div class="divider reveal slide-left"></div>
     <div class="cat-list">
 
@@ -2327,38 +2517,51 @@ body, .contact-info p, .agenda-cta-text p,
           <div class="cat-header-left">
             <div class="cat-icon">06</div>
             <div>
-              <div class="cat-name">Inmobiliaria y Airbnb</div>
-              <div class="cat-desc-short">Propiedades · Airbnb · Interiores · Arquitectura</div>
+              <div class="cat-name">Fotografía en locación</div>
+              <div class="cat-desc-short">Exteriores · Locaciones · Naturaleza · Urbano</div>
             </div>
           </div>
           <div class="cat-preview-strip landscape">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="" loading="lazy" aria-hidden="true">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="" loading="lazy" aria-hidden="true">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://live.staticflickr.com/65535/55316311816_bd5fd56d0b.jpg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://live.staticflickr.com/65535/55316717545_45a9afa362_c.jpg" alt="" loading="lazy" aria-hidden="true">
+            <img src="https://live.staticflickr.com/65535/55316312356_e7d459414d_b.jpg" alt="" loading="lazy" aria-hidden="true">
           </div>
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body"><div class="cat-body-inner">
-          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotos que venden y reservan. Propiedades con la iluminación y el ángulo correcto para portales inmobiliarios y plataformas de short-stay.</p>
+          <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Fotografía en exteriores y locaciones. Capturamos el ambiente, la luz natural y el entorno para proyectos editoriales, artísticos y de marca.</p>
           <div class="photo-grid cols-4 landscape-grid">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
-            <img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Próximamente" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/55316311816_bd5fd56d0b.jpg" alt="Fotografía en locación" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/55316717545_45a9afa362_c.jpg" alt="Fotografía en locación" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/55316312356_e7d459414d_b.jpg" alt="Fotografía en locación" loading="lazy">
+            <img src="https://live.staticflickr.com/65535/55316466148_b653647edf_c.jpg" alt="Fotografía en locación" loading="lazy">
           </div>
           <div class="cat-pricing">
-            <div class="price-card featured slide-up">
-              <div class="price-tier">Pack Airbnb / Depto</div>
-              <div class="price-amount">$80.000</div>
+            <div class="price-card slide-up">
+              <div class="price-tier">Sesión individual en locación</div>
+              <div class="price-amount">$120.000</div>
               <ul class="price-includes">
-                <li>20 fotos editadas</li><li>Gran angular</li><li>Interior + exterior</li><li>Entrega 48h</li>
+                <li>1 hora en locación exterior</li>
+                <li>Dirección de pose</li>
+                <li>1 cambio de outfit</li>
+                <li>Locaciones sugeridas</li>
+                <li>30+ fotos editadas</li>
+                <li>Galería digital alta res.</li>
+                <li>Entrega 5 días</li>
               </ul>
             </div>
-            <div class="price-card slide-up">
-              <div class="price-tier">Propiedad completa</div>
-              <div class="price-amount">$150.000</div>
+            <div class="price-card featured slide-up">
+              <div class="price-tier">Sesión familiar / pareja</div>
+              <div class="price-amount">$190.000</div>
               <ul class="price-includes">
-                <li>40 fotos editadas</li><li>Todas las dependencias</li><li>Express disponible</li><li>Listo para portal</li>
+                <li>1.5h en locación exterior</li>
+                <li>Actividades dinámicas naturales</li>
+                <li>2 cambios de outfit</li>
+                <li>Golden hour disponible</li>
+                <li>50+ fotos editadas</li>
+                <li>5 impresiones 13×18 incluidas</li>
+                <li>Galería digital</li>
+                <li>Entrega 7 días</li>
               </ul>
             </div>
           </div>
@@ -2369,82 +2572,32 @@ body, .contact-info p, .agenda-cta-text p,
   </div>
 </section>
 
-<!-- AGENDA -->
-<section id="agenda">
+<!-- INTRO -->
+<section id="intro">
   <div class="container">
-    <p class="section-label reveal slide-left">Precios de estudio</p>
-    <h2 class="section-title reveal slide-left">Oferta de Inauguración</h2>
-    <div class="divider reveal slide-left"></div>
-    <div class="agenda-intro reveal slide-up">
-      <p class="agenda-intro-main">Por tiempo limitado, con motivo de la inauguración de nuestro estudio fotográfico, te regalamos <strong>17% de descuento</strong> en todos los planes en sesión de estudio.</p>
-      <p class="agenda-intro-sub">Atención de lunes a domingo, 10:00 a 22:00 hrs.</p>
+    <div class="intro-grid">
+      <div class="reveal">
+        <p class="section-label">Quiénes somos</p>
+        <h2 class="section-title slide-left">Tu estudio local<br>de Bellavista.</h2>
+        <div class="divider"></div>
+        <p class="section-desc" style="margin-bottom:0;color:rgba(255,255,255,.62)">Somos Bolsillo Producciones, una SPA de fotografía y video ubicada en la casona de arte Tierra Luz, Constitución 8, Providencia. Estudio propio de 25m², equipo profesional, sin intermediarios.</p>
+      </div>
+      <div class="map-wrap reveal slide-right">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.684!2d-70.6390!3d-33.4295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c59bb9e62b6f%3A0x4b4f74b!2sConstituci%C3%B3n%208%2C%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Bolsillo Producciones — Constitución 8, Providencia">
+        </iframe>
+      </div>
     </div>
-    <div class="agenda-cards-new reveal slide-up">
+  </div>
+</section>
 
-      <div class="agenda-card-new">
-        <div class="acn-top">
-          <div class="acn-prices">
-            <span class="acn-old">$30.000</span>
-            <span class="acn-new">$25.000</span>
-          </div>
-          
-        </div>
-        <ul class="acn-features">
-          <li>15 entregables</li>
-          <li>30 minutos</li>
-          <li>1 look</li>
-          <li>Edición básica</li>
-          <li>2 personas máx.</li>
-        </ul>
-        <div class="acn-bottom">
-          <span class="acn-tier">Económico</span>
-          <span class="acn-discount">−17%</span>
-        </div>
-      </div>
 
-      <div class="agenda-card-new acn-featured">
-        <div class="acn-top">
-          <div class="acn-prices">
-            <span class="acn-old">$60.000</span>
-            <span class="acn-new">$50.000</span>
-          </div>
-          
-        </div>
-        <ul class="acn-features">
-          <li>30 entregables</li>
-          <li>60 minutos</li>
-          <li>2 looks</li>
-          <li>Edición standard</li>
-          <li>4 personas máx.</li>
-        </ul>
-        <div class="acn-bottom">
-          <span class="acn-tier">Studio</span>
-          <span class="acn-discount">−17%</span>
-        </div>
-      </div>
 
-      <div class="agenda-card-new">
-        <div class="acn-top">
-          <div class="acn-prices">
-            <span class="acn-old">$120.000</span>
-            <span class="acn-new">$100.000</span>
-          </div>
-          
-        </div>
-        <ul class="acn-features">
-          <li>50 entregables</li>
-          <li>180 minutos</li>
-          <li>Hasta 4 looks</li>
-          <li>Edición extensa</li>
-          <li>6 personas máx.</li>
-        </ul>
-        <div class="acn-bottom">
-          <span class="acn-tier">Studio +</span>
-          <span class="acn-discount">−17%</span>
-        </div>
-      </div>
-
-    </div>
+<div class="container">
     <div class="agenda-cta-block reveal slide-up">
       <div class="agenda-cta-inner">
         <div class="agenda-cta-text">
@@ -2461,27 +2614,7 @@ body, .contact-info p, .agenda-cta-text p,
       <a href="https://wa.me/56986740998" target="_blank" class="btn-glass" style="white-space:nowrap;font-size:.75rem">WhatsApp →</a>
     </div>
   </div>
-</section>
-
-<!-- CLIENTES -->
-<section id="clientes">
-  <div class="container">
-    <p class="section-label reveal slide-left" style="text-align:center;margin-bottom:1.5rem">Han confiado en nosotros</p>
-    <div class="clients-row reveal slide-right">
-      <div class="client-pill">Puente Café</div>
-      <div class="client-pill">Paparolla</div>
-      <div class="client-pill">Playbar</div>
-      <div class="client-pill">Bilance</div>
-      <div class="client-pill">Cervezería Colina</div>
-      <div class="client-pill">Honesto Mike</div>
-      <div class="client-pill">En Masa</div>
-      <div class="client-pill">Sentaku</div>
-      <div class="client-pill">La Ensaladería</div>
-      <div class="client-pill">Santo Gohan</div>
-      <a href="#" onclick="openCalendlyModal(event)" class="client-pill-invite">¿Tu marca? →</a>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- CONTACTO -->
 <section id="contacto">
@@ -2525,7 +2658,7 @@ body, .contact-info p, .agenda-cta-text p,
               <option>Evento social — Bautizo / Quinceañero</option>
               <option>Corporativo / Headshots</option>
               <option>Audiovisual y música</option>
-              <option>Inmobiliaria / Airbnb</option>
+              <option>Fotografía en locación</option>
               <option>No vi lo que necesito — quiero conversar</option>
             </select>
           </div>
@@ -2762,11 +2895,7 @@ function toggleCat(id) {
   const item = document.getElementById(id);
   const isOpen = item.classList.contains('open');
   document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('open'));
-  if (!isOpen) {
-    item.classList.add('open');
-    // Wait for the 420ms CSS transition to finish before scrolling
-    setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 440);
-  }
+  if (!isOpen) item.classList.add('open');
 }
 
 /* ── Scroll reveal + slide-in ────────── */
@@ -2857,6 +2986,45 @@ function toggleSubmit() {
   btn.classList.toggle('form-submit-disabled', !cb.checked);
 }
 
+
+
+/* ── Hero photo carousel ─────────────── */
+(function() {
+  const track = document.getElementById('hcTrack');
+  if (!track) return;
+  const slides = track.querySelectorAll('.hc-slide');
+  const dotsWrap = document.getElementById('hcDots');
+  let cur = 0, total = slides.length, timer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'hc-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => hcGo(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function hcGo(idx) {
+    cur = (idx + total) % total;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dotsWrap.querySelectorAll('.hc-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    reset();
+  }
+  window.hcMove = (dir) => hcGo(cur + dir);
+
+  function reset() {
+    clearInterval(timer);
+    timer = setInterval(() => hcGo(cur + 1), 5000);
+  }
+  reset();
+
+  // Touch swipe
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) hcGo(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+})();
 
 /* ── Preloader ───────────────────────── */
 (function() {
