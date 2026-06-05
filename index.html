@@ -32,7 +32,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 nav.scrolled{background:rgba(5,5,6,.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:var(--font-h);font-size:.75rem;font-weight:400;letter-spacing:.18em;color:var(--white);display:flex;align-items:center;gap:.65rem;}
 .nav-center{display:flex;gap:2.5rem;list-style:none;font-size:.72rem;font-weight:300;letter-spacing:.14em;text-transform:uppercase;}
-.nav-center a{color:var(--mid);transition:color .2s;}
+.nav-center a{color:rgba(255,255,255,.7);transition:color .2s;}
 .nav-center a:hover{color:var(--white);}
 .nav-right{display:flex;align-items:center;gap:1.2rem;}
 .nav-social{display:flex;gap:.8rem;align-items:center;}
@@ -51,7 +51,7 @@ nav.scrolled{background:rgba(5,5,6,.85);backdrop-filter:blur(30px);border-bottom
 .hero-city{font-family:var(--font-h);font-size:.62rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--mid);}
 .hero-brand{font-family:var(--font-h);font-weight:900;font-size:clamp(4rem,14vw,11rem);line-height:.88;letter-spacing:-.02em;color:var(--white);}
 .hero-sub{font-family:var(--font-h);font-weight:200;font-size:clamp(.9rem,2.5vw,1.8rem);letter-spacing:.22em;color:var(--mid);font-style:italic;margin-top:-.2rem;}
-.hero-tagline{font-size:.88rem;font-weight:300;color:var(--muted);max-width:400px;line-height:1.7;margin:.3rem auto 0;}
+.hero-tagline{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.52);max-width:400px;line-height:1.7;margin:.3rem auto 0;}
 .hero-divider{width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--border2),transparent);margin:.3rem auto;}
 .hero-cotiza{font-family:var(--font-t);font-weight:700;font-size:clamp(1.3rem,3vw,2rem);letter-spacing:-.01em;}
 .hero-service-btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:.2rem;}
@@ -64,20 +64,20 @@ nav.scrolled{background:rgba(5,5,6,.85);backdrop-filter:blur(30px);border-bottom
 /* ── STRIP ── */
 .strip{overflow:hidden;padding:.8rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.02);display:flex;}
 .strip-track{display:flex;flex-shrink:0;align-items:center;white-space:nowrap;animation:ticker 32s linear infinite;will-change:transform;}
-.strip-track span{font-family:var(--font-h);font-size:.68rem;font-weight:300;letter-spacing:.22em;color:var(--muted);padding:0 1.8rem;}
+.strip-track span{font-family:var(--font-h);font-size:.68rem;font-weight:300;letter-spacing:.22em;color:rgba(255,255,255,.4);padding:0 1.8rem;}
 .strip-track span.dot{padding:0;opacity:.3;}
 @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-100%);}}
 
 /* ── SECTION BASE ── */
 section{padding:6rem 0;}
 .container{max-width:1100px;margin:0 auto;padding:0 2rem;}
-.section-label{font-family:var(--font-h);font-size:.58rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+.section-label{font-family:var(--font-h);font-size:.58rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:.8rem;}
 .section-title{font-family:var(--font-t);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;line-height:1.05;letter-spacing:-.01em;margin-bottom:.8rem;}
 .divider{width:32px;height:1px;background:rgba(255,255,255,.25);margin:1rem 0 2rem;}
 
 /* ── SERVICIOS ── */
 .servicios-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
-.tab-btn{padding:.45rem 1.2rem;border-radius:40px;font-family:var(--font-h);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+.tab-btn{padding:.45rem 1.2rem;border-radius:40px;font-family:var(--font-h);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s;}
 .tab-btn.active,.tab-btn:hover{background:rgba(255,255,255,.1);border-color:var(--border2);color:var(--white);}
 .servicios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 
@@ -86,10 +86,10 @@ section{padding:6rem 0;}
 .servicio-card.active{display:block;}
 .servicio-card:hover{border-color:rgba(255,255,255,.3);transform:translateY(-4px);}
 .servicio-card-bg{position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.04) 0%,transparent 60%);}
-.servicio-card-num{position:absolute;top:1.2rem;left:1.4rem;font-family:var(--font-h);font-size:.55rem;font-weight:300;letter-spacing:.16em;color:rgba(255,255,255,.4);}
+.servicio-card-num{position:absolute;top:1.2rem;left:1.4rem;font-family:var(--font-h);font-size:.55rem;font-weight:300;letter-spacing:.16em;color:rgba(255,255,255,.5);}
 .servicio-card-label{position:absolute;bottom:0;left:0;right:0;padding:2rem 1.4rem 1.4rem;background:linear-gradient(to top,rgba(5,5,6,.85) 0%,transparent 100%);}
 .servicio-card-title{font-family:var(--font-t);font-size:.95rem;font-weight:700;color:var(--white);line-height:1.2;}
-.servicio-card-tag{font-family:var(--font-h);font-size:.58rem;font-weight:300;letter-spacing:.12em;color:rgba(255,255,255,.5);display:block;margin-bottom:.4rem;}
+.servicio-card-tag{font-family:var(--font-h);font-size:.58rem;font-weight:300;letter-spacing:.12em;color:rgba(255,255,255,.65);display:block;margin-bottom:.4rem;}
 .client-card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
 .client-placeholder{font-family:var(--font-h);font-size:.65rem;font-weight:300;color:rgba(255,255,255,.15);letter-spacing:.1em;text-align:center;line-height:1.8;}
 
@@ -112,40 +112,358 @@ section{padding:6rem 0;}
 .photo-card{position:absolute;inset:0;}
 .photo-card img{width:100%;height:100%;object-fit:cover;object-position:center top;}
 
+
+/* ── SAM Carousel ── */
+.sam-carousel{border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);aspect-ratio:4/3;position:relative;background:#0a0a0b;}
+.sam-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1);will-change:transform;}
+.sam-slide{flex-shrink:0;width:100%;height:100%;}
+.sam-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.sam-controls{position:absolute;bottom:.9rem;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:.8rem;}
+.sam-arrow{width:32px;height:32px;border-radius:50%;background:rgba(5,5,6,.65);border:1px solid rgba(255,255,255,.2);color:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,border-color .2s;}
+.sam-arrow:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.5);}
+.sam-dots{display:flex;gap:.4rem;align-items:center;}
+.sam-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .25s,transform .25s;}
+.sam-dot.active{background:var(--white);transform:scale(1.5);}
+
 /* ── LOGRO ── */
 .logro-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .logro-img-wrap{border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);aspect-ratio:16/10;position:relative;display:block;cursor:pointer;}
 .logro-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .logro-img-wrap:hover img{transform:scale(1.04);}
-.logro-text p{font-size:.92rem;font-weight:300;color:rgba(255,255,255,.62);line-height:1.85;margin-bottom:1.2rem;}
+.logro-text p{font-size:.92rem;font-weight:300;color:rgba(255,255,255,.76);line-height:1.85;margin-bottom:1.2rem;}
 
 /* ── MISION ── */
 .mv-grid{display:grid;grid-template-columns:1fr 1fr;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);}
 .mv-card{background:var(--glass);backdrop-filter:blur(20px);padding:3.5rem 3rem;}
 .mv-card h2{font-family:var(--font-h);font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:700;margin-bottom:1.5rem;}
-.mv-card p{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;}
+.mv-card p{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.75);line-height:1.85;margin-bottom:1rem;}
 
 /* ── EQUIPO ── */
 .equipo-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;}
 .equipo-list{display:none;}
 .equipo-list.active{display:block;}
 
-.member-row{border-radius:var(--r);border:1px solid var(--border);background:var(--glass);backdrop-filter:blur(16px);margin-bottom:8px;overflow:hidden;transition:border-color .25s;}
-.member-row:hover{border-color:rgba(255,255,255,.22);}
-.member-header{display:flex;align-items:center;gap:1.2rem;padding:1.2rem 1.5rem;cursor:pointer;user-select:none;}
-.member-avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid var(--border2);background:var(--glass);}
-.member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
-.member-avatar-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:1rem;color:var(--muted);}
-.member-name{font-family:var(--font-t);font-size:1rem;font-weight:700;color:var(--white);line-height:1.2;}
-.member-role{font-size:.75rem;font-weight:300;color:var(--muted);letter-spacing:.04em;}
-.member-toggle{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:.9rem;flex-shrink:0;transition:transform .35s,border-color .25s;}
-.member-row.open .member-toggle{transform:rotate(45deg);border-color:rgba(255,255,255,.35);}
+/* ─ Closed state row ─ */
+.member-row{
+  border-radius:var(--r2);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(18px);
+  margin-bottom:6px;
+  overflow:hidden;
+  transition:border-color .4s ease, background .4s ease;
+  cursor:pointer;
+}
+.member-row:not(.open):hover{
+  border-color:rgba(255,255,255,.25);
+  background:rgba(255,255,255,.08);
+}
+.member-row.open{
+  border-color:rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);
+  cursor:default;
+}
 
-/* Animated body */
-.member-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.4,0,.2,1);}
-.member-row.open .member-body{grid-template-rows:1fr;}
-.member-body-inner{min-height:0;overflow:hidden;}
-.member-body-content{padding:0 1.5rem 1.5rem 5.2rem;font-size:.88rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.85;border-top:1px solid var(--border);padding-top:1rem;margin-top:-1px;}
+/* Header — shown in BOTH states, but transforms */
+.member-header{
+  display:flex;align-items:center;gap:1.1rem;
+  padding:1rem 1.4rem;
+  cursor:pointer;
+  user-select:none;
+  transition:padding .4s ease;
+}
+.member-row.open .member-header{
+  padding:.7rem 1.4rem;
+  border-bottom:1px solid var(--border);
+  cursor:default;
+}
+
+/* Avatar — circular when closed, hidden when open (photo takes over) */
+.member-avatar{
+  width:44px; height:44px;
+  border-radius:50%;
+  overflow:hidden; flex-shrink:0;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.06);
+  transition:width .45s cubic-bezier(.4,0,.2,1),
+             height .45s cubic-bezier(.4,0,.2,1),
+             border-radius .45s cubic-bezier(.4,0,.2,1),
+             opacity .3s ease,
+             margin .45s ease;
+}
+.member-row.open .member-avatar{
+  width:0; height:0; opacity:0;
+  border:none; margin:0; padding:0;
+}
+.member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.member-avatar-ph{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-h);font-size:.88rem;color:rgba(255,255,255,.3);
+}
+
+/* Name + role in header */
+.member-header-text{ flex:1; min-width:0; }
+.member-name{
+  font-family:var(--font-t);
+  font-size:.95rem; font-weight:700;
+  color:#F8F8F8; line-height:1.2;
+  transition:font-size .35s ease, opacity .35s ease;
+}
+/* When open, header collapses — hide name and role */
+.member-row.open .member-name{
+  opacity:0;
+  max-height:0;
+  overflow:hidden;
+  margin:0;
+}
+.member-role-header{
+  font-size:.72rem; font-weight:300;
+  color:rgba(255,255,255,.55); letter-spacing:.04em;
+  transition:opacity .3s ease, max-height .35s ease;
+  overflow:hidden; max-height:2rem;
+}
+.member-row.open .member-role-header{
+  opacity:0; max-height:0;
+}
+.member-toggle{
+  width:26px; height:26px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.55); font-size:.8rem; flex-shrink:0;
+  transition:transform .45s cubic-bezier(.4,0,.2,1), border-color .25s, color .25s;
+}
+.member-row.open .member-toggle{
+  transform:rotate(45deg);
+  border-color:rgba(255,255,255,.35);
+  color:rgba(255,255,255,.75);
+}
+
+/* ─ Animated body ─ */
+.member-body{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .5s cubic-bezier(.4,0,.2,1);
+}
+.member-row.open .member-body{ grid-template-rows:1fr; }
+.member-body-inner{ min-height:0; overflow:hidden; }
+
+/* ─ Expanded panel: photo left (portrait) + info right ─ */
+.member-card{
+  display:grid;
+  grid-template-columns:220px 1fr;
+}
+
+/* Photo column */
+.member-photo-col{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.04);
+  min-height:300px;
+  /* img inside is absolute on mobile, static on desktop */
+}
+.member-photo-col img{
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  /* Subtle zoom-in on open */
+  transform:scale(1.05);
+  opacity:0;
+  transition:transform .6s .1s cubic-bezier(.4,0,.2,1),
+             opacity .5s .1s ease;
+}
+.member-row.open .member-photo-col img{
+  transform:scale(1);
+  opacity:1;
+}
+.member-photo-ph{
+  width:100%;height:100%;min-height:300px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-h);font-size:5rem;font-weight:300;
+  color:rgba(255,255,255,.08);
+  opacity:0;
+  transition:opacity .5s .1s ease;
+}
+.member-row.open .member-photo-ph{ opacity:1; }
+
+/* Info column */
+.member-info-col{
+  padding:1.8rem 2rem;
+  display:flex; flex-direction:column; gap:.9rem;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .5s .18s ease, transform .5s .18s ease;
+}
+.member-row.open .member-info-col{
+  opacity:1; transform:translateY(0);
+}
+/* Name in info col */
+/* Name row — name + founder badge + IG */
+.member-info-name-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin-bottom:-.3rem;
+}
+.member-info-name{
+  font-family:var(--font-h);
+  font-size:clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight:700;
+  color:var(--white);
+  line-height:1.1;
+  letter-spacing:.01em;
+}
+/* IG link pill */
+.member-ig-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.22rem .7rem;
+  border-radius:40px;
+  border:1px solid rgba(255,255,255,.14);
+  font-family:var(--font-h);
+  font-size:.52rem;
+  font-weight:300;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.45);
+  transition:border-color .2s, color .2s, background .2s;
+}
+.member-ig-link:hover{
+  border-color:rgba(255,255,255,.35);
+  color:rgba(255,255,255,.8);
+  background:rgba(255,255,255,.05);
+}
+.member-info-role{
+  font-family:var(--font-h);
+  font-size:.58rem; font-weight:300;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  padding-bottom:.9rem;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.member-info-bio{
+  font-size:.9rem; font-weight:300;
+  color:rgba(255,255,255,.78);
+  line-height:1.9;
+}
+
+/* Skills / Interests blocks */
+.member-info-section{
+  display:flex; flex-direction:column; gap:.5rem;
+}
+.member-info-section-label{
+  font-family:var(--font-h);
+  font-size:.52rem; font-weight:400;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+}
+.member-tag-row{
+  display:flex; flex-wrap:wrap; gap:.35rem;
+}
+
+/* Tags */
+.member-tag{
+  padding:.3rem .9rem;
+  border-radius:40px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.05);
+  font-family:var(--font-h);
+  font-size:.56rem; font-weight:300;
+  letter-spacing:.09em; text-transform:uppercase;
+  color:rgba(255,255,255,.58);
+  transition:border-color .2s, color .2s;
+}
+.member-tag:hover{
+  border-color:rgba(255,255,255,.32);
+  color:rgba(255,255,255,.82);
+}
+/* Founder tag — warm accent */
+.member-tag-founder{
+  border-color:rgba(210,175,120,.35);
+  color:rgba(210,175,120,.8);
+  background:rgba(210,175,120,.06);
+}
+.member-tag-founder:hover{
+  border-color:rgba(210,175,120,.6);
+  color:rgba(210,175,120,1);
+}
+
+/* Bottom tags area */
+.member-info-bottom{
+  display:flex; flex-direction:column; gap:1rem;
+  margin-top:auto; padding-top:.8rem;
+  border-top:1px solid var(--border);
+}
+
+@media(max-width:700px){
+  /* ── Mobile member card — totally different layout:
+       portrait photo centered top + info below
+  ── */
+  .member-card{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  /* Photo col becomes a centred portrait block */
+  .member-photo-col{
+    min-height: 0 !important;
+    height: auto;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    padding: 1.6rem 1.6rem .8rem;
+  }
+  /* The img becomes a circle — shows face correctly */
+  .member-photo-col img{
+    position: static;         /* undo any absolute */
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;  /* center of face, not top */
+    border: 2px solid rgba(255,255,255,.2);
+    flex-shrink: 0;
+    /* keep the reveal animation */
+    transform: scale(1.05);
+    opacity: 0;
+    transition: transform .6s .1s cubic-bezier(.4,0,.2,1), opacity .5s .1s ease;
+  }
+  .member-row.open .member-photo-col img{
+    transform: scale(1);
+    opacity: 1;
+  }
+  .member-photo-ph{
+    width: 110px; height: 110px;
+    min-height: 0;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    border: 2px solid rgba(255,255,255,.1);
+  }
+
+  /* Info col fills below */
+  .member-info-col{
+    padding: .4rem 1.4rem 1.4rem;
+    gap: .9rem;
+    text-align: center;
+    align-items: center;
+  }
+  .member-info-name-row{
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+  .member-info-role{ text-align: center; }
+  .member-info-bio{ text-align: left; }
+  .member-tag-row{ justify-content: center; }
+  .member-info-name{ font-size: 1.05rem; }
+}
+@media(max-width:480px){
+  .member-photo-col img{ width:95px; height:95px; }
+  .member-photo-ph{ width:95px; height:95px; }
+  .member-info-col{ padding:.3rem 1.1rem 1.2rem; }
+}
 
 /* ── REDES SOCIALES (Behold) ── */
 #redes{background:transparent;padding:5rem 0;}
@@ -155,7 +473,7 @@ section{padding:6rem 0;}
 .cta-box{border-radius:var(--r2);border:1px solid var(--border);background:var(--glass);backdrop-filter:blur(24px);padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;}
 .cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 50% 0%,rgba(255,255,255,.04) 0%,transparent 60%);pointer-events:none;}
 .cta-box h2{font-family:var(--font-h);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;margin-bottom:.8rem;}
-.cta-box p{font-size:.9rem;font-weight:300;color:var(--mid);margin-bottom:2rem;line-height:1.8;}
+.cta-box p{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.72);margin-bottom:2rem;line-height:1.8;}
 .cta-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
 
 /* ── CONTACT FORM (Te tincó) ── */
@@ -163,17 +481,17 @@ section{padding:6rem 0;}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
 .contact-info p{color:rgba(255,255,255,.62);font-size:.88rem;font-weight:300;line-height:1.9;margin-bottom:1.5rem;}
 .contact-detail{display:flex;flex-direction:column;gap:.8rem;}
-.contact-row{display:flex;align-items:center;gap:.8rem;font-size:.82rem;font-weight:300;color:rgba(255,255,255,.6);}
+.contact-row{display:flex;align-items:center;gap:.8rem;font-size:.82rem;font-weight:300;color:rgba(255,255,255,.65);}
 .contact-row .icon{opacity:.6;width:18px;text-align:center;}
 .contact-row a{color:rgba(255,255,255,.6);transition:color .2s;}
 .contact-row a:hover{color:var(--white);}
 .contact-form{display:flex;flex-direction:column;gap:.8rem;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
 .form-group{display:flex;flex-direction:column;gap:.35rem;}
-.form-label{font-family:var(--font-h);font-size:.58rem;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.form-label{font-family:var(--font-h);font-size:.58rem;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);}
 .form-input,.form-select,.form-textarea{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--r);padding:.8rem 1rem;color:var(--white);font-family:var(--font-b);font-size:.86rem;font-weight:300;transition:border-color .2s;width:100%;}
-.form-input::placeholder{color:var(--muted);}
-.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:rgba(255,255,255,.4);}
+.form-input::placeholder{color:rgba(255,255,255,.32);}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:rgba(255,255,255,.5);}
 .form-select option{background:#111;color:var(--white);}
 .form-textarea{resize:vertical;min-height:100px;}
 .form-submit{align-self:flex-start;padding:.85rem 2.4rem;background:rgba(255,255,255,.92);color:#0A0A0A;font-family:var(--font-h);font-size:.68rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;border-radius:40px;border:none;cursor:pointer;transition:background .2s,transform .15s;}
@@ -183,16 +501,16 @@ section{padding:6rem 0;}
 .btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 2rem;background:rgba(255,255,255,.92);color:#0A0A0A;font-family:var(--font-h);font-size:.65rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border-radius:40px;border:none;cursor:pointer;transition:background .2s,transform .15s;}
 .btn-primary:hover{background:#fff;transform:translateY(-2px);}
 .btn-outline{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 2rem;background:transparent;color:var(--white);font-family:var(--font-h);font-size:.65rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;border-radius:40px;border:1px solid var(--border2);transition:background .2s,border-color .2s;}
-.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);}
+.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5);}
 
 /* ── FOOTER ── */
 footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6,.6);}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .footer-brand{font-family:var(--font-h);font-size:.62rem;font-weight:300;letter-spacing:.16em;color:var(--muted);}
 .footer-links{display:flex;gap:2rem;list-style:none;font-size:.66rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;}
-.footer-links a{color:var(--muted);transition:color .2s;}
+.footer-links a{color:rgba(255,255,255,.45);transition:color .2s;}
 .footer-links a:hover{color:var(--white);}
-.footer-copy{font-size:.62rem;font-weight:300;color:rgba(255,255,255,.15);text-align:right;}
+.footer-copy{font-size:.62rem;font-weight:300;color:rgba(255,255,255,.35);text-align:right;}
 
 /* ── ANIMATIONS ── */
 @media(prefers-reduced-motion:no-preference){
@@ -286,11 +604,11 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
   <p class="hero-sub reveal">producciones</p>
   <p class="hero-tagline reveal">Nuestras Cámaras y equipo están listos para grabar,<br>solo faltan tus ideas.</p>
   <div class="hero-divider reveal"></div>
-  <p class="hero-cotiza reveal">Cotiza servicios de</p>
+  <p class="hero-cotiza reveal">Revisa nuestro portafolio</p>
   <div class="hero-service-btns reveal">
-    <a href="/audiovisual" class="service-btn">Audiovisual</a>
-    <span class="service-btn-or">O</span>
-    <a href="/fotografia" class="service-btn">Fotografía</a>
+    <a href="audiovisual.html" class="service-btn">Audiovisual</a>
+    <span class="service-btn-or">o de</span>
+    <a href="fotografia.html" class="service-btn">Fotografía</a>
   </div>
   <a href="https://wa.me/56939461500" target="_blank" rel="noopener" class="hero-main-cta reveal">Escríbenos por WhatsApp →</a>
 </section>
@@ -405,8 +723,8 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
       <div class="servicio-card" data-cat="fotografia">
         <div class="servicio-card-bg"></div>
         <div class="servicio-card-num">06</div>
-        <div class="photo-card"><img src="https://live.staticflickr.com/65535/48492460662_3e9e745440.jpg" alt="Inmobiliaria" loading="lazy" style="object-position:center center;"></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Inmobiliaria</span><span class="servicio-card-title">Airbnb</span></div>
+        <div class="photo-card"><img src="https://live.staticflickr.com/65535/55316717545_45a9afa362_w.jpg" alt="Foto en locación" loading="lazy" style="object-position:center center;"></div>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Locación</span><span class="servicio-card-title">Foto en locación</span></div>
       </div>
 
       <!-- REGISTRO DE EVENTOS (placeholders) -->
@@ -483,18 +801,35 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 <section id="logro">
   <div class="container">
     <div class="logro-grid">
-      <a class="logro-img-wrap reveal slide-left"
-         href="https://www.youtube.com/watch?v=lHeRSLsOWSU&list=RDlHeRSLsOWSU&start_radio=1"
-         target="_blank" rel="noopener">
-        <img src="https://i.imgur.com/bnem5Bj.jpeg" alt="Ganamos en el SAM 2026"
-             onerror="this.parentElement.style.background='rgba(255,255,255,.05)'">
-      </a>
+
+      <!-- Carousel -->
+      <div class="sam-carousel reveal slide-left">
+        <div class="sam-track" id="samTrack">
+          <div class="sam-slide"><img src="https://i.imgur.com/bnem5Bj.jpeg" alt="SAM 2026"></div>
+          <div class="sam-slide"><img src="https://i.imgur.com/dialgdV.jpeg" alt="SAM 2026"></div>
+          <div class="sam-slide"><img src="https://i.imgur.com/et7tEMB.jpeg" alt="SAM 2026"></div>
+          <div class="sam-slide"><img src="https://i.imgur.com/7jUAXLM.jpeg" alt="SAM 2026"></div>
+          <div class="sam-slide"><img src="https://i.imgur.com/hYpgoAw.jpeg" alt="SAM 2026"></div>
+          <div class="sam-slide"><img src="https://i.imgur.com/6MeY7mE.jpeg" alt="SAM 2026"></div>
+          <div class="sam-slide"><img src="https://i.imgur.com/PXxIIXq.jpeg" alt="SAM 2026"></div>
+        </div>
+        <div class="sam-controls">
+          <button class="sam-arrow" onclick="samMove(-1)" aria-label="Anterior">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="sam-dots" id="samDots"></div>
+          <button class="sam-arrow" onclick="samMove(1)" aria-label="Siguiente">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
       <div class="logro-text reveal slide-right">
-        <p class="section-label">Nuestro trabajo</p>
-        <h2 class="section-title">Ganamos en el<br>SAM 2026</h2>
+        <p class="section-label">Reconocimiento</p>
+        <h2 class="section-title">Santiago Music<br>Video Awards 2026</h2>
         <div class="divider"></div>
-        <p>Selección oficial en el Santiago a Mil 2026. Un reconocimiento al trabajo audiovisual que hacemos con cada proyecto, poniendo en valor la producción independiente chilena.</p>
-        <p>Haz clic en la imagen para ver el trabajo completo en YouTube.</p>
+        <p>Seleccionados en el SAM 2026 en <strong style="color:var(--white)">tres categorías</strong>: Mejor Video, Mejor Coreografía y Mejor Actuación.</p>
+        <p>Ganadores del premio <strong style="color:var(--white)">Mejor Coreografía</strong>. Un reconocimiento al trabajo colectivo, la dirección y la visión creativa que pusimos en cada toma.</p>
         <a href="https://www.youtube.com/watch?v=lHeRSLsOWSU&list=RDlHeRSLsOWSU&start_radio=1"
            target="_blank" rel="noopener" class="btn-outline" style="margin-top:.5rem">
           Ver en YouTube →
@@ -525,104 +860,303 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 <!-- EQUIPO -->
 <section id="equipo">
   <div class="container">
-    <p class="section-label reveal slide-left">Las personas detrás</p>
-    <h2 class="section-title reveal slide-left">Nuestro equipo</h2>
+    <p class="section-label reveal slide-left">El equipo</p>
+    <h2 class="section-title reveal slide-left">Quiénes somos</h2>
     <div class="divider reveal"></div>
     <div class="equipo-tabs reveal" id="equipoTabs">
       <button class="tab-btn active" data-lista="fundadores">Fundadores</button>
       <button class="tab-btn" data-lista="colaboradores">Colaboradores</button>
     </div>
 
-    <!-- FUNDADORES -->
     <div class="equipo-list active" id="lista-fundadores">
-
       <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><img src="https://i.imgur.com/kxdvhvL.jpeg" alt="Francisco Palomo" onerror="this.style.display='none'"></div>
-          <div style="flex:1">
+          <div class="member-avatar"><img src="https://i.imgur.com/kxdvhvL.jpeg" alt="Francisco Palomo"></div>
+          <div class="member-header-text">
             <div class="member-name">Francisco Palomo</div>
-            <div class="member-role">Director de Postproducción y Tecnologías</div>
+            <div class="member-role-header">Director de Postproducción y Tecnologías · Fundador</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
-          <div class="member-body-content">
-            Fundador y accionario de Bolsillo Producciones SPA. 25 años. Director de Postproducción y Tecnologías en la empresa, responsable de la cadena de post-producción audiovisual y la infraestructura tecnológica del estudio.
+          <div class="member-card">
+            <div class="member-photo-col"><img src="https://i.imgur.com/kxdvhvL.jpeg" alt="Francisco Palomo"></div>
+            <div class="member-info-col">
+              <div class="member-info-name-row">
+                <div class="member-info-name">Francisco Palomo</div>
+                <a href="https://instagram.com/Frop0n" target="_blank" rel="noopener" class="member-ig-link" aria-label="Instagram @Frop0n">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                  @Frop0n
+                </a>
+              </div>
+              <div class="member-info-role">Director de Postproducción y Tecnologías</div>
+              <div class="member-info-bio">Fundador y accionario de Bolsillo Producciones SPA. 25 años. Responsable de la cadena de postproducción audiovisual y la infraestructura tecnológica del estudio. Lidera los procesos de edición, corrección de color y flujo técnico de cada proyecto.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row">
+                    <span class="member-tag">Premiere Pro</span>
+                    <span class="member-tag">After Effects</span>
+                    <span class="member-tag">Javascript</span>
+                  </div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row">
+                    <span class="member-tag">Tecnología</span>
+                    <span class="member-tag">Efectos Visuales</span>
+                    <span class="member-tag">Videojuegos</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div></div>
       </div>
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+        <div class="member-header">
+          <div class="member-avatar"><div class="member-avatar-ph">F2</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 2</div>
+            <div class="member-role-header">Cargo — próximamente</div>
+          </div>
+          <div class="member-toggle">+</div>
+        </div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">F2</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Fundador 2</div>
+              <div class="member-info-role">Cargo — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+        <div class="member-header">
+          <div class="member-avatar"><div class="member-avatar-ph">F3</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 3</div>
+            <div class="member-role-header">Cargo — próximamente</div>
+          </div>
+          <div class="member-toggle">+</div>
+        </div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">F3</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Fundador 3</div>
+              <div class="member-info-role">Cargo — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+        <div class="member-header">
+          <div class="member-avatar"><div class="member-avatar-ph">F4</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 4</div>
+            <div class="member-role-header">Cargo — próximamente</div>
+          </div>
+          <div class="member-toggle">+</div>
+        </div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">F4</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Fundador 4</div>
+              <div class="member-info-role">Cargo — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+        <div class="member-header">
+          <div class="member-avatar"><div class="member-avatar-ph">F5</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 5</div>
+            <div class="member-role-header">Cargo — próximamente</div>
+          </div>
+          <div class="member-toggle">+</div>
+        </div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">F5</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Fundador 5</div>
+              <div class="member-info-role">Cargo — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+        <div class="member-header">
+          <div class="member-avatar"><div class="member-avatar-ph">F6</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 6</div>
+            <div class="member-role-header">Cargo — próximamente</div>
+          </div>
+          <div class="member-toggle">+</div>
+        </div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">F6</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Fundador 6</div>
+              <div class="member-info-role">Cargo — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
 
-      <!-- 5 fundadores placeholder -->
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Fundador 2</div><div class="member-role">Cargo — próximamente</div></div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
-      </div>
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Fundador 3</div><div class="member-role">Cargo — próximamente</div></div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
-      </div>
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Fundador 4</div><div class="member-role">Cargo — próximamente</div></div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
-      </div>
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Fundador 5</div><div class="member-role">Cargo — próximamente</div></div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
-      </div>
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Fundador 6</div><div class="member-role">Cargo — próximamente</div></div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
-      </div>
-    </div><!-- end lista-fundadores -->
-
-    <!-- COLABORADORES -->
     <div class="equipo-list" id="lista-colaboradores">
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Colaborador 1</div><div class="member-role">Rol — próximamente</div></div>
+          <div class="member-avatar"><div class="member-avatar-ph">C1</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Colaborador 1</div>
+            <div class="member-role-header">Rol — próximamente</div>
+          </div>
           <div class="member-toggle">+</div>
         </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">C1</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Colaborador 1</div>
+              <div class="member-info-role">Rol — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Colaborador 2</div><div class="member-role">Rol — próximamente</div></div>
+          <div class="member-avatar"><div class="member-avatar-ph">C2</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Colaborador 2</div>
+            <div class="member-role-header">Rol — próximamente</div>
+          </div>
           <div class="member-toggle">+</div>
         </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">C2</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Colaborador 2</div>
+              <div class="member-info-role">Rol — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
-      <div class="member-row" onclick="toggleMember(this)" style="opacity:.45">
+      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">+</div></div>
-          <div style="flex:1"><div class="member-name" style="color:var(--muted)">Colaborador 3</div><div class="member-role">Rol — próximamente</div></div>
+          <div class="member-avatar"><div class="member-avatar-ph">C3</div></div>
+          <div class="member-header-text">
+            <div class="member-name" style="color:rgba(255,255,255,.3)">Colaborador 3</div>
+            <div class="member-role-header">Rol — próximamente</div>
+          </div>
           <div class="member-toggle">+</div>
         </div>
-        <div class="member-body"><div class="member-body-inner"><div class="member-body-content">Información próximamente.</div></div></div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><div class="member-photo-ph">C3</div></div>
+            <div class="member-info-col">
+              <div class="member-info-name">Colaborador 3</div>
+              <div class="member-info-role">Rol — próximamente</div>
+              <div class="member-info-bio">Información próximamente.</div>
+              <div class="member-info-bottom">
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Habilidades</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+                <div class="member-info-section">
+                  <div class="member-info-section-label">Intereses</div>
+                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
-    </div><!-- end lista-colaboradores -->
-
+    </div>
   </div>
 </section>
 
@@ -721,8 +1255,8 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
     <div class="footer-inner">
       <div class="footer-brand">BOLSILLO PRODUCCIONES SPA</div>
       <ul class="footer-links">
-        <li><a href="/fotografia">Fotografía</a></li>
-        <li><a href="/audiovisual">Audiovisual</a></li>
+        <li><a href="fotografia.html">Fotografía</a></li>
+        <li><a href="audiovisual.html">Audiovisual</a></li>
         <li><a href="#equipo">Equipo</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -784,6 +1318,43 @@ function toggleMember(row){
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal,.slide-left,.slide-right').forEach(el=>observer.observe(el));
 document.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>setTimeout(()=>{document.querySelectorAll('#hero .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*90));},150));});
+
+
+/* SAM Carousel */
+(function(){
+  const track=document.getElementById('samTrack');
+  if(!track)return;
+  const slides=track.querySelectorAll('.sam-slide');
+  const dotsWrap=document.getElementById('samDots');
+  let cur=0,total=slides.length,timer;
+
+  // Build dots
+  slides.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='sam-dot'+(i===0?' active':'');
+    d.onclick=()=>samGo(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function samGo(idx){
+    cur=(idx+total)%total;
+    track.style.transform=`translateX(-${cur*100}%)`;
+    dotsWrap.querySelectorAll('.sam-dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+    resetTimer();
+  }
+  window.samMove=function(dir){samGo(cur+dir);};
+
+  function resetTimer(){clearInterval(timer);timer=setInterval(()=>samGo(cur+1),4500);}
+  resetTimer();
+
+  // Touch swipe
+  let tx=0;
+  track.parentElement.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  track.parentElement.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>40)samGo(cur+(dx<0?1:-1));
+  },{passive:true});
+})();
 
 /* Form */
 function handleForm(e){e.preventDefault();document.getElementById('form-success').style.display='block';e.target.reset();}
