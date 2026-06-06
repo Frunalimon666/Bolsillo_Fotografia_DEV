@@ -615,18 +615,19 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 
 /* ── ANIMATIONS ── */
 /* Reveal animations — always defined so JS can toggle them */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease-out,transform .65s ease-out;}
-.reveal.in{opacity:1;transform:none;}
-.slide-left{opacity:0;transform:translateX(-28px);transition:opacity .55s ease-out,transform .55s ease-out;}
-.slide-left.in{opacity:1;transform:none;}
-.slide-right{opacity:0;transform:translateX(28px);transition:opacity .55s ease-out,transform .55s ease-out;}
-.slide-right.in{opacity:1;transform:none;}
-/* Reduced motion: skip animation entirely */
+/* Reveal animations — elements VISIBLE by default.
+   JS adds .js-animate to body to opt-in to animations.
+   If JS fails or is slow, content is always visible. */
+.js-animate .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease-out,transform .6s ease-out;}
+.js-animate .reveal.in{opacity:1;transform:none;}
+.js-animate .slide-left{opacity:0;transform:translateX(-24px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.js-animate .slide-left.in{opacity:1;transform:none;}
+.js-animate .slide-right{opacity:0;transform:translateX(24px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.js-animate .slide-right.in{opacity:1;transform:none;}
 @media(prefers-reduced-motion:reduce){
-  .reveal,.slide-left,.slide-right{
-    opacity:1!important;transform:none!important;
-    transition:none!important;
-  }
+  .js-animate .reveal,
+  .js-animate .slide-left,
+  .js-animate .slide-right{opacity:1!important;transform:none!important;transition:none!important;}
 }
 
 /* ── RESPONSIVE ── */
@@ -1468,33 +1469,39 @@ function toggleMember(row){
 }
 
 /* Scroll reveal */
-/* ── Scroll reveal — robust cross-browser ── */
-const _revealEls = document.querySelectorAll('.reveal,.slide-left,.slide-right');
+/* ── Scroll reveal — progressive enhancement ──
+   Content is visible without JS. Animations are opt-in. */
+(function() {
+  // Only animate if browser supports everything needed
+  if (!('IntersectionObserver' in window) || !('classList' in document.body)) return;
 
-// If IntersectionObserver not supported, show everything immediately
-if (!('IntersectionObserver' in window)) {
-  _revealEls.forEach(el => el.classList.add('in'));
-} else {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
+  // Opt-in: add .js-animate to body — this is what hides elements initially
+  // Do it before first paint to avoid FOUC
+  document.body.classList.add('js-animate');
+
+  const revealEls = Array.from(document.querySelectorAll('.reveal,.slide-left,.slide-right'));
+  if (!revealEls.length) return;
+
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
       if (e.isIntersecting) {
         e.target.classList.add('in');
-        observer.unobserve(e.target);
+        io.unobserve(e.target);
       }
     });
-  }, {
-    threshold: 0,        // fire as soon as 1px is visible
-    rootMargin: '0px 0px -20px 0px'  // small bottom offset only
-  });
-  _revealEls.forEach(el => observer.observe(el));
-}
+  }, { threshold: 0, rootMargin: '0px' });
 
-// Safety net: after 2.5s, force-show anything still hidden
-// (catches cases where observer fires but class never adds)
-setTimeout(() => {
-  document.querySelectorAll('.reveal:not(.in), .slide-left:not(.in), .slide-right:not(.in)')
-    .forEach(el => el.classList.add('in'));
-}, 2500);
+  revealEls.forEach(function(el) { io.observe(el); });
+
+  // Hard fallback: 1.5s after load, show everything
+  // Short timeout = snappy; long enough for observer to fire first
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.body.classList.remove('js-animate');
+      revealEls.forEach(function(el) { el.classList.add('in'); });
+    }, 1500);
+  });
+})();
 document.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>setTimeout(()=>{document.querySelectorAll('#hero .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*90));},150));});
 
 
