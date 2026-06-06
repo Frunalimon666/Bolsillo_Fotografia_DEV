@@ -21,9 +21,9 @@ img{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
 button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit;}
 
-#galaxy{position:fixed;inset:0;z-index:0;pointer-events:none;}
+#galaxy{position:fixed;inset:0;z-index:0;pointer-events:none;will-change:transform;}
 /* Content isolation — ensures everything renders above the canvas on all browsers */
-#page-wrap{position:relative;z-index:1;isolation:isolate;}
+#page-wrap{position:relative;z-index:1;}
 /* body::after removed — gradient baked into galaxy canvas */
 nav,section,footer,.strip,.mobile-menu{position:relative;z-index:2;}
 
@@ -614,15 +614,20 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 .footer-copy{font-size:.62rem;font-weight:300;color:rgba(255,255,255,.35);text-align:right;}
 
 /* ── ANIMATIONS ── */
-@media(prefers-reduced-motion:no-preference){
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease-out,transform .65s ease-out;}
-  .reveal.in{opacity:1;transform:translateY(0);}
-  .slide-left{opacity:0;transform:translateX(-28px);transition:opacity .55s ease-out,transform .55s ease-out;}
-  .slide-left.in{opacity:1;transform:translateX(0);}
-  .slide-right{opacity:0;transform:translateX(28px);transition:opacity .55s ease-out,transform .55s ease-out;}
-  .slide-right.in{opacity:1;transform:translateX(0);}
+/* Reveal animations — always defined so JS can toggle them */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease-out,transform .65s ease-out;}
+.reveal.in{opacity:1;transform:none;}
+.slide-left{opacity:0;transform:translateX(-28px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.slide-left.in{opacity:1;transform:none;}
+.slide-right{opacity:0;transform:translateX(28px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.slide-right.in{opacity:1;transform:none;}
+/* Reduced motion: skip animation entirely */
+@media(prefers-reduced-motion:reduce){
+  .reveal,.slide-left,.slide-right{
+    opacity:1!important;transform:none!important;
+    transition:none!important;
+  }
 }
-@media(prefers-reduced-motion:reduce){.reveal,.slide-left,.slide-right{opacity:1!important;transform:none!important;}}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -1463,8 +1468,33 @@ function toggleMember(row){
 }
 
 /* Scroll reveal */
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target);}});},{threshold:.1});
-document.querySelectorAll('.reveal,.slide-left,.slide-right').forEach(el=>observer.observe(el));
+/* ── Scroll reveal — robust cross-browser ── */
+const _revealEls = document.querySelectorAll('.reveal,.slide-left,.slide-right');
+
+// If IntersectionObserver not supported, show everything immediately
+if (!('IntersectionObserver' in window)) {
+  _revealEls.forEach(el => el.classList.add('in'));
+} else {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, {
+    threshold: 0,        // fire as soon as 1px is visible
+    rootMargin: '0px 0px -20px 0px'  // small bottom offset only
+  });
+  _revealEls.forEach(el => observer.observe(el));
+}
+
+// Safety net: after 2.5s, force-show anything still hidden
+// (catches cases where observer fires but class never adds)
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.in), .slide-left:not(.in), .slide-right:not(.in)')
+    .forEach(el => el.classList.add('in'));
+}, 2500);
 document.addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>setTimeout(()=>{document.querySelectorAll('#hero .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*90));},150));});
 
 
