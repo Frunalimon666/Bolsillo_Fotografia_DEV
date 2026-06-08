@@ -490,6 +490,129 @@ section { padding: 6rem 0; }
   transition: border-color .28s;
 }
 .cat-item.open { border-color: rgba(255,255,255,.3); }
+/* Oferta de inauguración — borde verde en Retratos */
+#cat-retratos { border-color: rgba(74,168,74,.45); }
+#cat-retratos.open { border-color: rgba(74,168,74,.75); }
+
+/* Offer floating dot on cat-header */
+.cat-offer-dot {
+  position: relative;
+  width: 10px; height: 10px; flex-shrink: 0;
+}
+.cat-offer-dot::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: #4ade80;
+}
+.cat-offer-dot::after {
+  content: '';
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(74,222,128,.5);
+  animation: offerPulse 1.8s ease-out infinite;
+}
+@keyframes offerPulse {
+  0%   { transform: scale(.7); opacity: .9; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(.7); opacity: 0; }
+}
+
+/* Offer pill in header */
+.cat-offer-pill {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: rgba(74,168,74,.15); border: 1px solid rgba(74,168,74,.4);
+  border-radius: 20px; padding: .2rem .65rem .2rem .5rem;
+  font-size: .56rem; font-family: var(--font-h); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #6ed46e; flex-shrink: 0;
+}
+
+.cat-countdown {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .62rem; font-family: var(--font-h); font-weight: 300;
+  letter-spacing: .06em; color: rgba(110,212,110,.7);
+}
+.cat-countdown-units {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(74,168,74,.1); border: 1px solid rgba(74,168,74,.28);
+  border-radius: 6px; padding: .28rem .55rem;
+  white-space: nowrap;
+}
+.cat-countdown-unit {
+  display: flex; flex-direction: column; align-items: center;
+  width: 32px;
+}
+.cat-countdown-n {
+  font-family: var(--font-h); font-size: .72rem; font-weight: 700;
+  color: #6ed46e; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.cat-countdown-l {
+  font-size: .38rem; letter-spacing: .07em; color: rgba(110,212,110,.5);
+  text-transform: uppercase; margin-top: .15rem;
+}
+.cat-countdown-sep {
+  font-family: var(--font-h); font-size: .72rem; font-weight: 300;
+  color: rgba(110,212,110,.35); line-height: 1;
+  align-self: flex-start; padding: 0 .05rem; margin-top: .01rem;
+}
+
+/* TC checkbox in booking form */
+.booking-tc-wrap {
+  display: flex; align-items: flex-start; gap: .65rem;
+  margin-top: .9rem; margin-bottom: .1rem;
+  padding: .75rem .9rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+}
+.booking-tc-input {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+  border: 1.5px solid rgba(255,255,255,.3);
+  border-radius: 4px; background: rgba(255,255,255,.06);
+  cursor: pointer; transition: background .2s, border-color .2s;
+  position: relative;
+}
+.booking-tc-input:checked {
+  background: #4ade80; border-color: #4ade80;
+}
+.booking-tc-input:checked::after {
+  content: '';
+  position: absolute; left: 4px; top: 1px;
+  width: 6px; height: 10px;
+  border: 2px solid #0a0a0b; border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.booking-tc-label {
+  font-size: .78rem; font-weight: 300;
+  color: rgba(255,255,255,.5); line-height: 1.6; cursor: pointer;
+}
+.booking-tc-label a {
+  color: rgba(255,255,255,.8);
+  border-bottom: 1px solid rgba(255,255,255,.25);
+  transition: color .2s, border-color .2s;
+}
+.booking-tc-label a:hover { color: #fff; border-color: rgba(255,255,255,.6); }
+.booking-submit:disabled {
+  background: rgba(255,255,255,.15) !important;
+  color: rgba(255,255,255,.3) !important;
+  cursor: not-allowed !important;
+}
+
+.cat-offer-badge {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: rgba(74,168,74,.15); border: 1px solid rgba(74,168,74,.35);
+  border-radius: 20px; padding: .18rem .7rem;
+  font-size: .58rem; font-family: var(--font-h); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #6ed46e; margin-bottom: .8rem;
+}
+.cat-offer-desc {
+  font-size: .82rem; font-weight: 300;
+  color: rgba(110,212,110,.75); font-style: italic;
+  margin-bottom: 1.4rem; line-height: 1.7;
+}
 
 .cat-header {
   display: flex;
@@ -1600,112 +1723,80 @@ footer {
 }
 .modal-btn-cancel:hover { color: var(--white); border-color: rgba(255,255,255,.3); }
 
-/* ═══════════════════════════════════════
-   T&C ENTRY MODAL (first visit)
-═══════════════════════════════════════ */
-.tc-modal-overlay {
-  display: none;
-  position: fixed; inset: 0; z-index: 600;
-  background: rgba(5,5,6,.95);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  align-items: center; justify-content: center;
-  padding: 1.5rem;
-}
-.tc-modal-overlay.open { display: flex; }
-
-.tc-modal-box {
-  background: #111112;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 20px;
-  padding: 2.2rem 2rem;
-  max-width: 520px;
-  width: 100%;
-  max-height: 90vh;
-  display: flex; flex-direction: column;
-  gap: 1.2rem;
-  animation: modalIn .4s cubic-bezier(.4,0,.2,1);
-}
-.tc-modal-header {
-  display: flex; align-items: center; gap: 1rem;
-}
-.tc-modal-icon {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 50%;
-  background: rgba(255,255,255,.07);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-}
-.tc-modal-header h2 {
-  font-family: var(--font-h); font-size: .92rem; font-weight: 600;
-  color: var(--white); line-height: 1.3;
-}
-.tc-modal-scroll {
-  background: rgba(255,255,255,.03);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.1rem;
-  max-height: 260px;
-  overflow-y: auto;
-  font-size: .78rem; font-weight: 300; color: var(--mid);
-  line-height: 1.8;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,.15) transparent;
-}
-.tc-modal-scroll::-webkit-scrollbar { width: 4px; }
-.tc-modal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 2px; }
-.tc-modal-scroll h4 {
-  font-family: var(--font-h); font-size: .7rem; font-weight: 500;
-  color: rgba(255,255,255,.7); margin: 1rem 0 .3rem; letter-spacing: .04em;
-}
-.tc-modal-scroll h4:first-child { margin-top: 0; }
-.tc-modal-scroll p { margin-bottom: .4rem; }
-
-.tc-modal-check-label {
-  display: flex; align-items: flex-start; gap: .75rem;
-  font-size: .83rem; font-weight: 300; color: var(--mid);
-  line-height: 1.6; cursor: pointer;
-}
-.tc-modal-check-input {
-  appearance: none; -webkit-appearance: none;
-  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
-  border: 1px solid rgba(255,255,255,.25);
-  border-radius: 4px; background: rgba(255,255,255,.06);
-  cursor: pointer; transition: background .2s; position: relative;
-}
-.tc-modal-check-input:checked { background: rgba(255,255,255,.9); border-color: rgba(255,255,255,.9); }
-.tc-modal-check-input:checked::after {
-  content: ''; position: absolute; left: 4px; top: 1px;
-  width: 6px; height: 10px;
-  border: 2px solid #0A0A0A; border-top: none; border-left: none;
-  transform: rotate(45deg);
-}
-.tc-modal-link {
-  color: var(--white);
-  border-bottom: 1px solid rgba(255,255,255,.3);
-  transition: border-color .2s;
-}
-.tc-modal-link:hover { border-color: var(--white); }
-
-.tc-modal-btn {
-  width: 100%;
-  padding: .85rem;
-  background: rgba(255,255,255,.92);
-  color: #0A0A0A;
-  font-family: var(--font-h); font-size: .68rem;
-  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
-  border-radius: 40px; border: none; cursor: pointer;
-  transition: background .2s, opacity .2s;
-}
-.tc-modal-btn:disabled { opacity: .35; cursor: not-allowed; }
-.tc-modal-btn:not(:disabled):hover { background: #fff; }
-
 @media (max-width: 500px) {
-  .modal-box, .tc-modal-box { padding: 1.8rem 1.4rem; }
+  .modal-box { padding: 1.8rem 1.4rem; }
   .modal-actions { flex-direction: column; }
   .modal-btn-primary, .modal-btn-cancel { text-align: center; justify-content: center; }
 }
+
+/* ── T&C Reader Modal (from booking form) ── */
+.tc-reader-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(5,5,6,.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.tc-reader-overlay.open { display: flex; }
+.tc-reader-box {
+  background: #111112;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  width: 100%; max-width: 520px;
+  max-height: 85vh;
+  display: flex; flex-direction: column;
+  animation: modalIn .35s cubic-bezier(.4,0,.2,1);
+  overflow: hidden;
+}
+.tc-reader-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 1.8rem 1.1rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  flex-shrink: 0;
+}
+.tc-reader-head h3 {
+  font-family: var(--font-h); font-size: .82rem; font-weight: 600;
+  color: var(--white); letter-spacing: .02em;
+}
+.tc-reader-close {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.15);
+  background: transparent; color: var(--muted);
+  font-size: .75rem; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s, color .2s; flex-shrink: 0;
+}
+.tc-reader-close:hover { background: rgba(255,255,255,.08); color: var(--white); }
+.tc-reader-scroll {
+  flex: 1; overflow-y: auto; padding: 1.4rem 1.8rem;
+  font-size: .82rem; font-weight: 300; color: rgba(255,255,255,.6);
+  line-height: 1.85;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.15) transparent;
+}
+.tc-reader-scroll::-webkit-scrollbar { width: 4px; }
+.tc-reader-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 2px; }
+.tc-reader-scroll h4 {
+  font-family: var(--font-h); font-size: .65rem; font-weight: 500;
+  color: rgba(255,255,255,.7); margin: 1.2rem 0 .3rem; letter-spacing: .04em;
+}
+.tc-reader-scroll h4:first-child { margin-top: 0; }
+.tc-reader-scroll p { margin-bottom: .4rem; }
+.tc-reader-foot {
+  padding: 1.1rem 1.8rem 1.4rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  flex-shrink: 0;
+}
+.tc-reader-accept {
+  width: 100%; padding: .82rem;
+  background: #4ade80; color: #0a0a0b;
+  font-family: var(--font-h); font-size: .68rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  border-radius: 40px; border: none; cursor: pointer;
+  transition: background .2s;
+}
+.tc-reader-accept:hover { background: #86efac; }
 
 
 /* ═══════════════════════════════════════
@@ -1892,7 +1983,6 @@ footer {
 .footer-brand,
 .form-label,
 .modal-box h3,
-.tc-modal-header h2,
 .agenda-cta-text h3,
 .price-amount,
 .acn-new,
@@ -1913,7 +2003,7 @@ footer {
 /* Inter for all body text */
 body, .contact-info p, .agenda-cta-text p,
 .price-includes, .acn-features li,
-.agenda-features li, .tc-modal-scroll {
+.agenda-features li {
   font-family: var(--font-b);
 }
 
@@ -2516,85 +2606,6 @@ body, .contact-info p, .agenda-cta-text p,
   <div class="strip-track" aria-hidden="true"><span>RETRATOS EN ESTUDIO</span><span class="dot">·</span><span>FOTOGRAFÍA GASTRONÓMICA</span><span class="dot">·</span><span>MARCAS Y PRODUCTOS</span><span class="dot">·</span><span>EVENTOS SOCIALES</span><span class="dot">·</span><span>CORPORATIVO</span><span class="dot">·</span><span>CONCIERTOS Y CULTURA</span><span class="dot">·</span></div>
 </div>
 
-<!-- AGENDA -->
-<section id="agenda">
-  <div class="container">
-    <p class="section-label reveal slide-left">Precios de estudio</p>
-    <h2 class="section-title reveal slide-left">Oferta de Inauguración</h2>
-    <div class="divider reveal slide-left"></div>
-    <div class="agenda-intro reveal slide-up">
-      <p class="agenda-intro-main">Por tiempo limitado, con motivo de la inauguración de nuestro estudio fotográfico, te regalamos <strong>17% de descuento</strong> en todos los planes en sesión de estudio.</p>
-      <p class="agenda-intro-sub">Atención de lunes a domingo, 10:00 a 22:00 hrs.</p>
-    </div>
-    <div class="agenda-cards-new reveal slide-up">
-
-      <div class="agenda-card-new" data-selectable="true" data-service="Retratos en estudio (Oferta Inauguración)" data-price-old="$30.000" data-price-new="$25.000">
-        <div class="acn-top">
-          <div class="acn-prices">
-            <span class="acn-old">$30.000</span>
-            <span class="acn-new">$25.000</span>
-          </div>
-          
-        </div>
-        <ul class="acn-features">
-          <li>15 entregables</li>
-          <li>30 minutos</li>
-          <li>1 look</li>
-          <li>Edición básica</li>
-          <li>2 personas máx.</li>
-        </ul>
-        <div class="acn-bottom">
-          <span class="acn-tier">Económico</span>
-          <span class="acn-discount">−17%</span>
-        </div>
-      </div>
-
-      <div class="agenda-card-new acn-featured" data-selectable="true" data-service="Retratos en estudio (Oferta Inauguración)" data-price-old="$60.000" data-price-new="$50.000">
-        <div class="acn-top">
-          <div class="acn-prices">
-            <span class="acn-old">$60.000</span>
-            <span class="acn-new">$50.000</span>
-          </div>
-          
-        </div>
-        <ul class="acn-features">
-          <li>30 entregables</li>
-          <li>60 minutos</li>
-          <li>2 looks</li>
-          <li>Edición standard</li>
-          <li>4 personas máx.</li>
-        </ul>
-        <div class="acn-bottom">
-          <span class="acn-tier">Studio</span>
-          <span class="acn-discount">−17%</span>
-        </div>
-      </div>
-
-      <div class="agenda-card-new" data-selectable="true" data-service="Retratos en estudio (Oferta Inauguración)" data-price-old="$120.000" data-price-new="$100.000">
-        <div class="acn-top">
-          <div class="acn-prices">
-            <span class="acn-old">$120.000</span>
-            <span class="acn-new">$100.000</span>
-          </div>
-          
-        </div>
-        <ul class="acn-features">
-          <li>50 entregables</li>
-          <li>180 minutos</li>
-          <li>Hasta 4 looks</li>
-          <li>Edición extensa</li>
-          <li>6 personas máx.</li>
-        </ul>
-        <div class="acn-bottom">
-          <span class="acn-tier">Studio +</span>
-          <span class="acn-discount">−17%</span>
-        </div>
-      </div>
-
-    </div>
-
-</section>
-
 <!-- CATEGORÍAS -->
 <section id="categorias" style="padding-top:3rem">
   <div class="container">
@@ -2609,7 +2620,21 @@ body, .contact-info p, .agenda-cta-text p,
           <div class="cat-header-left">
             <div class="cat-icon">01</div>
             <div>
-              <div class="cat-name">Retratos en estudio</div>
+              <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+                <div class="cat-name">Retratos en estudio</div>
+                <div class="cat-countdown">
+                  <span>Oferta termina en</span>
+                  <div class="cat-countdown-units">
+                    <div class="cat-countdown-unit"><span class="cat-countdown-n" id="cdDays">--</span><span class="cat-countdown-l">días</span></div>
+                    <span class="cat-countdown-sep">:</span>
+                    <div class="cat-countdown-unit"><span class="cat-countdown-n" id="cdHours">--</span><span class="cat-countdown-l">hrs</span></div>
+                    <span class="cat-countdown-sep">:</span>
+                    <div class="cat-countdown-unit"><span class="cat-countdown-n" id="cdMins">--</span><span class="cat-countdown-l">min</span></div>
+                    <span class="cat-countdown-sep">:</span>
+                    <div class="cat-countdown-unit"><span class="cat-countdown-n" id="cdSecs">--</span><span class="cat-countdown-l">seg</span></div>
+                  </div>
+                </div>
+              </div>
               <div class="cat-desc-short">Artistas · Niños · Familias · Actores · Modelos · Perfiles creativos</div>
             </div>
           </div>
@@ -2621,6 +2646,8 @@ body, .contact-info p, .agenda-cta-text p,
           <div class="cat-toggle">+</div>
         </div>
         <div class="cat-body"><div class="cat-body-inner">
+          <div class="cat-offer-badge">✦ Oferta de Inauguración — 17% descuento</div>
+          <p class="cat-offer-desc">Por tiempo limitado, con motivo de la inauguración de nuestro estudio. Atención lunes a domingo, 10:00 a 22:00 hrs.</p>
           <p style="color:rgba(255,255,255,.62);font-size:.93rem;font-weight:300;margin-bottom:1.5rem;line-height:1.9">Sesiones en estudio con fondos profesionales, iluminación de flash controlada y dirección de pose. Para cualquier persona que quiera verse increíble.</p>
           <div class="photo-grid cols-3">
             <img src="https://live.staticflickr.com/65535/55313190446_ba5d1ce40b_b.jpg" alt="Retrato en estudio" loading="lazy">
@@ -2631,26 +2658,29 @@ body, .contact-info p, .agenda-cta-text p,
             <img src="https://live.staticflickr.com/65535/55313595925_3c19e029b5_b.jpg" alt="Retrato en estudio" loading="lazy">
           </div>
           <div class="cat-pricing">
-            <div class="price-card slide-up" data-selectable="true" data-service="Retratos en estudio">
+            <div class="price-card slide-up" data-selectable="true" data-service="Retratos en estudio" data-price-old="$30.000" data-price-new="$25.000">
               <div class="price-tier">Económico</div>
-              <div class="price-amount">$30.000</div>
+              <div class="price-amount"><span style="font-size:.75em;opacity:.45;text-decoration:line-through;margin-right:.3em">$30.000</span>$25.000</div>
               <ul class="price-includes">
                 <li>15 entregables</li><li>30 minutos</li><li>1 look</li><li>Edición básica</li><li>2 personas máx.</li>
               </ul>
+              <div style="margin-top:.6rem;font-size:.6rem;font-family:var(--font-h);letter-spacing:.1em;color:#6ed46e">−17% oferta inauguración</div>
             </div>
-            <div class="price-card featured slide-up" data-selectable="true" data-service="Retratos en estudio">
+            <div class="price-card featured slide-up" data-selectable="true" data-service="Retratos en estudio" data-price-old="$60.000" data-price-new="$50.000">
               <div class="price-tier">Studio</div>
-              <div class="price-amount">$60.000</div>
+              <div class="price-amount"><span style="font-size:.75em;opacity:.45;text-decoration:line-through;margin-right:.3em">$60.000</span>$50.000</div>
               <ul class="price-includes">
                 <li>30 entregables</li><li>60 minutos</li><li>2 looks</li><li>Edición standard</li><li>4 personas máx.</li>
               </ul>
+              <div style="margin-top:.6rem;font-size:.6rem;font-family:var(--font-h);letter-spacing:.1em;color:#6ed46e">−17% oferta inauguración</div>
             </div>
-            <div class="price-card slide-up" data-selectable="true" data-service="Retratos en estudio">
+            <div class="price-card slide-up" data-selectable="true" data-service="Retratos en estudio" data-price-old="$120.000" data-price-new="$100.000">
               <div class="price-tier">Studio +</div>
-              <div class="price-amount">$120.000</div>
+              <div class="price-amount"><span style="font-size:.75em;opacity:.45;text-decoration:line-through;margin-right:.3em">$120.000</span>$100.000</div>
               <ul class="price-includes">
                 <li>50 entregables</li><li>180 minutos</li><li>Hasta 4 looks</li><li>Edición extensa</li><li>6 personas máx.</li>
               </ul>
+              <div style="margin-top:.6rem;font-size:.6rem;font-family:var(--font-h);letter-spacing:.1em;color:#6ed46e">−17% oferta inauguración</div>
             </div>
           </div>
         </div></div>
@@ -2960,7 +2990,10 @@ body, .contact-info p, .agenda-cta-text p,
       </div>
     </div>
     <div class="agenda-cta-secondary reveal slide-up">
-      <p>¿Se te ocurrió algo que a nosotros no? <a href="#contacto" class="link-inline">Escríbenos igual y conversemos</a> — si está dentro de nuestras capacidades, lo hacemos.</p>
+      <div>
+        <p style="font-family:var(--font-h);font-size:.95rem;font-weight:600;letter-spacing:.04em;color:var(--white);margin-bottom:.6rem;font-style:normal">¿Se te ocurrió algo que a nosotros no?</p>
+        <p><a href="#contacto" class="link-inline">Escríbenos igual y conversemos</a> — si está dentro de nuestras capacidades, lo hacemos.</p>
+      </div>
       <a href="https://wa.me/56986740998" target="_blank" class="btn-glass" style="white-space:nowrap;font-size:.75rem">WhatsApp →</a>
     </div>
   </div>
@@ -3033,7 +3066,6 @@ body, .contact-info p, .agenda-cta-text p,
     </div>
   </div>
 </section>
-
 
 <!-- PORTAFOLIO DEL FOTÓGRAFO -->
 <section id="fotografo">
@@ -3325,19 +3357,76 @@ document.querySelectorAll('.photo-grid img').forEach(img => {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 
-/* ── T&C Entry modal ─────────────────── */
-function toggleTcAccept() {
-  const cb = document.getElementById('tcEntryCheck');
-  document.getElementById('tcAcceptBtn').disabled = !cb.checked;
+/* ── T&C checkbox in booking form ─────── */
+function toggleBookingSubmit() {
+  var cb  = document.getElementById('bookingTcCheck');
+  var btn = document.getElementById('bookingSubmitBtn');
+  btn.disabled = !cb.checked;
 }
-function acceptTc() {
-  document.getElementById('tcEntryModal').classList.remove('open');
-  try { sessionStorage.setItem('bolsillo_tc_accepted', '1'); } catch(e) {}
+
+/* Intercept first click on TC checkbox — open modal instead */
+document.addEventListener('DOMContentLoaded', function() {
+  var cb = document.getElementById('bookingTcCheck');
+  if (cb) {
+    cb.addEventListener('click', function(e) {
+      if (!cb.checked) return; // unchecking is always allowed
+      e.preventDefault();      // don't check yet
+      openTcReader();
+    });
+  }
+});
+
+function openTcReader() {
+  document.getElementById('tcReaderModal').classList.add('open');
+  // Scroll to top of content
+  var scroll = document.querySelector('.tc-reader-scroll');
+  if (scroll) scroll.scrollTop = 0;
 }
-// Re-show if not accepted this session
+
+function closeTcReader() {
+  document.getElementById('tcReaderModal').classList.remove('open');
+}
+
+function acceptTcFromReader() {
+  closeTcReader();
+  var cb  = document.getElementById('bookingTcCheck');
+  var btn = document.getElementById('bookingSubmitBtn');
+  if (cb)  cb.checked = true;
+  if (btn) btn.disabled = false;
+}
+
+/* ── Offer countdown timer ───────────── */
 (function() {
-  try { if (sessionStorage.getItem('bolsillo_tc_accepted')) document.getElementById('tcEntryModal').classList.remove('open'); }
-  catch(e) {}
+  // End: July 1st of current year (or next if already past)
+  var now = new Date();
+  var end = new Date(now.getFullYear(), 6, 1, 0, 0, 0); // month is 0-indexed: 6 = July
+  if (now >= end) end = new Date(now.getFullYear() + 1, 6, 1, 0, 0, 0);
+
+  function update() {
+    var diff = end - new Date();
+    if (diff <= 0) {
+      ['cdDays','cdHours','cdMins','cdSecs'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = '00';
+      });
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    var dEl = document.getElementById('cdDays');
+    var hEl = document.getElementById('cdHours');
+    var mEl = document.getElementById('cdMins');
+    var sEl = document.getElementById('cdSecs');
+    if (dEl) dEl.textContent = pad(d);
+    if (hEl) hEl.textContent = pad(h);
+    if (mEl) mEl.textContent = pad(m);
+    if (sEl) sEl.textContent = pad(s);
+  }
+  update();
+  setInterval(update, 1000);
 })();
 
 /* ── Calendly redirect modal ─────────── */
@@ -3435,13 +3524,20 @@ function formatPrice(n) {
 function toggleCardSelection(card) {
   var service   = card.getAttribute('data-service');
   var planEl    = card.querySelector('.price-tier') || card.querySelector('.acn-tier');
-  var priceEl   = card.querySelector('.price-amount') || card.querySelector('.acn-new');
   var plan      = planEl  ? planEl.textContent.trim()  : '—';
-  var priceStr  = priceEl ? priceEl.textContent.trim() : '$0';
-  var priceNum  = parsePrice(priceStr);
-  /* Offer pricing — old price crossed out */
+  /* Offer pricing — prefer data-price-new if set */
   var priceOld  = card.getAttribute('data-price-old') || null;
-  var isOffer   = !!priceOld;
+  var priceNewAttr = card.getAttribute('data-price-new') || null;
+  var isOffer   = !!priceOld && !!priceNewAttr;
+  var priceStr, priceNum;
+  if (isOffer) {
+    priceStr = priceNewAttr;
+    priceNum = parsePrice(priceStr);
+  } else {
+    var priceEl = card.querySelector('.price-amount') || card.querySelector('.acn-new');
+    priceStr  = priceEl ? priceEl.textContent.trim() : '$0';
+    priceNum  = parsePrice(priceStr);
+  }
 
   if (card.classList.contains('selected')) {
     /* Deselect — remove from cart */
@@ -3532,6 +3628,11 @@ function toggleCart() {
 function showBookingForm() {
   document.getElementById('cartStep1').style.display = 'none';
   document.getElementById('cartStep2').style.display = 'block';
+  // Reset TC checkbox and disable submit
+  var cb = document.getElementById('bookingTcCheck');
+  var btn = document.getElementById('bookingSubmitBtn');
+  if (cb) cb.checked = false;
+  if (btn) btn.disabled = true;
 }
 function showCartStep1() {
   document.getElementById('cartStep1').style.display = 'block';
@@ -3634,7 +3735,26 @@ document.addEventListener('DOMContentLoaded', function() {
     setProgress(total); // ensure 100% shows
     setTimeout(function() {
       if (loader) loader.classList.add('hidden');
-      setTimeout(function() { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 700);
+      setTimeout(function() {
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+        /* ── Hash navigation: open + scroll to category ── */
+        var hash = window.location.hash;
+        if (hash) {
+          var catId = hash.replace('#', '');
+          var target = document.getElementById(catId);
+          if (target && !target.classList.contains('open')) {
+            target.classList.add('open');
+          }
+          if (target) {
+            setTimeout(function() {
+              var navbar = document.getElementById('navbar');
+              var navH = navbar ? navbar.offsetHeight + 12 : 80;
+              var top = window.pageYOffset + target.getBoundingClientRect().top - navH;
+              window.scrollTo({ top: top, behavior: 'smooth' });
+            }, 80);
+          }
+        }
+      }, 700);
     }, 350);
   }
 
@@ -3693,6 +3813,50 @@ function handleForm(e) {
 */
 </script>
 
+<!-- ── T&C READER MODAL (from booking form) ─── -->
+<div class="tc-reader-overlay" id="tcReaderModal">
+  <div class="tc-reader-box" role="dialog" aria-modal="true" aria-labelledby="tcrTitle">
+    <div class="tc-reader-head">
+      <h3 id="tcrTitle">Términos y Condiciones</h3>
+      <button class="tc-reader-close" onclick="closeTcReader()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="tc-reader-scroll">
+      <p>Al contratar cualquiera de nuestros servicios, el cliente declara haber leído, entendido y aceptado las siguientes condiciones generales.</p>
+      <h4>1. Reserva de fecha / sesión</h4>
+      <p>La fecha queda bloqueada al recibir el anticipo del 50%. Sin este pago, la fecha permanece disponible para otros clientes.</p>
+      <h4>2. Anticipo y forma de pago</h4>
+      <p>Anticipo del 50% al confirmar la reserva. El saldo restante debe cancelarse antes o el día del servicio, por transferencia bancaria.</p>
+      <h4>3. Reagendamiento</h4>
+      <p>Una vez sin costo con al menos 4 días hábiles de anticipación. Una segunda modificación puede implicar cargo administrativo.</p>
+      <h4>4. Cancelaciones por parte del cliente</h4>
+      <p>+15 días: devolución del 50% del anticipo. −15 días: sin devolución. Fuerza mayor debidamente acreditada: reembolso total o reprogramación sin costo.</p>
+      <h4>5. Cancelaciones por fuerza mayor</h4>
+      <p>En caso de fuerza mayor (desastre natural, accidente, enfermedad grave debidamente acreditada), se reprograma la sesión sin costo o se devuelve el 100% del anticipo, a elección del cliente.</p>
+      <h4>6. Responsabilidad por fallo técnico</h4>
+      <p>Si ocurre una falla de equipo imputable a Bolsillo Producciones que impida la realización o entrega del servicio, se ofrecerá reembolso o reprogramación sin costo, a elección del cliente.</p>
+      <h4>7. Edición y estilo fotográfico</h4>
+      <p>Las imágenes se editan bajo el estilo personal del fotógrafo (color, tono, retoque). No se realizan montajes digitales ni cambios de fondo sin acuerdo previo. No se utiliza inteligencia artificial generativa en ninguna etapa del proceso.</p>
+      <h4>8. Entrega de archivos</h4>
+      <p>Las fotografías se entregan en galería digital privada de alta resolución en formato JPG, dentro de los plazos indicados en cada paquete.</p>
+      <h4>9. RAW y archivos originales</h4>
+      <p>Los archivos RAW no se entregan por defecto. Disponibles como add-on con costo adicional de $100.000 CLP.</p>
+      <h4>10. Derechos de imagen</h4>
+      <p>El fotógrafo se reserva el derecho de publicar las imágenes en su portafolio y redes sociales, salvo indicación escrita contraria antes de la sesión.</p>
+      <h4>11. Propiedad intelectual</h4>
+      <p>Las fotografías son propiedad intelectual de Bolsillo Producciones. Se otorga licencia de uso personal o comercial según el paquete. Queda prohibida la reventa a terceros.</p>
+      <h4>12. Traslados</h4>
+      <p>Incluidos hasta 25 km del estudio en Constitución 8, Bellavista. Fuera de ese radio se cotiza por separado.</p>
+      <h4>13. IVA y documentos tributarios</h4>
+      <p>Todos los precios son netos (sin IVA). Boleta o factura agrega el 19%.</p>
+      <h4>14. Vigencia de cotizaciones</h4>
+      <p>Las cotizaciones tienen validez de 15 días desde su emisión. Transcurrido ese plazo, los precios pueden actualizarse sin previo aviso.</p>
+    </div>
+    <div class="tc-reader-foot">
+      <button class="tc-reader-accept" onclick="acceptTcFromReader()">He leído y acepto los Términos →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── CALENDLY REDIRECT MODAL ─────────────── -->
 <div class="modal-overlay" id="calendlyModal">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="cmTitle">
@@ -3708,45 +3872,6 @@ function handleForm(e) {
     </div>
   </div>
 </div>
-
-<!-- ── T&C ENTRY MODAL (first visit) ────────── -->
-<div class="tc-modal-overlay open" id="tcEntryModal">
-  <div class="tc-modal-box" role="dialog" aria-modal="true" aria-labelledby="tcTitle">
-    <div class="tc-modal-header">
-      <div class="tc-modal-icon">📋</div>
-      <h2 id="tcTitle">Términos y Condiciones<br>Bolsillo Producciones</h2>
-    </div>
-    <div class="tc-modal-scroll">
-      <p>Al utilizar este sitio web y contratar nuestros servicios, el cliente declara haber leído, entendido y aceptado las condiciones generales de Bolsillo Producciones SPA.</p>
-      <h4>1. Reserva de fecha</h4>
-      <p>La fecha queda bloqueada al recibir el anticipo (30–50%) y la firma del contrato.</p>
-      <h4>2. Pagos y anticipo</h4>
-      <p>Anticipo del 30–50% al confirmar. El saldo restante se cancela antes o el día del servicio, por transferencia bancaria.</p>
-      <h4>3. Reagendamiento</h4>
-      <p>Una vez sin costo con al menos 4 días hábiles de anticipación. Una segunda modificación puede implicar cargo administrativo.</p>
-      <h4>4. Cancelaciones</h4>
-      <p>+30 días: devolución del 50% del anticipo. −30 días: sin devolución. Fuerza mayor debidamente acreditada: reembolso total o reprogramación sin costo.</p>
-      <h4>5. Edición y entrega</h4>
-      <p>Las imágenes se editan bajo el estilo personal del fotógrafo. Se entregan en JPG en galería digital privada. Los archivos RAW tienen costo adicional ($100.000).</p>
-      <h4>6. Derechos de imagen</h4>
-      <p>Bolsillo Producciones puede publicar las imágenes en su portafolio y redes, salvo indicación escrita contraria previa a la sesión.</p>
-      <h4>7. Propiedad intelectual</h4>
-      <p>Las fotografías son propiedad de Bolsillo Producciones. Se otorga licencia de uso personal o comercial según el paquete. Queda prohibida la reventa a terceros.</p>
-      <h4>8. Traslados</h4>
-      <p>Incluidos hasta 25 km del estudio en Constitución 8, Bellavista. Fuera de ese radio se cotiza por separado.</p>
-      <h4>9. IVA</h4>
-      <p>Precios netos sin IVA. Boleta o factura agrega el 19%.</p>
-      <h4>10. Vigencia de cotizaciones</h4>
-      <p>Las cotizaciones tienen validez de 30 días desde su emisión.</p>
-    </div>
-    <label class="tc-modal-check-label">
-      <input type="checkbox" id="tcEntryCheck" class="tc-modal-check-input" onchange="toggleTcAccept()">
-      <span>He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener" class="tc-modal-link">Términos y Condiciones</a> completos de Bolsillo Producciones.</span>
-    </label>
-    <button id="tcAcceptBtn" class="tc-modal-btn" disabled onclick="acceptTc()">Acepto y continúo →</button>
-  </div>
-</div>
-
 
 <!-- ═══════ SHOPPING CART ═══════ -->
 <!-- Floating button -->
@@ -3794,7 +3919,11 @@ function handleForm(e) {
       <input class="booking-input" id="bEmail" type="email" placeholder="tu@correo.com" required>
       <label class="booking-label">¿Qué tienes en mente?</label>
       <textarea class="booking-input" id="bNotes" rows="3" placeholder="Cuéntanos lo que necesitas..." style="resize:none;min-height:72px"></textarea>
-      <button type="submit" class="booking-submit">Ir a Calendly →</button>
+      <label class="booking-tc-wrap">
+        <input type="checkbox" class="booking-tc-input" id="bookingTcCheck" onchange="toggleBookingSubmit()">
+        <span class="booking-tc-label">He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> de Bolsillo Producciones.</span>
+      </label>
+      <button type="submit" class="booking-submit" id="bookingSubmitBtn" disabled>Ir a Calendly →</button>
       <button type="button" class="booking-back" onclick="showCartStep1()">← Volver a mi selección</button>
     </form>
   </div>

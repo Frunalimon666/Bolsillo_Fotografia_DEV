@@ -796,6 +796,35 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
   .tab-sep { padding: 0 .1rem; }
 }
 
+
+/* ── Hero scroll hint ── */
+.hero-scroll-hint {
+  display: flex; flex-direction: column; align-items: center;
+  gap: .3rem; margin-top: .8rem; opacity: .45;
+  animation: hintBob 2s ease-in-out infinite;
+  cursor: default;
+  pointer-events: none;
+}
+.hero-scroll-hint:hover { opacity: .45; }
+@keyframes hintBob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+.hero-scroll-hint span {
+  font-family: var(--font-h); font-size: .55rem; font-weight: 300;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.7);
+}
+.hero-scroll-hint svg { display: block; }
+.hero-scroll-hint svg:nth-child(2) { animation: bounceArrow 1.6s ease-in-out infinite; animation-delay: .15s; }
+.hero-scroll-hint svg:nth-child(3) { animation: bounceArrow 1.6s ease-in-out infinite; animation-delay: .3s; }
+.hero-scroll-hint svg:nth-child(4) { animation: bounceArrow 1.6s ease-in-out infinite; animation-delay: .45s; }
+@keyframes bounceArrow {
+  0%,100% { transform:translateY(0); opacity:.35; }
+  50%      { transform:translateY(4px); opacity:1; }
+}
+.hero-scroll-hint svg:nth-child(3) { opacity: .6; }
+.hero-scroll-hint svg:nth-child(4) { opacity: .35; }
+
 </style>
 </head>
 <body>
@@ -871,6 +900,14 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
     <a href="fotografia.html" class="service-btn" onclick="event.preventDefault();openNavModal('¿Ir al portafolio de Fotografía?','Verás nuestros trabajos favoritos de Retratos, gastronomía, eventos y más hechos por nuestro equipo de Bolsillo!','fotografia.html')">Fotografía</a>
   </div>
   <a href="https://wa.me/56939461500" target="_blank" rel="noopener" class="hero-main-cta reveal">Escríbenos por WhatsApp →</a>
+  <div class="hero-scroll-hint reveal">
+    <span style="pointer-events:none;cursor:default">Más información de nuestra empresa</span>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:none">
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><polyline points="1 1 8 9 15 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><polyline points="1 1 8 9 15 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><polyline points="1 1 8 9 15 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
 </section>
 
 <!-- STRIP -->
@@ -1707,15 +1744,25 @@ function closeNavModal() {
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') closeNavModal();
 });
-/* Foto service cards → nav modal */
+/* Foto service cards → nav modal with category hash */
 document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.servicio-card[data-cat="fotografia"]').forEach(function(card) {
+  var catMap = [
+    'cat-retratos',    /* card 01 */
+    'cat-marcas',      /* card 02 */
+    'cat-eventos',     /* card 03 */
+    'cat-corp',        /* card 04 */
+    'cat-audio',       /* card 05 */
+    'cat-inmob'        /* card 06 */
+  ];
+  document.querySelectorAll('.servicio-card[data-cat="fotografia"]').forEach(function(card, i) {
     card.style.cursor = 'pointer';
+    var catId = catMap[i] || 'cat-retratos';
     card.addEventListener('click', function() {
+      var url = 'fotografia.html#' + catId;
       openNavModal(
         '¿Ir al portafolio de Fotografía?',
         'Verás nuestros trabajos favoritos de Retratos, gastronomía, eventos y más hechos por nuestro equipo de Bolsillo!',
-        'fotografia.html'
+        url
       );
     });
   });
