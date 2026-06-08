@@ -81,10 +81,10 @@ section{padding:6rem 0;}
   position: relative;
   margin-bottom: 2.5rem;
 }
+/* Bottom border of the rail */
 .servicios-tabs{
   display: flex;
   gap: 0;
-  /* No background, no border — the tabs ARE the UI */
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(255,255,255,.1);
@@ -93,9 +93,21 @@ section{padding:6rem 0;}
   padding: 0;
   position: relative;
 }
+/* Sliding indicator — JS sets left/width via inline style */
+.tab-indicator{
+  position: absolute;
+  bottom: -1px;            /* sit exactly on the rail border */
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: left .35s cubic-bezier(.4,0,.2,1),
+              width .35s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+  z-index: 1;
+}
 .tab-btn{
-  flex: 1;                        /* equal width columns */
-  padding: .9rem .5rem;
+  flex: 1;
+  padding: .9rem .5rem .75rem;  /* slightly less bottom padding */
   border-radius: 0;
   font-family: var(--font-h);
   font-size: .58rem;
@@ -103,65 +115,64 @@ section{padding:6rem 0;}
   letter-spacing: .12em;
   text-transform: uppercase;
   border: none;
-  border-bottom: 2px solid transparent;  /* space for active indicator */
+  border-bottom: 2px solid transparent;
   background: transparent;
-  color: rgba(255,255,255,.38);
+  color: rgba(255,255,255,.35);
   cursor: pointer;
-  transition: color .25s ease;
   white-space: nowrap;
   text-align: center;
   position: relative;
-  margin-bottom: -1px;            /* sit on the border-bottom of parent */
+  margin-bottom: -1px;
   user-select: none;
+  /* Text + number lift together on active */
+  transition: color .3s ease, transform .3s cubic-bezier(.4,0,.2,1);
 }
-/* Number label above text — editorial touch */
+/* Number label */
 .tab-btn::before{
   content: attr(data-num);
   display: block;
-  font-size: .48rem;
+  font-size: .46rem;
   letter-spacing: .18em;
-  color: rgba(255,255,255,.2);
-  margin-bottom: .25rem;
-  transition: color .25s ease;
+  color: rgba(255,255,255,.18);
+  margin-bottom: .22rem;
+  transition: color .3s ease;
 }
+/* Hover — brighten */
 .tab-btn:hover{
-  color: rgba(255,255,255,.75);
+  color: rgba(255,255,255,.7);
+  transform: translateY(-1px);
 }
-.tab-btn:hover::before{
-  color: rgba(255,255,255,.45);
-}
-/* Active state — bright text + white underline bar */
+.tab-btn:hover::before{ color: rgba(255,255,255,.4); }
+
+/* Active — lift up + bright, no individual border (indicator handles it) */
 .tab-btn.active{
   color: var(--white);
-  font-weight: 500;
-  border-bottom: 2px solid var(--white);
+  font-weight: 600;
+  transform: translateY(-3px);   /* lift effect */
   pointer-events: none;
 }
-.tab-btn.active::before{
-  color: rgba(255,255,255,.55);
-}
+.tab-btn.active::before{ color: rgba(255,255,255,.55); }
 
 /* ── Mobile ── */
 @media(max-width:700px){
-  /* On mobile: horizontal scroll, tabs shrink to content width */
   .servicios-tabs-wrap{
     margin-left: -1.2rem;
     margin-right: -1.2rem;
   }
-  /* Fade edges signal scrollability */
+  /* Fade edges — key scroll affordance */
   .servicios-tabs-wrap::before,
   .servicios-tabs-wrap::after{
     content: '';
-    position: absolute; top: 0; bottom: 1px; /* stop at border */
-    width: 2.5rem; z-index: 2; pointer-events: none;
+    position: absolute; top: 0; bottom: 1px;
+    width: 2.8rem; z-index: 2; pointer-events: none;
   }
   .servicios-tabs-wrap::before{
     left: 0;
-    background: linear-gradient(to right, #050506 20%, transparent 100%);
+    background: linear-gradient(to right, #050506 30%, transparent 100%);
   }
   .servicios-tabs-wrap::after{
     right: 0;
-    background: linear-gradient(to left, #050506 20%, transparent 100%);
+    background: linear-gradient(to left, #050506 30%, transparent 100%);
   }
   .servicios-tabs{
     flex-wrap: nowrap;
@@ -169,14 +180,16 @@ section{padding:6rem 0;}
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     width: 100%;
-    padding: 0 2.5rem;
+    padding: 0 2.8rem;
   }
   .servicios-tabs::-webkit-scrollbar{ display: none; }
   .tab-btn{
-    flex: 0 0 auto;             /* don't stretch — content width */
-    padding: .85rem 1.1rem;
-    font-size: .56rem;
+    flex: 0 0 auto;
+    padding: .85rem 1.2rem .7rem;
+    font-size: .55rem;
   }
+  /* Lift is more subtle on mobile */
+  .tab-btn.active{ transform: translateY(-2px); }
 }
 
 
@@ -747,6 +760,42 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 .nav-modal-cancel{padding:.75rem 1.2rem;background:transparent;color:rgba(255,255,255,.45);font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);border-radius:40px;cursor:pointer;transition:color .2s,border-color .2s;}
 .nav-modal-cancel:hover{color:#F8F8F8;border-color:rgba(255,255,255,.35);}
 
+
+/* ── Lightbox ── */
+#lightbox{display:none;position:fixed;inset:0;z-index:900;background:rgba(5,5,6,.95);backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out;}
+#lightbox.open{display:flex;}
+#lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.7);cursor:default;}
+#lightbox-close{position:fixed;top:1.2rem;right:1.4rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#F8F8F8;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;}
+#lightbox-close:hover{background:rgba(255,255,255,.2);}
+#samImg{cursor:zoom-in;}
+
+
+
+
+/* ── Tab separator chevrons ── */
+.tab-sep {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  color: rgba(255,255,255,.18);
+  flex-shrink: 0;
+  padding-bottom: 2px; /* align with text baseline */
+  pointer-events: none;
+  transition: color .3s ease;
+}
+/* Brighten the separator that follows the active tab */
+.tab-btn.active + .tab-sep {
+  color: rgba(255,255,255,.45);
+  animation: sepPulse 1.8s ease-in-out infinite;
+}
+@keyframes sepPulse {
+  0%, 100% { color: rgba(255,255,255,.3);  transform: translateX(0); }
+  50%       { color: rgba(255,255,255,.65); transform: translateX(2px); }
+}
+@media(max-width:700px) {
+  .tab-sep { padding: 0 .1rem; }
+}
+
 </style>
 </head>
 <body>
@@ -839,13 +888,14 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
     <div class="divider reveal"></div>
     <div class="servicios-tabs-wrap">
     <div class="servicios-tabs reveal" id="serviciosTabs">
-      <button class="tab-btn active" data-cat="redes" data-num="01">Redes sociales</button>
-      <button class="tab-btn" data-cat="corporativo" data-num="02">Video corporativo</button>
-      <button class="tab-btn" data-cat="fotografia" data-num="03">Fotografía</button>
-      <button class="tab-btn" data-cat="eventos" data-num="04">Registro de eventos</button>
+      <div class="tab-indicator" id="tabIndicator"></div>
+      <button class="tab-btn active" data-cat="redes" data-num="01">Redes sociales</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      <button class="tab-btn" data-cat="corporativo" data-num="02">Video corporativo</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      <button class="tab-btn" data-cat="fotografia" data-num="03">Fotografía</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      <button class="tab-btn" data-cat="eventos" data-num="04">Registro de eventos</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
       <button class="tab-btn" data-cat="videoclips" data-num="05">Videoclips y sesiones</button>
     </div>
-    </div><!-- end tabs-wrap -->
+  </div><!-- end tabs-wrap -->
     <div class="servicios-grid" id="serviciosGrid">
 
       <!-- REDES SOCIALES -->
@@ -1529,19 +1579,40 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
 function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
 
-/* Servicios tabs — show/hide cards by data-cat */
-document.getElementById('serviciosTabs').addEventListener('click',function(e){
-  const btn=e.target.closest('.tab-btn');
-  if(!btn)return;
-  this.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+/* Servicios tabs — sliding indicator */
+function moveTabIndicator(btn) {
+  var ind = document.getElementById('tabIndicator');
+  if (!ind || !btn) return;
+  ind.style.left  = btn.offsetLeft + 'px';
+  ind.style.width = btn.offsetWidth + 'px';
+}
+document.getElementById('serviciosTabs').addEventListener('click', function(e) {
+  var btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  this.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
-  const cat=btn.dataset.cat;
-  document.querySelectorAll('#serviciosGrid .servicio-card').forEach(c=>{
-    c.classList.toggle('active',c.dataset.cat===cat);
+  moveTabIndicator(btn);
+  /* On mobile: scroll the active tab into center view */
+  var tabs = document.getElementById('serviciosTabs');
+  var scrollTarget = btn.offsetLeft - (tabs.offsetWidth / 2) + (btn.offsetWidth / 2);
+  tabs.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+  var cat = btn.dataset.cat;
+  document.querySelectorAll('#serviciosGrid .servicio-card').forEach(function(c){
+    c.classList.toggle('active', c.dataset.cat === cat);
   });
 });
 /* Show first tab cards on load */
 /* cards start active via HTML class — no JS needed */
+
+
+
+/* Init tab indicator on first load */
+document.addEventListener('DOMContentLoaded', function() {
+  var firstActive = document.querySelector('#serviciosTabs .tab-btn.active');
+  /* Slight delay so layout is calculated */
+  setTimeout(function() { moveTabIndicator(firstActive); }, 80);
+  window.addEventListener('resize', function() { moveTabIndicator(firstActive); });
+});
 
 /* Equipo tabs — switch lists */
 document.getElementById('equipoTabs').addEventListener('click',function(e){
@@ -1650,6 +1721,29 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+/* ── Lightbox ── */
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+/* SAM image click → lightbox */
+document.addEventListener('DOMContentLoaded', function() {
+  var samImg = document.getElementById('samImg');
+  if (samImg) {
+    samImg.addEventListener('click', function() {
+      openLightbox(samImg.src);
+    });
+  }
+});
+
 /* Form */
 function handleForm(e){e.preventDefault();document.getElementById('form-success').style.display='block';e.target.reset();}
 </script>
@@ -1664,6 +1758,12 @@ function handleForm(e){e.preventDefault();document.getElementById('form-success'
       <button class="nav-modal-cancel"  onclick="closeNavModal()">Cancelar</button>
     </div>
   </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()" aria-label="Cerrar">✕</button>
+  <img id="lightboxImg" src="" alt="">
 </div>
 
 </body>
