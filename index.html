@@ -667,25 +667,65 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
   .footer-copy{text-align:center;}
 }
 
-/* ── Clientes ── */
-.clients-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: center; }
-.client-pill {
-  padding: .5rem 1.4rem; border-radius: 40px;
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
-  backdrop-filter: blur(12px);
-  font-size: .72rem; font-weight: 300; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.5);
-  transition: border-color .2s, color .2s, background .2s;
+/* ── Clientes — logo strip ── */
+#clientes {
+  background: transparent;
+  border-top: none;
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
 }
-.client-pill:hover { border-color: rgba(255,255,255,.35); color: #F8F8F8; background: rgba(255,255,255,.12); }
+#clientes .container { position: relative; z-index: 1; }
+.clients-strip {
+  padding: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8rem 3rem;
+}
+.client-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.client-logo:hover,
+.client-logo:active { transform: scale(1.18); }
+.client-logo img {
+  height: 73px;
+  width: auto;
+  max-width: 224px;
+  object-fit: contain;
+  display: block;
+}
+}
+/* Size overrides */
+.client-logo.cl-md img        { height: 110px; max-width: 280px; }
+.client-logo.cl-big img       { height: 132px; max-width: 280px; }
+.client-logo.cl-paparolla img { height: 164px; max-width: 280px; }
+.client-logo.cl-sm img        { height: 62px;  max-width: 182px; }
+.client-logo.cl-lg img        { height: 56px;  max-width: 308px; }
+.client-logo.cl-xl img        { height: 45px;  max-width: 392px; }
+
+@media (max-width: 600px) {
+  .client-logo img       { height: 44px; max-width: 130px; }
+  .client-logo.cl-md img { height: 54px; max-width: 150px; }
+  .client-logo.cl-sm img { height: 38px; max-width: 110px; }
+  .client-logo.cl-lg img { height: 34px; max-width: 180px; }
+  .client-logo.cl-xl img { height: 28px; max-width: 230px; }
+  .clients-strip { gap: 1.4rem 2rem; padding: 1.4rem 1.2rem; }
+}
+
 .client-pill-invite {
   padding: .5rem 1.4rem; border-radius: 40px;
-  background: transparent; border: 1px dashed rgba(255,255,255,.22);
-  font-size: .72rem; font-weight: 300; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.35); font-style: italic;
+  background: rgba(255,255,255,.1); border: 1px dashed rgba(255,255,255,.35);
+  font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.6); font-style: italic;
   transition: border-color .2s, color .2s, background .2s;
+  align-self: center; white-space: nowrap;
 }
-.client-pill-invite:hover { border-color: rgba(255,255,255,.45); color: rgba(255,255,255,.7); background: rgba(255,255,255,.05); }
+.client-pill-invite:hover { border-color: rgba(255,255,255,.6); color: rgba(255,255,255,.9); background: rgba(255,255,255,.15); }
 
 
 /* ═══════════════════════════════════════
@@ -1099,20 +1139,24 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 </section>
 
 <!-- CLIENTES -->
-<section id="clientes" style="padding:3rem 0">
+<section id="clientes" style="padding:2.5rem 0">
   <div class="container">
-    <p class="section-label reveal slide-left" style="text-align:center;margin-bottom:1.5rem">Han confiado en nosotros</p>
-    <div class="clients-row reveal">
-      <div class="client-pill">Puente Café</div>
-      <div class="client-pill">Paparolla</div>
-      <div class="client-pill">Playbar</div>
-      <div class="client-pill">Bilance</div>
-      <div class="client-pill">Cervezería Colina</div>
-      <div class="client-pill">Honesto Mike</div>
-      <div class="client-pill">En Masa</div>
-      <div class="client-pill">Sentaku</div>
-      <div class="client-pill">La Ensaladería</div>
-      <div class="client-pill">Santo Gohan</div>
+    <p class="section-label reveal slide-left" style="text-align:center;margin-bottom:2rem">Han confiado en nosotros</p>
+    <div class="clients-strip reveal">
+      <div class="client-logo cl-sm"><img src="https://i.imgur.com/KFsszqW.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-big"><img src="https://i.imgur.com/Kc9mzmf.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-big"><img src="https://i.imgur.com/FWVXiKy.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-sm"><img src="https://i.imgur.com/rpHrNhN.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-sm"><img src="https://i.imgur.com/rEIBG6w.jpeg" alt="Cliente Bolsillo"></div>
+      <div class="client-logo"><img src="https://i.imgur.com/mSZGjsM.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-big"><img src="https://i.imgur.com/yuTXUS1.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-big"><img src="https://i.imgur.com/EjUgGZA.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-paparolla"><img src="https://i.imgur.com/frVL8CK.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-lg"><img src="https://i.imgur.com/qhtuVNK.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo"><img src="https://i.imgur.com/2hfmgBT.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-sm"><img src="https://i.imgur.com/c1h9Yaw.jpeg" alt="Cliente Bolsillo"></div>
+      <div class="client-logo"><img src="https://i.imgur.com/SHvSTTR.png" alt="Cliente Bolsillo"></div>
+      <div class="client-logo cl-big"><img src="https://i.imgur.com/YBcOc6N.png" alt="Cliente Bolsillo"></div>
       <a href="https://wa.me/56939461500" target="_blank" rel="noopener" class="client-pill-invite">¿Tu marca? →</a>
     </div>
   </div>
