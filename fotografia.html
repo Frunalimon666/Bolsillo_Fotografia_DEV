@@ -483,10 +483,11 @@ section { padding: 6rem 0; }
 .cat-list { display: flex; flex-direction: column; gap: 8px; }
 
 .cat-item {
+  scroll-margin-top: 80px; /* offset for fixed nav */
   border-radius: var(--r);
   overflow: hidden;
   border: 1px solid var(--border);
-  transition: border-color .35s;
+  transition: border-color .28s;
 }
 .cat-item.open { border-color: rgba(255,255,255,.3); }
 
@@ -552,8 +553,8 @@ section { padding: 6rem 0; }
   grid-template-rows: 0fr;
   background: rgba(255,255,255,.025);
   border-top: 1px solid transparent;
-  transition: grid-template-rows .45s cubic-bezier(.4, 0, .2, 1),
-              border-top-color .45s ease;
+  transition: grid-template-rows .28s cubic-bezier(.4, 0, .2, 1),
+              border-top-color .28s ease;
 }
 .cat-item.open .cat-body {
   grid-template-rows: 1fr;
@@ -621,7 +622,7 @@ section { padding: 6rem 0; }
 }
 .price-card:hover { border-color: rgba(255,255,255,.3); background: var(--glass2); }
 .price-card.featured { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.1); }
-.price-tier { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; font-family: var(--font-h); font-weight: 300; }
+.price-tier { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: .5rem; font-family: var(--font-h); font-weight: 700; }
 .price-amount { font-family: var(--font-h); font-size: 1.7rem; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: .8rem; }
 .price-includes { list-style: none; font-size: .8rem; font-weight: 400; color: rgba(255,255,255,.6); line-height: 2.1; text-align: left; }
 .price-includes li::before { content: '— '; color: var(--white); opacity: .3; }
@@ -3239,12 +3240,43 @@ if (_heroRight) {
   }, {passive:true});
 }
 
-/* ── Collapsible categories ──────────── */
+/* ── Accordion ── */
 function toggleCat(id) {
-  const item = document.getElementById(id);
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+  var item   = document.getElementById(id);
+  var isOpen = item.classList.contains('open');
+
+  if (isOpen) { item.classList.remove('open'); return; }
+
+  var navbar = document.getElementById('navbar');
+  var navH   = navbar ? navbar.offsetHeight + 8 : 72;
+
+  /* PREDICT where the header will land after all changes:
+     Current absolute position of this item in the document */
+  var currentAbsTop = window.pageYOffset + item.getBoundingClientRect().top;
+
+  /* Subtract the height of every open item that sits ABOVE this one
+     (those will close and their height will be removed from the layout) */
+  var removedHeight = 0;
+  document.querySelectorAll('.cat-item.open').forEach(function(el) {
+    var elRect   = el.getBoundingClientRect();
+    var itemRect = item.getBoundingClientRect();
+    if (elRect.top < itemRect.top) {
+      var body = el.querySelector('.cat-body-inner');
+      if (body) removedHeight += body.offsetHeight;
+    }
+  });
+
+  /* Predicted final scroll target */
+  var predicted = currentAbsTop - removedHeight - navH;
+
+  /* Fire scroll AND dom changes at the same time —
+     the browser will animate both simultaneously */
+  window.scrollTo({ top: predicted, behavior: 'smooth' });
+
+  document.querySelectorAll('.cat-item.open').forEach(function(el) {
+    el.classList.remove('open');
+  });
+  item.classList.add('open');
 }
 
 /* ── Scroll reveal + slide-in ────────── */
