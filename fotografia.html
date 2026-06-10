@@ -40,7 +40,6 @@ body {
   line-height: 1.75;
   overflow-x: hidden;
 }
-body.scroll-locked { overflow: hidden; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; font-family: var(--font-b); color: inherit; }
@@ -940,9 +939,35 @@ footer {
   align-items: center; justify-content: center;
 }
 .lightbox.open { display: flex; }
-.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: var(--r); }
-.lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.6rem; color: var(--mid); cursor: pointer; transition: color .2s; }
+.lightbox { cursor: default; }
+.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: var(--r); user-select: none; }
+.lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.6rem; color: var(--mid); cursor: pointer; transition: color .2s; background: none; border: none; }
 .lightbox-close:hover { color: var(--white); }
+.lightbox-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  color: var(--white); font-size: 2.2rem; line-height: 1;
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s, opacity .2s;
+  user-select: none; z-index: 10;
+}
+.lightbox-arrow:hover { background: rgba(255,255,255,.25); }
+.lightbox-arrow:disabled { opacity: .2; cursor: default; }
+.lightbox-prev { left: 1.5rem; }
+.lightbox-next { right: 1.5rem; }
+.lightbox-counter {
+  position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-h); font-size: .6rem; letter-spacing: .14em;
+  color: rgba(255,255,255,.45); background: rgba(0,0,0,.3);
+  padding: .3rem .8rem; border-radius: 20px;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .lightbox-arrow { width: 38px; height: 38px; font-size: 1.6rem; }
+  .lightbox-prev { left: .6rem; }
+  .lightbox-next { right: .6rem; }
+}
 
 /* ═══════════════════════════════════════
    SCROLL REVEAL
@@ -3086,7 +3111,7 @@ body, .contact-info p, .agenda-cta-text p,
           </div>
           <div class="foto-meta">
             <p class="foto-name">Anton Diaz</p>
-            <p class="foto-title">Director del área fotográfica</p>
+            <p class="foto-title">Fotógrafo principal</p>
           </div>
         </div>
         <p class="foto-desc slide-up">Egresado de la carrera de Fotografía Profesional en Arcos, 2021. Con 26 años y una visión editorial que mezcla luz natural, estudio controlado y narrativa visual. Especializado en retratos, gastronomía y eventos sociales en Santiago.</p>
@@ -3142,9 +3167,12 @@ body, .contact-info p, .agenda-cta-text p,
 </footer>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close">✕</button>
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-arrow lightbox-prev" onclick="lightboxNav(-1)">&#8249;</button>
   <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-arrow lightbox-next" onclick="lightboxNav(1)">&#8250;</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
 </div>
 
 <script>
@@ -3346,20 +3374,79 @@ document.querySelectorAll('.photo-grid img').forEach(img => {
   wrap.appendChild(img);
 });
 
-/* ── Lightbox ────────────────────────── */
-function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
+/* ── Lightbox with gallery navigation ── */
+let _lbImages = [];
+let _lbIndex  = 0;
+
+function openLightbox(imgEl) {
+  const src  = typeof imgEl === 'string' ? imgEl : imgEl.src;
+  const grid = (typeof imgEl === 'object') ? imgEl.closest('.photo-grid') : null;
+  _lbImages  = grid ? Array.from(grid.querySelectorAll('img')) : [{ src }];
+  _lbIndex   = grid ? _lbImages.indexOf(imgEl) : 0;
+  _lbShow();
   document.getElementById('lightbox').classList.add('open');
   document.body.classList.add('scroll-locked');
 }
+
+function _lbShow() {
+  const img     = _lbImages[_lbIndex];
+  const lbImg   = document.getElementById('lightbox-img');
+  const counter = document.getElementById('lightbox-counter');
+  const prev    = document.querySelector('.lightbox-prev');
+  const next    = document.querySelector('.lightbox-next');
+  const src     = img.src || img;
+
+  lbImg.style.opacity = '0';
+  lbImg.src = src;
+  lbImg.onload = () => { lbImg.style.transition = 'opacity .18s'; lbImg.style.opacity = '1'; };
+  if (lbImg.complete) lbImg.style.opacity = '1';
+
+  counter.textContent = (_lbIndex + 1) + ' / ' + _lbImages.length;
+  const single = _lbImages.length <= 1;
+  prev.style.display = single ? 'none' : '';
+  next.style.display = single ? 'none' : '';
+  counter.style.display = single ? 'none' : '';
+}
+
+function lightboxNav(dir) {
+  _lbIndex = (_lbIndex + dir + _lbImages.length) % _lbImages.length;
+  _lbShow();
+}
+
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
   document.body.classList.remove('scroll-locked');
 }
-document.querySelectorAll('.photo-grid img').forEach(img => {
-  img.addEventListener('click', () => openLightbox(img.src));
+
+/* Click backdrop to close */
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this || e.target === document.getElementById('lightbox-img')) {
+    if (e.target === this) closeLightbox();
+  }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* Wire photo grid clicks */
+document.querySelectorAll('.photo-grid img').forEach(img => {
+  img.addEventListener('click', () => openLightbox(img));
+});
+
+/* Keyboard */
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+});
+
+/* Touch swipe on lightbox */
+let _lbTouchX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', e => {
+  _lbTouchX = e.touches[0].clientX;
+}, { passive: true });
+document.getElementById('lightbox').addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - _lbTouchX;
+  if (Math.abs(dx) > 40) lightboxNav(dx < 0 ? 1 : -1);
+}, { passive: true });
 
 
 /* ── T&C checkbox in booking form ─────── */
@@ -3383,18 +3470,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function openTcReader() {
   document.getElementById('tcReaderModal').classList.add('open');
-  document.body.classList.add('scroll-locked');
+  // Scroll to top of content
   var scroll = document.querySelector('.tc-reader-scroll');
   if (scroll) scroll.scrollTop = 0;
 }
 
 function closeTcReader() {
   document.getElementById('tcReaderModal').classList.remove('open');
-  document.body.classList.remove('scroll-locked');
 }
 
 function acceptTcFromReader() {
-  closeTcReader(); // already removes scroll-locked
+  closeTcReader();
   var cb  = document.getElementById('bookingTcCheck');
   var btn = document.getElementById('bookingSubmitBtn');
   if (cb)  cb.checked = true;
@@ -3439,11 +3525,9 @@ function acceptTcFromReader() {
 function openCalendlyModal(e) {
   if (e) e.preventDefault();
   document.getElementById('calendlyModal').classList.add('open');
-  document.body.classList.add('scroll-locked');
 }
 function closeCalendlyModal() {
   document.getElementById('calendlyModal').classList.remove('open');
-  document.body.classList.remove('scroll-locked');
 }
 // Close modals on overlay click
 const _cModal = document.getElementById('calendlyModal');
@@ -3507,7 +3591,7 @@ function toggleSubmit() {
   track.querySelectorAll('.hc-slide img').forEach(img => {
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => {
-      if (typeof openLightbox === 'function') openLightbox(img.src);
+      if (typeof openLightbox === 'function') openLightbox(img);
     });
   });
 })();
