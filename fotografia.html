@@ -40,6 +40,7 @@ body {
   line-height: 1.75;
   overflow-x: hidden;
 }
+body.scroll-locked { overflow: hidden; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; font-family: var(--font-b); color: inherit; }
@@ -3085,7 +3086,7 @@ body, .contact-info p, .agenda-cta-text p,
           </div>
           <div class="foto-meta">
             <p class="foto-name">Anton Diaz</p>
-            <p class="foto-title">Fotógrafo principal</p>
+            <p class="foto-title">Director del área fotográfica</p>
           </div>
         </div>
         <p class="foto-desc slide-up">Egresado de la carrera de Fotografía Profesional en Arcos, 2021. Con 26 años y una visión editorial que mezcla luz natural, estudio controlado y narrativa visual. Especializado en retratos, gastronomía y eventos sociales en Santiago.</p>
@@ -3349,8 +3350,12 @@ document.querySelectorAll('.photo-grid img').forEach(img => {
 function openLightbox(src) {
   document.getElementById('lightbox-img').src = src;
   document.getElementById('lightbox').classList.add('open');
+  document.body.classList.add('scroll-locked');
 }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.classList.remove('scroll-locked');
+}
 document.querySelectorAll('.photo-grid img').forEach(img => {
   img.addEventListener('click', () => openLightbox(img.src));
 });
@@ -3378,17 +3383,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function openTcReader() {
   document.getElementById('tcReaderModal').classList.add('open');
-  // Scroll to top of content
+  document.body.classList.add('scroll-locked');
   var scroll = document.querySelector('.tc-reader-scroll');
   if (scroll) scroll.scrollTop = 0;
 }
 
 function closeTcReader() {
   document.getElementById('tcReaderModal').classList.remove('open');
+  document.body.classList.remove('scroll-locked');
 }
 
 function acceptTcFromReader() {
-  closeTcReader();
+  closeTcReader(); // already removes scroll-locked
   var cb  = document.getElementById('bookingTcCheck');
   var btn = document.getElementById('bookingSubmitBtn');
   if (cb)  cb.checked = true;
@@ -3433,9 +3439,11 @@ function acceptTcFromReader() {
 function openCalendlyModal(e) {
   if (e) e.preventDefault();
   document.getElementById('calendlyModal').classList.add('open');
+  document.body.classList.add('scroll-locked');
 }
 function closeCalendlyModal() {
   document.getElementById('calendlyModal').classList.remove('open');
+  document.body.classList.remove('scroll-locked');
 }
 // Close modals on overlay click
 const _cModal = document.getElementById('calendlyModal');

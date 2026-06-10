@@ -292,7 +292,7 @@ section{padding:6rem 0;}
 
 /* Avatar — circular when closed, hidden when open (photo takes over) */
 .member-avatar{
-  width:44px; height:44px;
+  width:56px; height:56px;
   border-radius:50%;
   overflow:hidden; flex-shrink:0;
   border:1px solid rgba(255,255,255,.2);
@@ -362,8 +362,10 @@ section{padding:6rem 0;}
 
 /* ─ Expanded panel: photo left (portrait) + info right ─ */
 .member-card{
-  display:grid;
-  grid-template-columns:220px 1fr;
+  display:flex;
+  flex-direction:row;
+  overflow:hidden;
+  border-radius: inherit;
 }
 
 /* Photo column */
@@ -371,24 +373,43 @@ section{padding:6rem 0;}
   position:relative;
   overflow:hidden;
   background:rgba(255,255,255,.04);
-  min-height:300px;
-  /* img inside is absolute on mobile, static on desktop */
+  width:260px;
+  min-width:260px;
+  max-width:260px;
+  align-self:stretch;
+  cursor:pointer;
+  flex-shrink:0;
 }
+.member-photo-col::after {
+  content: '⤢';
+  position: absolute; bottom: .6rem; right: .7rem;
+  font-size: .8rem; color: rgba(255,255,255,.5);
+  background: rgba(0,0,0,.35);
+  border-radius: 6px; padding: .15rem .4rem;
+  pointer-events: none;
+  opacity: 0; transition: opacity .2s;
+  z-index: 1;
+}
+.member-row.open .member-photo-col:hover::after { opacity: 1; }
 .member-photo-col img{
+  position: absolute;
+  inset: 0;
   width:100%; height:100%;
   object-fit:cover;
-  object-position:center top;
+  object-position: center 10%;
   display:block;
-  /* Subtle zoom-in on open */
-  transform:scale(1.05);
   opacity:0;
-  transition:transform .6s .1s cubic-bezier(.4,0,.2,1),
-             opacity .5s .1s ease;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: opacity .5s .15s ease;
 }
 .member-row.open .member-photo-col img{
-  transform:scale(1);
   opacity:1;
 }
+/* Per-member photo position fine-tuning */
+.member-martin .member-photo-col img  { object-position: center 5%; }
 .member-photo-ph{
   width:100%;height:100%;min-height:300px;
   display:flex;align-items:center;justify-content:center;
@@ -510,40 +531,35 @@ section{padding:6rem 0;}
 }
 
 @media(max-width:700px){
-  /* ── Mobile member card — totally different layout:
-       portrait photo centered top + info below
-  ── */
   .member-card{
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    flex-direction: column;
   }
 
-  /* Photo col becomes a centred portrait block */
   .member-photo-col{
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
     min-height: 0 !important;
     height: auto;
     background: transparent;
     display: flex;
     justify-content: center;
     padding: 1.6rem 1.6rem .8rem;
+    position: static;
   }
-  /* The img becomes a circle — shows face correctly */
   .member-photo-col img{
-    position: static;         /* undo any absolute */
-    width: 116px;
-    height: 116px;
+    position: static;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    object-position: center center;  /* center of face, not top */
+    object-position: center center;
     border: 2px solid rgba(255,255,255,.2);
     flex-shrink: 0;
-    /* keep the reveal animation */
-    transform: scale(1.05);
     opacity: 0;
-    transition: transform .6s .1s cubic-bezier(.4,0,.2,1), opacity .5s .1s ease;
+    transition: opacity .5s .15s ease;
   }
   .member-row.open .member-photo-col img{
-    transform: scale(1);
     opacity: 1;
   }
   .member-photo-ph{
@@ -554,7 +570,6 @@ section{padding:6rem 0;}
     border: 2px solid rgba(255,255,255,.1);
   }
 
-  /* Info col fills below */
   .member-info-col{
     padding: .4rem 1.4rem 1.4rem;
     gap: .9rem;
@@ -807,6 +822,7 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 #lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.7);cursor:default;}
 #lightbox-close{position:fixed;top:1.2rem;right:1.4rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#F8F8F8;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;}
 #lightbox-close:hover{background:rgba(255,255,255,.2);}
+body.scroll-locked { overflow: hidden; }
 #samImg{cursor:zoom-in;}
 
 
@@ -969,7 +985,6 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
       <button class="tab-btn active" data-cat="redes" data-num="01">Redes sociales</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
       <button class="tab-btn" data-cat="corporativo" data-num="02">Video corporativo</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
       <button class="tab-btn" data-cat="fotografia" data-num="03">Fotografía</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
-      <button class="tab-btn" data-cat="eventos" data-num="04">Registro de eventos</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
       <button class="tab-btn" data-cat="videoclips" data-num="05">Videoclips y sesiones</button>
     </div>
   </div><!-- end tabs-wrap -->
@@ -1014,22 +1029,14 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
       <div class="servicio-card" data-cat="corporativo" data-num="02">
         <div class="servicio-card-bg"></div>
         <div class="servicio-card-num">01</div>
-        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
+        <div class="photo-card">
+          <img src="https://img.youtube.com/vi/nmu42PzIoHU/maxresdefault.jpg" alt="Tricolor" loading="lazy" style="object-position:center center;">
+        </div>
+        <a class="video-card-overlay" href="https://www.youtube.com/watch?v=nmu42PzIoHU" target="_blank" rel="noopener">
+          <div class="play-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </a>
+        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Tricolor</span></div>
       </div>
-      <div class="servicio-card" data-cat="corporativo" data-num="02">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="corporativo" data-num="02">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="client-card"><div class="client-placeholder">CLIENTE<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Video corporativo</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-
       <!-- FOTOGRAFÍA — 1 foto por categoría de bolsillo/fotografia -->
       <div class="servicio-card" data-cat="fotografia" data-num="03">
         <div class="servicio-card-bg"></div>
@@ -1066,26 +1073,6 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
         <div class="servicio-card-num">06</div>
         <div class="photo-card"><img src="https://live.staticflickr.com/65535/55316717545_45a9afa362_w.jpg" alt="Foto en locación" loading="lazy" style="object-position:center center;"></div>
         <div class="servicio-card-label"><span class="servicio-card-tag">Fotografía · Locación</span><span class="servicio-card-title">Foto en locación</span></div>
-      </div>
-
-      <!-- REGISTRO DE EVENTOS (placeholders) -->
-      <div class="servicio-card" data-cat="eventos" data-num="04">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">01</div>
-        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="eventos" data-num="04">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">02</div>
-        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
-      </div>
-      <div class="servicio-card" data-cat="eventos" data-num="04">
-        <div class="servicio-card-bg"></div>
-        <div class="servicio-card-num">03</div>
-        <div class="client-card"><div class="client-placeholder">EVENTO<br>próximamente</div></div>
-        <div class="servicio-card-label"><span class="servicio-card-tag">Registro de eventos</span><span class="servicio-card-title">Próximamente</span></div>
       </div>
 
       <!-- VIDEOCLIPS Y SESIONES — YouTube thumbnails -->
@@ -1199,23 +1186,6 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
 </section>
 
 <!-- MISIÓN / VISIÓN -->
-<section id="mision">
-  <div class="container">
-    <div class="mv-grid reveal">
-      <div class="mv-card">
-        <h2>MISIÓN</h2>
-        <p>Producir contenido audiovisual y fotográfico de alto nivel para marcas, artistas y empresas en Chile, con un equipo comprometido y una visión creativa sin límites.</p>
-        <p>Estar presente en cada momento que importa, con la cámara lista y el criterio afinado para capturar lo que otros no ven.</p>
-      </div>
-      <div class="mv-card" style="border-left:1px solid var(--border)">
-        <h2>VISIÓN</h2>
-        <p>Convertirnos en el estudio de producción de referencia en Santiago, reconocido por la calidad de nuestro trabajo y la relación honesta con cada cliente.</p>
-        <p>Construir un portafolio que hable por sí solo — donde cada proyecto sea prueba de que la producción independiente puede competir con cualquier estudio.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- EQUIPO -->
 <section id="equipo">
   <div class="container">
@@ -1228,293 +1198,179 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
     </div>
 
     <div class="equipo-list active" id="lista-fundadores">
+
+      <!-- Francisco Palomo -->
       <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><img src="https://i.imgur.com/kxdvhvL.jpeg" alt="Francisco Palomo"></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/b9ABgkz.jpeg" alt="Francisco Palomo"></div>
           <div class="member-header-text">
             <div class="member-name">Francisco Palomo</div>
-            <div class="member-role-header">Director de Postproducción y Tecnologías · Fundador</div>
+            <div class="member-role-header">Director de Postproducción & Tecnología</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><img src="https://i.imgur.com/kxdvhvL.jpeg" alt="Francisco Palomo"></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/b9ABgkz.jpeg" alt="Francisco Palomo"></div>
             <div class="member-info-col">
               <div class="member-info-name-row">
                 <div class="member-info-name">Francisco Palomo</div>
-                <a href="https://instagram.com/Frop0n" target="_blank" rel="noopener" class="member-ig-link" aria-label="Instagram @Frop0n">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-                  @Frop0n
-                </a>
               </div>
-              <div class="member-info-role">Director de Postproducción y Tecnologías</div>
-              <div class="member-info-bio">Fundador y accionario de Bolsillo Producciones SPA. 25 años. Responsable de la cadena de postproducción audiovisual y la infraestructura tecnológica del estudio. Lidera los procesos de edición, corrección de color y flujo técnico de cada proyecto.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row">
-                    <span class="member-tag">Premiere Pro</span>
-                    <span class="member-tag">After Effects</span>
-                    <span class="member-tag">Javascript</span>
-                  </div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row">
-                    <span class="member-tag">Tecnología</span>
-                    <span class="member-tag">Efectos Visuales</span>
-                    <span class="member-tag">Videojuegos</span>
-                  </div>
-                </div>
-              </div>
+              <div class="member-info-role">Director de Postproducción & Tecnología</div>
+              <div class="member-info-bio">Socio fundador de Bolsillo Producciones SPA. Responsable de la cadena de postproducción audiovisual y la infraestructura tecnológica del estudio.<br><br>Francisco trabaja con método. Entiende que la edición, el color y el flujo técnico no son el cierre de un proyecto sino el momento donde todo lo filmado se somete a una lectura crítica para encontrar su mejor versión. Funda Bolsillo con la convicción de que tomarse el tiempo necesario no es lentitud, es criterio, y que una infraestructura tecnológica bien pensada es lo que le da al equipo creativo la libertad de trabajar de la manera más óptima para el proyecto.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+
+      <!-- Luis Mesa -->
+      <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">F2</div></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/BSsS8Uz.jpeg" alt="Luis Mesa"></div>
           <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 2</div>
-            <div class="member-role-header">Cargo — próximamente</div>
+            <div class="member-name">Luis Mesa</div>
+            <div class="member-role-header">Director Audiovisual</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">F2</div></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/BSsS8Uz.jpeg" alt="Luis Mesa"></div>
             <div class="member-info-col">
-              <div class="member-info-name">Fundador 2</div>
-              <div class="member-info-role">Cargo — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
+              <div class="member-info-name-row">
+                <div class="member-info-name">Luis Mesa</div>
               </div>
+              <div class="member-info-role">Director Audiovisual</div>
+              <div class="member-info-bio">Socio fundador de Bolsillo Producciones SPA. Encargado de la Dirección de Fotografía, Producción y Operación de Cámara en todos los proyectos del estudio.<br><br>Luis entiende el valor de cada plano como elemento clave para contar historia. Aprendió a juntar el equipo creativo trabajando como director en diversas producciones artísticas y publicitarias para distintos medios digitales. Funda Bolsillo con un aporte estético que adapta a cada pieza visual con un ojo crítico fundamental para que cada proyecto sea único e inconfundible.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+
+      <!-- Massimo Pisano -->
+      <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">F3</div></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/joNLtxV.jpeg" alt="Massimo Pisano"></div>
           <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 3</div>
-            <div class="member-role-header">Cargo — próximamente</div>
+            <div class="member-name">Massimo Pisano</div>
+            <div class="member-role-header">Director Creativo y Guionista</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">F3</div></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/joNLtxV.jpeg" alt="Massimo Pisano"></div>
             <div class="member-info-col">
-              <div class="member-info-name">Fundador 3</div>
-              <div class="member-info-role">Cargo — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
+              <div class="member-info-name-row">
+                <div class="member-info-name">Massimo Pisano</div>
               </div>
+              <div class="member-info-role">Director Creativo y Guionista</div>
+              <div class="member-info-bio">Socio fundador de Bolsillo Producciones SPA. Director Creativo y Guionista del estudio.<br><br>Como mente creativa de Bolsillo Producciones, Massimo ha consolidado su carrera como guionista y director bajo una premisa fundamental: todo contenido tiene el potencial de transformarse a través de una vuelta de tuerca. Su objetivo principal es garantizar que cada pieza audiovisual de la productora cuente con un factor único que la haga destacar. Ya sea mediante un plano icónico, una estructura narrativa novedosa o diálogos que generen una empatía genuina, Massimo se asegura de que cada proyecto lleve un sello de identidad inconfundible y de alto impacto.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+
+      <!-- Martín Rendón -->
+      <div class="member-row member-martin" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">F4</div></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/RapTfPB.jpeg" alt="Martín Rendón"></div>
           <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 4</div>
-            <div class="member-role-header">Cargo — próximamente</div>
+            <div class="member-name">Martín Rendón</div>
+            <div class="member-role-header">Director de Producción Ejecutiva</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">F4</div></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/RapTfPB.jpeg" alt="Martín Rendón" style="object-position:center 35%;"></div>
             <div class="member-info-col">
-              <div class="member-info-name">Fundador 4</div>
-              <div class="member-info-role">Cargo — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
+              <div class="member-info-name-row">
+                <div class="member-info-name">Martín Rendón</div>
               </div>
+              <div class="member-info-role">Director de Producción Ejecutiva</div>
+              <div class="member-info-bio">Socio fundador de Bolsillo Producciones SPA. Encargado de la dirección de producción ejecutiva, el desarrollo comercial e institucional de la productora.<br><br>Martín Rendón es filósofo e ingeniero industrial. Se desempeña como Director de Producción Ejecutiva, liderando el desarrollo comercial e institucional de la productora, la coordinación estratégica de proyectos, la elaboración de presupuestos y propuestas, la gestión de relaciones con clientes y aliados, y la formulación de proyectos para fondos concursables. Además, participa en la planificación financiera y la optimización de procesos.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+
+      <!-- Anton Diaz -->
+      <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">F5</div></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/fmaUyBP.jpeg" alt="Anton Diaz"></div>
           <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 5</div>
-            <div class="member-role-header">Cargo — próximamente</div>
+            <div class="member-name">Anton Diaz</div>
+            <div class="member-role-header">Director del área fotográfica</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">F5</div></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/fmaUyBP.jpeg" alt="Anton Diaz"></div>
             <div class="member-info-col">
-              <div class="member-info-name">Fundador 5</div>
-              <div class="member-info-role">Cargo — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
+              <div class="member-info-name-row">
+                <div class="member-info-name">Anton Diaz</div>
               </div>
+              <div class="member-info-role">Director del área fotográfica</div>
+              <div class="member-info-bio">Anton tiene una experiencia fotográfica completa desde la toma hasta el cuarto oscuro. Su comprensión de la fotoquímica y su interés por la fotografía analógica le entregan una comprensión más completa del medio.<br><br>Al haberse aplicado en moda, gastronomía y fotografía de productos — áreas donde el entendimiento técnico y estético deben ir juntos — tiene la capacidad de proporcionar estándares visuales altos en cada proyecto. Domina Lightroom, Capture One y Photoshop, y encuentra en el fanzine y la cultura analógica una fuente constante de inspiraciones que nutren su trabajo.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">F6</div></div>
-          <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Fundador 6</div>
-            <div class="member-role-header">Cargo — próximamente</div>
-          </div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner">
-          <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">F6</div></div>
-            <div class="member-info-col">
-              <div class="member-info-name">Fundador 6</div>
-              <div class="member-info-role">Cargo — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div></div>
-      </div>
+
     </div>
 
     <div class="equipo-list" id="lista-colaboradores">
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+
+      <!-- Alexis "Gato" Igor -->
+      <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">C1</div></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/Ut6jxRK.jpeg" alt="Alexis Igor"></div>
           <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Colaborador 1</div>
-            <div class="member-role-header">Rol — próximamente</div>
+            <div class="member-name">Alexis "Gato" Igor</div>
+            <div class="member-role-header">Community Manager</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">C1</div></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/Ut6jxRK.jpeg" alt="Alexis Igor"></div>
             <div class="member-info-col">
-              <div class="member-info-name">Colaborador 1</div>
-              <div class="member-info-role">Rol — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
+              <div class="member-info-name-row">
+                <div class="member-info-name">Alexis "Gato" Igor</div>
               </div>
+              <div class="member-info-role">Community Manager</div>
+              <div class="member-info-bio">Colaborador de Bolsillo Producciones. Audiovisual autodidacta encargado del manejo de redes sociales, propuestas de contenido, BTS en rodajes y proyectos del estudio.<br><br>Con una propuesta creativa e innovadora, Gato se encarga de revisar contenido disponible, usando referentes que representen mejor la identidad de Bolsillo, buscando próximas propuestas y proyectos audiovisuales interesantes. Comprende la identidad de marca como una prioridad a la hora de crear contenido teniendo en perspectiva la visión y misión, destacando el profesionalismo de cada trabajo realizado.<br><br>Egresado de la carrera "Tourism & Hospitality", aprendió sobre relaciones públicas a través de los idiomas, tomando posteriormente un diplomado en Marketing Digital y Analytics, lo cual complementa con su propia búsqueda en el mundo audiovisual donde se ha desempeñado en áreas como fotografía, dirección de arte y producción.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
+
+      <!-- Vicente Rodriguez -->
+      <div class="member-row" onclick="toggleMember(this)">
         <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">C2</div></div>
+          <div class="member-avatar"><img src="https://i.imgur.com/YuG1ocx.jpeg" alt="Vicente Rodriguez"></div>
           <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Colaborador 2</div>
-            <div class="member-role-header">Rol — próximamente</div>
+            <div class="member-name">Vicente Rodriguez</div>
+            <div class="member-role-header">Socio Director | Ventas, Operaciones & Desarrollo</div>
           </div>
           <div class="member-toggle">+</div>
         </div>
         <div class="member-body"><div class="member-body-inner">
           <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">C2</div></div>
+            <div class="member-photo-col"><img src="https://i.imgur.com/YuG1ocx.jpeg" alt="Vicente Rodriguez"></div>
             <div class="member-info-col">
-              <div class="member-info-name">Colaborador 2</div>
-              <div class="member-info-role">Rol — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
+              <div class="member-info-name-row">
+                <div class="member-info-name">Vicente Rodriguez</div>
               </div>
+              <div class="member-info-role">Socio Director | Ventas, Operaciones & Desarrollo</div>
+              <div class="member-info-bio">Vicente cree que entender a las personas es la habilidad más valiosa en cualquier negocio. Lo aprendió ejerciendo como asesor financiero, donde el trabajo real no es manejar números sino descifrar necesidades, generar confianza y ofrecer algo que tenga sentido para quien lo recibe. Se incorpora a Bolsillo con ese mismo enfoque: hacia afuera, construyendo relaciones comerciales reales; hacia adentro, desarrollando la estructura y los procesos que permiten que el talento del equipo se traduzca en resultados consistentes.</div>
             </div>
           </div>
         </div></div>
       </div>
-      <div class="member-row" style="opacity:.32" onclick="toggleMember(this)">
-        <div class="member-header">
-          <div class="member-avatar"><div class="member-avatar-ph">C3</div></div>
-          <div class="member-header-text">
-            <div class="member-name" style="color:rgba(255,255,255,.3)">Colaborador 3</div>
-            <div class="member-role-header">Rol — próximamente</div>
-          </div>
-          <div class="member-toggle">+</div>
-        </div>
-        <div class="member-body"><div class="member-body-inner">
-          <div class="member-card">
-            <div class="member-photo-col"><div class="member-photo-ph">C3</div></div>
-            <div class="member-info-col">
-              <div class="member-info-name">Colaborador 3</div>
-              <div class="member-info-role">Rol — próximamente</div>
-              <div class="member-info-bio">Información próximamente.</div>
-              <div class="member-info-bottom">
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Habilidades</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-                <div class="member-info-section">
-                  <div class="member-info-section-label">Intereses</div>
-                  <div class="member-tag-row"><span class="member-tag">Próximamente</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div></div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -1611,7 +1467,6 @@ footer{padding:2.5rem 0;border-top:1px solid var(--border);background:rgba(5,5,6
               <option>Redes sociales</option>
               <option>Video corporativo</option>
               <option>Fotografía</option>
-              <option>Registro de eventos</option>
               <option>Videoclips y sesiones</option>
               <option>Otro — quiero conversar</option>
             </select>
@@ -1781,9 +1636,11 @@ function openNavModal(title, desc, url) {
   document.getElementById('navModalDesc').textContent  = desc;
   document.getElementById('navModalBtn').onclick = function(){ window.location.href = url; };
   document.getElementById('navModal').classList.add('open');
+  document.body.classList.add('scroll-locked');
 }
 function closeNavModal() {
   document.getElementById('navModal').classList.remove('open');
+  document.body.classList.remove('scroll-locked');
 }
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') closeNavModal();
@@ -1816,14 +1673,22 @@ document.addEventListener('DOMContentLoaded', function() {
 function openLightbox(src) {
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('scroll-locked');
 }
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('scroll-locked');
 }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
+});
+/* Member photo click → lightbox */
+document.addEventListener('click', function(e) {
+  var col = e.target.closest('.member-photo-col');
+  if (col) {
+    var img = col.querySelector('img');
+    if (img) openLightbox(img.src);
+  }
 });
 /* SAM image click → lightbox */
 document.addEventListener('DOMContentLoaded', function() {
