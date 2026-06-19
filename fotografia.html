@@ -489,23 +489,23 @@ section { padding: 6rem 0; }
 
 .agendar-card-num {
   font-family: var(--font-h);
-  font-size: .55rem; font-weight: 300;
-  letter-spacing: .2em; color: rgba(255,255,255,.3);
+  font-size: .55rem; font-weight: 400;
+  letter-spacing: .2em; color: rgba(255,255,255,.5);
 }
 .agendar-card-title {
   font-family: var(--font-h);
-  font-size: .78rem; font-weight: 600;
+  font-size: .82rem; font-weight: 600;
   color: var(--white); letter-spacing: .02em;
   line-height: 1.3;
 }
 .agendar-card-desc {
-  font-size: .78rem; font-weight: 300;
-  color: var(--mid); line-height: 1.7;
+  font-size: .82rem; font-weight: 300;
+  color: rgba(255,255,255,.72); line-height: 1.75;
 }
 
 /* Arrow connector between cards */
 .agendar-arrow {
-  font-size: 1.4rem; color: rgba(255,255,255,.2);
+  font-size: 1.4rem; color: rgba(255,255,255,.3);
   flex-shrink: 0; padding: 0 .4rem;
   align-self: center; margin-bottom: 2rem;
 }
@@ -538,18 +538,18 @@ section { padding: 6rem 0; }
   border: 1px solid rgba(255,255,255,.15); border-radius: 6px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.ap-cat-name { font-size: .68rem; font-weight: 500; color: var(--white); line-height: 1.2; }
-.ap-cat-sub  { font-size: .55rem; color: var(--mid); }
-.ap-chevron  { margin-left: auto; color: rgba(255,255,255,.25); font-size: .9rem; }
+.ap-cat-name { font-size: .72rem; font-weight: 500; color: var(--white); line-height: 1.2; }
+.ap-cat-sub  { font-size: .62rem; color: rgba(255,255,255,.55); }
+.ap-chevron  { margin-left: auto; color: rgba(255,255,255,.4); font-size: .9rem; }
 
 /* Step 2 — price card */
 .ap-price-card {
   padding: .8rem .9rem; display: flex; flex-direction: column; gap: .35rem;
 }
-.ap-price-name   { font-family: var(--font-h); font-size: .6rem; letter-spacing: .1em; color: rgba(255,255,255,.5); }
+.ap-price-name   { font-family: var(--font-h); font-size: .62rem; letter-spacing: .1em; color: rgba(255,255,255,.65); }
 .ap-price-amount { font-family: var(--font-h); font-size: 1rem; font-weight: 700; color: var(--white); }
 .ap-price-includes { display: flex; flex-direction: column; gap: .15rem; margin: .2rem 0; }
-.ap-price-row    { font-size: .65rem; color: var(--mid); }
+.ap-price-row    { font-size: .68rem; color: rgba(255,255,255,.65); }
 .ap-add-btn {
   margin-top: .3rem;
   background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
@@ -565,8 +565,8 @@ section { padding: 6rem 0; }
   border-bottom: 1px solid rgba(255,255,255,.07); padding-bottom: .35rem;
 }
 .ap-field:last-child { border-bottom: none; padding-bottom: 0; }
-.ap-field-label { font-size: .52rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); }
-.ap-field-val   { font-size: .68rem; color: rgba(255,255,255,.4); }
+.ap-field-label { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.ap-field-val   { font-size: .72rem; color: rgba(255,255,255,.6); }
 
 /* Steps 4 & 5 */
 .ap-calendly, .ap-confirm {
@@ -575,11 +575,11 @@ section { padding: 6rem 0; }
   padding: 1.1rem .8rem; color: rgba(255,255,255,.4);
 }
 .ap-calendly-text, .ap-confirm-text {
-  font-family: var(--font-h); font-size: .68rem; font-weight: 500;
+  font-family: var(--font-h); font-size: .72rem; font-weight: 500;
   color: var(--white); letter-spacing: .06em;
 }
 .ap-calendly-sub, .ap-confirm-sub {
-  font-size: .62rem; color: var(--mid); text-align: center;
+  font-size: .68rem; color: rgba(255,255,255,.6); text-align: center;
 }
 
 /* Nav buttons prev/next */
@@ -880,6 +880,39 @@ body.cat-opened .cat-hint,
 body.cat-opened .cat-toggle.hint-pulse::after {
   display: none;
   animation: none;
+}
+
+/* Price card tap hint */
+/* Price card bottom slot — always same height, no layout shift */
+.price-hint {
+  display: flex; align-items: center; justify-content: center; gap: .3rem;
+  margin-top: .75rem; padding-top: .65rem;
+  border-top: 1px dashed rgba(255,255,255,.12);
+  font-size: .6rem; font-weight: 300; letter-spacing: .05em;
+  color: rgba(255,255,255,.38); font-style: italic;
+  min-height: 1.6rem; box-sizing: border-box;
+  animation: hintFadeIn .6s 1.4s both;
+  pointer-events: none;
+  transition: color .2s, border-color .2s;
+}
+.price-hint svg { opacity: .4; flex-shrink: 0; transition: opacity .2s; }
+
+/* When price-opened: hide the hint text/icon but keep the space */
+body.price-opened .price-hint {
+  color: transparent;
+  border-color: transparent;
+}
+body.price-opened .price-hint svg { display: none; }
+
+/* Selected state: show ✓ Agregado in the same slot */
+.price-card.selected .price-hint,
+.agenda-card-new.selected .price-hint {
+  color: #4ade80 !important;
+  border-color: rgba(74,222,128,.25) !important;
+  font-style: normal;
+  font-family: var(--font-h);
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
 .cat-body {
@@ -2690,58 +2723,12 @@ body, .contact-info p, .agenda-cta-text p,
 
 
 /* ── Add-to-cart hint on price cards ── */
-.price-card[data-selectable]::before {
-  content: '+ Agregar al carrito';
-  display: block;
-  font-family: var(--font-h);
-  font-size: .48rem;
-  font-weight: 400;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.28);
-  text-align: center;
-  margin-top: .9rem;
-  padding-top: .7rem;
-  border-top: 1px dashed rgba(255,255,255,.1);
-  transition: color .25s, border-color .25s;
-}
-.price-card[data-selectable]:hover::before {
-  color: rgba(255,255,255,.55);
-  border-color: rgba(255,255,255,.22);
-}
-.price-card[data-selectable].selected::before {
-  content: '✓ Agregado';
-  color: #4ade80;
-  border-color: rgba(74,222,128,.2);
-}
-
-/* Same hint for agenda cards */
-.agenda-card-new[data-selectable]::before {
-  content: '+ Agregar al carrito';
-  display: block;
-  font-family: var(--font-h);
-  font-size: .48rem;
-  font-weight: 400;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.28);
-  text-align: center;
-  margin-top: .8rem;
-  padding-top: .6rem;
-  border-top: 1px dashed rgba(255,255,255,.1);
-  transition: color .25s, border-color .25s;
-}
-.agenda-card-new[data-selectable]:hover::before {
-  color: rgba(255,255,255,.55);
-  border-color: rgba(255,255,255,.22);
-}
-.agenda-card-new[data-selectable].selected::before {
-  content: '✓ Agregado';
-  color: #4ade80;
-  border-color: rgba(74,222,128,.2);
-}
-/* Hide the ::after checkmark on agenda cards since ::before handles it */
+.price-card[data-selectable]::before,
+.agenda-card-new[data-selectable]::before,
 .agenda-card-new[data-selectable]::after { display: none; }
+
+/* price-hint visibility handled by body.price-opened and .selected in CSS above */
+body.price-opened .price-hint { /* already handled above */ }
 
 </style>
 </head>
@@ -4206,11 +4193,37 @@ function submitBooking(e) {
 document.addEventListener('DOMContentLoaded', function() {
   /* Price cards */
   document.querySelectorAll('.price-card[data-selectable], .agenda-card-new[data-selectable]').forEach(function(card) {
+    // Inject hint into every card
+    if (!card.querySelector('.price-hint')) {
+      var hint = document.createElement('div');
+      hint.className = 'price-hint';
+      hint.dataset.default = 'toca para agregar';
+      hint.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-4 0v3M14 9V5a2 2 0 0 0-4 0v4M10 8.5V4a2 2 0 0 0-4 0v8l-1.7-1.7a1.5 1.5 0 0 0-2.1 2.1L4 16a6 6 0 0 0 6 6h2a6 6 0 0 0 6-6v-5"/></svg><span>toca para agregar</span>';
+      card.appendChild(hint);
+    }
     card.addEventListener('click', function(e) {
       if (e.target.closest('a, button')) return;
+      // Mark hints as seen
+      document.body.classList.add('price-opened');
       toggleCardSelection(card);
+      // Update hint text in this card based on selected state
+      _updateHintText(card);
     });
   });
+
+  function _updateHintText(card) {
+    var hint = card.querySelector('.price-hint');
+    if (!hint) return;
+    var span = hint.querySelector('span');
+    var svg  = hint.querySelector('svg');
+    if (card.classList.contains('selected')) {
+      if (span) span.textContent = '✓ Agregado';
+      if (svg)  svg.style.display = 'none';
+    } else {
+      if (span) span.textContent = 'toca para agregar';
+      if (svg)  svg.style.display = '';
+    }
+  }
 });
 
 
@@ -4281,9 +4294,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 80);
           }
         } else {
-          /* No hash — open Retratos en estudio by default */
-          var retratos = document.getElementById('cat-retratos');
-          if (retratos) retratos.classList.add('open');
+          /* Open Retratos by default only if nothing else is already open */
+          var anyOpen = document.querySelector('.cat-item.open');
+          if (!anyOpen) {
+            var retratos = document.getElementById('cat-retratos');
+            if (retratos) retratos.classList.add('open');
+          }
         }
       }, 700);
     }, 350);
