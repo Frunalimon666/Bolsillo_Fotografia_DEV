@@ -4,6 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bolsillo Producciones — Santiago, Chile</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://i.imgur.com/EBkck9H.png">
+<link rel="apple-touch-icon" href="https://i.imgur.com/EBkck9H.png">
+
+<!-- SEO básico -->
+<meta name="description" content="Bolsillo Producciones — Fotografía y producción audiovisual en Santiago, Chile.">
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bolsilloproducciones.cl/">
+<meta property="og:title" content="Bolsillo Producciones — Santiago, Chile">
+<meta property="og:description" content="Fotografía y producción audiovisual en Santiago, Chile.">
+<meta property="og:image" content="https://i.imgur.com/vVMli9K.jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CL">
+<meta property="og:site_name" content="Bolsillo Producciones">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bolsillo Producciones — Santiago, Chile">
+<meta name="twitter:description" content="Fotografía y producción audiovisual en Santiago, Chile.">
+<meta name="twitter:image" content="https://i.imgur.com/vVMli9K.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;700;900&family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -307,7 +331,7 @@ section{padding:6rem 0;}
   width:0; height:0; opacity:0;
   border:none; margin:0; padding:0;
 }
-.member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center 20%;}
 .member-avatar-ph{
   width:100%;height:100%;
   display:flex;align-items:center;justify-content:center;
@@ -333,7 +357,10 @@ section{padding:6rem 0;}
   font-size:.72rem; font-weight:300;
   color:rgba(255,255,255,.55); letter-spacing:.04em;
   transition:opacity .3s ease, max-height .35s ease;
-  overflow:hidden; max-height:2rem;
+  overflow:hidden; max-height:3rem;
+  line-height:1.4;
+  white-space:normal;
+  word-break:break-word;
 }
 .member-row.open .member-role-header{
   opacity:0; max-height:0;
@@ -951,9 +978,9 @@ body.scroll-locked { overflow: hidden; }
   <div class="hero-divider reveal"></div>
   <p class="hero-cotiza reveal">Revisa nuestro portafolio</p>
   <div class="hero-service-btns reveal">
-    <a href="audiovisual.html" class="service-btn" onclick="event.preventDefault();openNavModal('¿Ir al portafolio Audiovisual?','Conoce nuestros servicios de producción de video, reels y contenido audiovisual para marcas y artistas.','audiovisual.html')">Audiovisual</a>
+    <a href="https://bolsilloprod.cl/audiovisual" class="service-btn" onclick="event.preventDefault();openNavModal('¿Ir al portafolio Audiovisual?','Conoce nuestros servicios de producción de video, reels y contenido audiovisual para marcas y artistas.','https://bolsilloprod.cl/audiovisual')">Audiovisual</a>
     <span class="service-btn-or">o de</span>
-    <a href="fotografia.html" class="service-btn" onclick="event.preventDefault();openNavModal('¿Ir al portafolio de Fotografía?','Verás nuestros trabajos favoritos de Retratos, gastronomía, eventos y más hechos por nuestro equipo de Bolsillo!','fotografia.html')">Fotografía</a>
+    <a href="https://bolsilloprod.cl/fotografia" class="service-btn" onclick="event.preventDefault();openNavModal('¿Ir al portafolio de Fotografía?','Verás nuestros trabajos favoritos de Retratos, gastronomía, eventos y más hechos por nuestro equipo de Bolsillo!','https://bolsilloprod.cl/fotografia')">Fotografía</a>
   </div>
   <a href="https://wa.me/56939461500" target="_blank" rel="noopener" class="hero-main-cta reveal">Escríbenos por WhatsApp →</a>
   <div class="hero-scroll-hint reveal">
@@ -977,7 +1004,7 @@ body.scroll-locked { overflow: hidden; }
 <section id="servicios">
   <div class="container">
     <p class="section-label reveal slide-left">Lo que hacemos</p>
-    <h2 class="section-title reveal slide-left">Nuestros servicios</h2>
+    <h2 class="section-title reveal slide-left">Algunos de nuestros trabajos</h2>
     <div class="divider reveal"></div>
     <div class="servicios-tabs-wrap">
     <div class="servicios-tabs reveal" id="serviciosTabs">
@@ -985,7 +1012,7 @@ body.scroll-locked { overflow: hidden; }
       <button class="tab-btn active" data-cat="redes" data-num="01">Redes sociales</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
       <button class="tab-btn" data-cat="corporativo" data-num="02">Video corporativo</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
       <button class="tab-btn" data-cat="fotografia" data-num="03">Fotografía</button><span class="tab-sep" aria-hidden="true"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
-      <button class="tab-btn" data-cat="videoclips" data-num="05">Videoclips y sesiones</button>
+      <button class="tab-btn" data-cat="videoclips" data-num="04">Videoclips y sesiones</button>
     </div>
   </div><!-- end tabs-wrap -->
     <div class="servicios-grid" id="serviciosGrid">
@@ -1076,7 +1103,7 @@ body.scroll-locked { overflow: hidden; }
       </div>
 
       <!-- VIDEOCLIPS Y SESIONES — YouTube thumbnails -->
-      <div class="servicio-card" data-cat="videoclips" data-num="05">
+      <div class="servicio-card" data-cat="videoclips" data-num="04">
         <div class="servicio-card-bg"></div>
         <div class="servicio-card-num">01</div>
         <div class="photo-card">
@@ -1087,7 +1114,7 @@ body.scroll-locked { overflow: hidden; }
         </a>
         <div class="servicio-card-label"><span class="servicio-card-tag">Videoclip</span><span class="servicio-card-title">Kala Baldosa</span></div>
       </div>
-      <div class="servicio-card" data-cat="videoclips" data-num="05">
+      <div class="servicio-card" data-cat="videoclips" data-num="04">
         <div class="servicio-card-bg"></div>
         <div class="servicio-card-num">02</div>
         <div class="photo-card">
@@ -1098,7 +1125,7 @@ body.scroll-locked { overflow: hidden; }
         </a>
         <div class="servicio-card-label"><span class="servicio-card-tag">Playthrough</span><span class="servicio-card-title">Dany Barrera</span></div>
       </div>
-      <div class="servicio-card" data-cat="videoclips" data-num="05">
+      <div class="servicio-card" data-cat="videoclips" data-num="04">
         <div class="servicio-card-bg"></div>
         <div class="servicio-card-num">03</div>
         <div class="photo-card">
@@ -1109,7 +1136,7 @@ body.scroll-locked { overflow: hidden; }
         </a>
         <div class="servicio-card-label"><span class="servicio-card-tag">Postproducción de color</span><span class="servicio-card-title">Candelabro</span></div>
       </div>
-      <div class="servicio-card" data-cat="videoclips" data-num="05">
+      <div class="servicio-card" data-cat="videoclips" data-num="04">
         <div class="servicio-card-bg"></div>
         <div class="servicio-card-num">04</div>
         <div class="photo-card">
@@ -1319,6 +1346,30 @@ body.scroll-locked { overflow: hidden; }
         </div></div>
       </div>
 
+      <!-- Felipe Bustos -->
+      <div class="member-row" onclick="toggleMember(this)">
+        <div class="member-header">
+          <div class="member-avatar"><img src="https://i.imgur.com/rBi24ci.jpeg" alt="Felipe Bustos"></div>
+          <div class="member-header-text">
+            <div class="member-name">Felipe Bustos</div>
+            <div class="member-role-header">Project Manager y Encargado Legal</div>
+          </div>
+          <div class="member-toggle">+</div>
+        </div>
+        <div class="member-body"><div class="member-body-inner">
+          <div class="member-card">
+            <div class="member-photo-col"><img src="https://i.imgur.com/rBi24ci.jpeg" alt="Felipe Bustos"></div>
+            <div class="member-info-col">
+              <div class="member-info-name-row">
+                <div class="member-info-name">Felipe Bustos</div>
+              </div>
+              <div class="member-info-role">Project Manager y Encargado Legal</div>
+              <div class="member-info-bio">Socio fundador de Bolsillo Producciones SpA. Actualmente se desempeña como Project Manager y encargado del área legal del estudio.<br><br>En su tiempo libre, Felipe es abogado. Llegó a Bolsillo con una necesidad creativa que lo impulsa a trabajar de manera distinta. Con su interés en la fotografía química y el audio, la naturaleza de este trabajo lo convoca.<br><br>Él se encarga de la planificación y gestión de cada proyecto, desde su ingreso a su término, para que cada departamento se mueva en sincronía dentro del flujo de trabajo y que los resultados lleguen a tiempo. Mantiene el orden que convierte las ideas del equipo en resultados concretos para cada cliente.</div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
     </div>
 
     <div class="equipo-list" id="lista-colaboradores">
@@ -1489,8 +1540,8 @@ body.scroll-locked { overflow: hidden; }
     <div class="footer-inner">
       <div class="footer-brand">BOLSILLO PRODUCCIONES SPA</div>
       <ul class="footer-links">
-        <li><a href="fotografia.html">Fotografía</a></li>
-        <li><a href="audiovisual.html">Audiovisual</a></li>
+        <li><a href="https://bolsilloprod.cl/fotografia">Fotografía</a></li>
+        <li><a href="https://bolsilloprod.cl/audiovisual">Audiovisual</a></li>
         <li><a href="#equipo">Equipo</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -1659,7 +1710,7 @@ document.addEventListener('DOMContentLoaded', function() {
     card.style.cursor = 'pointer';
     var catId = catMap[i] || 'cat-retratos';
     card.addEventListener('click', function() {
-      var url = 'fotografia.html#' + catId;
+      var url = 'https://bolsilloprod.cl/fotografia#' + catId;
       openNavModal(
         '¿Ir al portafolio de Fotografía?',
         'Verás nuestros trabajos favoritos de Retratos, gastronomía, eventos y más hechos por nuestro equipo de Bolsillo!',
