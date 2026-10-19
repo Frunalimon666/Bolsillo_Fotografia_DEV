@@ -53,6 +53,21 @@ a{color:inherit;text-decoration:none;}
 .hero-main-cta:hover{background:#fff;transform:translateY(-2px);}
 .hero-main-cta:focus-visible{outline:2px solid var(--white);outline-offset:3px;}
 
+/* ── RENDER TRABADO ── */
+.render{width:100%;max-width:440px;margin:.6rem auto 0;padding:1rem 1.1rem 1.05rem;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:left;font-size:.72rem;line-height:1.4;color:var(--mid);font-variant-numeric:tabular-nums;}
+.render-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.render-bottom{display:flex;flex-direction:column;gap:.3rem;}
+.render-file{color:rgba(255,255,255,.8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.render-pct{font-family:var(--font-h);font-weight:500;color:var(--white);}
+.render-track{height:6px;border-radius:6px;background:rgba(255,255,255,.1);margin:.6rem 0 .65rem;overflow:hidden;}
+.render-fill{height:100%;width:0;border-radius:6px;background:rgba(255,255,255,.85);transition:width 2.4s cubic-bezier(.2,.9,.3,1);}
+.render-status{display:inline-flex;align-items:center;gap:.45rem;}
+.render-pause{display:inline-flex;gap:2px;}
+.render-pause i{width:3px;height:9px;border-radius:1px;background:#f5c26b;animation:blink 1.6s ease-in-out infinite;}
+.render-eta{color:var(--muted,rgba(255,255,255,.4));}
+@keyframes blink{50%{opacity:.25;}}
+@media(prefers-reduced-motion:reduce){.render-fill{transition:none;}.render-pause i{animation:none;}}
+
 /* ── REVEAL ── */
 .js-animate .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease-out,transform .6s ease-out;}
 .js-animate .reveal.in{opacity:1;transform:none;}
@@ -72,6 +87,17 @@ a{color:inherit;text-decoration:none;}
   <p class="hero-sub reveal">producciones</p>
   <div class="hero-divider reveal"></div>
   <p class="hero-tagline reveal">Por culpa de un viral tuvimos que cuarentenar la página, volvemos pronto.</p>
+  <div class="render reveal" role="progressbar" aria-label="Render del sitio nuevo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="99">
+    <div class="render-top">
+      <span class="render-file">sitio_web_FINAL_FINAL_v7(2).mp4</span>
+      <span class="render-pct" id="renderPct">0%</span>
+    </div>
+    <div class="render-track"><div class="render-fill" id="renderFill"></div></div>
+    <div class="render-bottom">
+      <span class="render-status"><span class="render-pause" aria-hidden="true"><i></i><i></i></span>En pausa · esperando feedback del cliente</span>
+      <span class="render-eta">Tiempo restante: <span id="renderEta">calculando…</span></span>
+    </div>
+  </div>
   <a href="https://instagram.com/bolsilloprod" target="_blank" rel="noopener" class="hero-main-cta reveal">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
     Síguenos en Instagram →
@@ -90,6 +116,19 @@ a{color:inherit;text-decoration:none;}
   function draw(){ctx.clearRect(0,0,W,H);[{x:W*.18,y:H*.28,r:Math.min(W,H)*.38,a:.022},{x:W*.82,y:H*.65,r:Math.min(W,H)*.32,a:.018},{x:W*.5,y:H*.5,r:Math.min(W,H)*.25,a:.012}].forEach(b=>{const g=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);g.addColorStop(0,`rgba(255,255,255,${b.a})`);g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();});particles.forEach(p=>{p.twinkle+=p.twinkleSpeed;p.y-=p.speed;p.x+=p.drift;if(p.y<-2){p.y=H+2;p.x=Math.random()*W;}if(p.x<-2||p.x>W+2)p.reset();const a=p.alpha*(.5+.5*Math.sin(p.twinkle));ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();});if(!still)animId=requestAnimationFrame(draw);}
   window.addEventListener('resize',()=>{cancelAnimationFrame(animId);init();draw();});
   init();draw();
+})();
+
+/* Render trabado al 99% */
+(function(){
+  const fill=document.getElementById('renderFill'),pct=document.getElementById('renderPct'),eta=document.getElementById('renderEta');
+  const etas=['2 minutos','3 días','calculando…','después de la última ronda de cambios','cuando aprueben el presupuesto','2 minutos (de nuevo)','calculando…'];
+  setTimeout(()=>{
+    fill.style.width='99%';
+    const t0=performance.now();
+    (function count(now){const p=Math.min((now-t0)/2400,1);pct.textContent=Math.round(99*(1-Math.pow(1-p,3)))+'%';if(p<1)requestAnimationFrame(count);})(t0);
+  },900);
+  let i=0;
+  setInterval(()=>{eta.textContent=etas[i=(i+1)%etas.length];},2600);
 })();
 
 /* Reveal del hero */
